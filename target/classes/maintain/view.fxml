@@ -27,7 +27,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="maintain.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="maintain.Controller">
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
@@ -69,12 +69,12 @@
                                     </GridPane.margin>
                                 </Label>
                                 <Button fx:id="startSimulationButton" disable="true" mnemonicParsing="false" text="Start simulation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                                <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                <Label fx:id="configurationFileLoaderLabel" prefHeight="17.0" prefWidth="146.0" text="Configuration file missing" textFill="#f81111" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets left="10.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                <Label prefHeight="17.0" prefWidth="149.0" text="Something important " textFill="#f81111" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                     <GridPane.margin>
                                         <Insets left="10.0" />
                                     </GridPane.margin>
@@ -82,6 +82,7 @@
                                 <Button mnemonicParsing="false" onAction="#FileChooserClick" text="Open" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                 <Button fx:id="stopSimulationButton" disable="true" mnemonicParsing="false" text="Stop" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                                 <Button mnemonicParsing="false" onAction="#loadConfiguration" text="Load Configuration" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                <Label fx:id="configurationReadSateLabel" prefHeight="17.0" prefWidth="203.0" text=" " GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                             </children>
                         </GridPane>
                     </content>
@@ -90,9 +91,9 @@
                     <content>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                             <right>
-                                <Accordion style="-fx-border-color: #AAAAAA;" BorderPane.alignment="CENTER">
+                                <Accordion fx:id="gpsfakeAccordion" style="-fx-border-color: #AAAAAA;" BorderPane.alignment="CENTER">
                                     <panes>
-                                        <TitledPane animated="false" text="gpsfake 1">
+                                        <TitledPane text="gpsfake0">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -106,15 +107,34 @@
                                                 </AnchorPane>
                                             </content>
                                         </TitledPane>
-                                        <TitledPane animated="false" text="gpsfake 2">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                            </content>
-                                        </TitledPane>
-                                        <TitledPane animated="false" text="gpsfake 3">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                            </content>
+                                        <TitledPane text="gpsfake1">
+                                 <content>
+                                    <GridPane>
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints vgrow="SOMETIMES" />
+                                        <RowConstraints vgrow="SOMETIMES" />
+                                          <RowConstraints vgrow="SOMETIMES" />
+                                        <RowConstraints vgrow="SOMETIMES" />
+                                          <RowConstraints vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Vehicle ID:" />
+                                          <Label text="555" GridPane.columnIndex="1" />
+                                          <Label text="Vehicle type:" GridPane.rowIndex="1" />
+                                          <Label text="Car" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Port:" GridPane.rowIndex="2" />
+                                          <Label text="6555" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Label text="Management port:" GridPane.rowIndex="3" />
+                                          <Label text="5555" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Button mnemonicParsing="false" text="Restart" GridPane.rowIndex="4" />
+                                          <Button mnemonicParsing="false" text="Stop" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
                                         </TitledPane>
                                     </panes>
                                 </Accordion>
@@ -122,13 +142,13 @@
                             <center>
                                 <GridPane prefHeight="282.0" prefWidth="393.0" BorderPane.alignment="CENTER">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="88.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.0" minWidth="10.0" prefWidth="308.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="130.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="473.0" minWidth="10.0" prefWidth="446.0" />
                                     </columnConstraints>
                                     <rowConstraints>
                                         <RowConstraints maxHeight="95.0" minHeight="54.0" prefHeight="81.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="63.0" minHeight="7.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                        <RowConstraints vgrow="SOMETIMES" />
+                                        <RowConstraints vgrow="SOMETIMES" />
                                         <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="121.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
@@ -144,17 +164,17 @@
                                             <GridPane.margin>
                                                 <Insets left="20.0" />
                                             </GridPane.margin></Label>
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <TextField fx:id="gpsfakeCommandTextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <GridPane.margin>
                                                 <Insets right="5.0" />
                                             </GridPane.margin></TextField>
-                                        <Button mnemonicParsing="false" onAction="#runGpsfake" text="Run gpsfake" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                                        <Label text="Vehicle ID" GridPane.rowIndex="2">
+                                        <Button fx:id="gpsfakeRunButton" mnemonicParsing="false" onAction="#runGpsfake" text="Run gpsfake" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                        <Label text="Available Vehicles:" GridPane.rowIndex="2">
                                             <GridPane.margin>
                                                 <Insets left="20.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                              <ComboBox fx:id="gpsfakeAvailableIDComboBox" prefWidth="150.0" promptText="Vehicles" visibleRowCount="5" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     </children>
                                 </GridPane>
                             </center>
