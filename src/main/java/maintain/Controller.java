@@ -1,9 +1,5 @@
 package maintain;
 
-import de.tudresden.sumo.cmd.Edge;
-import de.tudresden.sumo.cmd.Simulation;
-import de.tudresden.sumo.cmd.Vehicle;
-import de.tudresden.sumo.util.Sumo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
@@ -11,22 +7,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.*;
+import java.util.concurrent.*;
 
-import it.polito.appeal.traci.SumoTraciConnection;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import java.io.File;
@@ -36,15 +21,21 @@ public class Controller implements Initializable{
 
     BlockingQueue<String> queue;
     ExecutorService cachedPool = Executors.newCachedThreadPool();
-    List<Gpsfake> gpsfakes = new ArrayList<Gpsfake>();
+    List<GpsfakeRun> gpsfakes = new ArrayList<GpsfakeRun>();
+    private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
 
     private maintain.Simulation simulation;
     private ConfigurationParser configurationParser;
     private ObservableList<String> vehicleID = FXCollections.observableArrayList();
 
+    private String configurationFile;
+    private long simulationDelay;
+
 
     @FXML
     private TextField configFileTextField;
+    @FXML
+    private TextField simulationDelayTextField;
     @FXML
     private TextField gpsfakeCommandTextField;
     @FXML
@@ -64,28 +55,32 @@ public class Controller implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         cachedPool = Executors.newCachedThreadPool();
         queue = new LinkedBlockingQueue<String>();
-
-
-       /* final String config_file = "simulation/map.sumo.cfg";
-
-
-        simulation = new maintain.Simulation(config_file,0.1);
-        cachedPool.execute(simulation);*/
-
+        System.out.println("GPSD_HOME: " + System.getenv("GPSD_HOME"));
     }
     public void runGpsfake(){
         if(!vehicleID.isEmpty() && !gpsfakeAvailableIDComboBox.getSelectionModel().isEmpty()) {
-            gpsfakes.add(new Gpsfake(gpsfakeCommandTextField.getText(),gpsfakeAvailableIDComboBox.getValue().toString(),gpsfakeAccordion));
+            ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<String>();
+            GpsfakeRun gpsfakeRun = new GpsfakeRun(gpsfakeCommandTextField.getText(),
+                    gpsfakeAvailableIDComboBox.getValue().toString(),
+                    gpsfakeAccordion, queue);
+            gpsfakes.add(gpsfakeRun);
+            GpsfakeManagement management =gpsfakeRun.getManagement();
+            gpsfakeManagmentQueues.put(gpsfakeRun.getVehicleID(), queue);
+            cachedPool.execute(gpsfakeRun);
+
             vehicleID.remove(gpsfakeAvailableIDComboBox.getValue().toString());
             gpsfakeAvailableIDComboBox.setItems(vehicleID);
+            cachedPool.execute(management);
             System.out.println("Run new gpsfake");
         }
     }
 
     public void loadConfiguration(){
         if(!configFileTextField.getText().isEmpty()){
+
             configurationParser = new ConfigurationParser(configFileTextField.getText());
             cachedPool.execute(configurationParser);
+            configurationFile = configFileTextField.getText();
             configurationParser.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
                     new EventHandler<WorkerStateEvent>() {
                         @Override
@@ -99,13 +94,18 @@ public class Controller implements Initializable{
                             for (String s: vehicleID){
                                 System.out.println("Vehicles: "+ s);
                             }
-
                         }
                     });
-
-
         }
+    }
 
+    public void startSimulation(){
+        if(!simulationDelayTextField.getText().isEmpty()){
+            simulationDelay =Integer.parseInt(simulationDelayTextField.getText());
+
+            simulation = new maintain.Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues);
+            cachedPool.execute(simulation);
+        }
     }
 
     public void FileChooserClick(){
@@ -126,11 +126,4 @@ public class Controller implements Initializable{
             configFileTextField.setText(selectedFile.getPath());
 
     }
-
-
-
-
-
-
-
 }

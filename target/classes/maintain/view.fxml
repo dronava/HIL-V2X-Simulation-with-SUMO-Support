@@ -62,13 +62,13 @@
                                     </GridPane.margin>
                                 </Label>
                                 <TextField fx:id="configFileTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="simulationDelayTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                 <Label text="Delay" GridPane.rowIndex="2">
                                     <GridPane.margin>
                                         <Insets left="10.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Button fx:id="startSimulationButton" disable="true" mnemonicParsing="false" text="Start simulation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                                <Button fx:id="startSimulationButton" disable="true" mnemonicParsing="false" onAction="#startSimulation" text="Start simulation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                                 <Label fx:id="configurationFileLoaderLabel" prefHeight="17.0" prefWidth="146.0" text="Configuration file missing" textFill="#f81111" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets left="10.0" />
@@ -91,53 +91,7 @@
                     <content>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                             <right>
-                                <Accordion fx:id="gpsfakeAccordion" style="-fx-border-color: #AAAAAA;" BorderPane.alignment="CENTER">
-                                    <panes>
-                                        <TitledPane text="gpsfake0">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                    <children>
-                                                        <Button layoutX="25.0" layoutY="14.0" mnemonicParsing="false" text="Restart" />
-                                                        <Button layoutX="100.0" layoutY="14.0" mnemonicParsing="false" text="Stop" />
-                                                        <Label layoutX="11.0" layoutY="58.0" text="Port" />
-                                                        <Label layoutX="11.0" layoutY="75.0" text="Management port" />
-                                                        <Label layoutX="127.0" layoutY="58.0" text="5555" />
-                                                        <Label layoutX="127.0" layoutY="75.0" text="6666" />
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </TitledPane>
-                                        <TitledPane text="gpsfake1">
-                                 <content>
-                                    <GridPane>
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints vgrow="SOMETIMES" />
-                                        <RowConstraints vgrow="SOMETIMES" />
-                                          <RowConstraints vgrow="SOMETIMES" />
-                                        <RowConstraints vgrow="SOMETIMES" />
-                                          <RowConstraints vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Label text="Vehicle ID:" />
-                                          <Label text="555" GridPane.columnIndex="1" />
-                                          <Label text="Vehicle type:" GridPane.rowIndex="1" />
-                                          <Label text="Car" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Label text="Port:" GridPane.rowIndex="2" />
-                                          <Label text="6555" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                          <Label text="Management port:" GridPane.rowIndex="3" />
-                                          <Label text="5555" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <Button mnemonicParsing="false" text="Restart" GridPane.rowIndex="4" />
-                                          <Button mnemonicParsing="false" text="Stop" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                       </children>
-                                    </GridPane>
-                                 </content>
-                                        </TitledPane>
-                                    </panes>
-                                </Accordion>
+                                <Accordion fx:id="gpsfakeAccordion" style="-fx-border-color: #AAAAAA;" BorderPane.alignment="CENTER" />
                             </right>
                             <center>
                                 <GridPane prefHeight="282.0" prefWidth="393.0" BorderPane.alignment="CENTER">
@@ -164,7 +118,7 @@
                                             <GridPane.margin>
                                                 <Insets left="20.0" />
                                             </GridPane.margin></Label>
-                                        <TextField fx:id="gpsfakeCommandTextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <TextField fx:id="gpsfakeCommandTextField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="368.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <GridPane.margin>
                                                 <Insets right="5.0" />
                                             </GridPane.margin></TextField>

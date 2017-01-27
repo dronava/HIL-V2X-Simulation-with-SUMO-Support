@@ -69,7 +69,7 @@ public class Nmea {
         sentence = "";
     }
 
-    public String newGGA(){
+    public String getGGA(){
         sentence = "";
         addParam("GPGGA");
         addParam(time);
@@ -85,7 +85,7 @@ public class Nmea {
         return sentence;
     }
 
-    public String newRMC(){
+    public String getRMC(){
         sentence = "";
         addParam("GPRMC");
         addParam(time);
