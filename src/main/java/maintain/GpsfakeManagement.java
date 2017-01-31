@@ -56,24 +56,31 @@ public class GpsfakeManagement implements Runnable {
 
     @Override
     public void run() {
+        boolean fistcommand = true;
         boolean connected = false;
         while (!connected) {
 
             try {
                 socket = new Socket(host, managemnetPort);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
+//                e.printStackTrace();
             }
             if (socket != null && socket.isConnected()) {
                 connected = true;
-                sendMessage("manual-begin");
+
 
                 while (socket.isConnected()) {
-                    List<String> arrivedMessages = getMessage();
+                    //List<String> arrivedMessages = getMessage();
 
                     String queueElement;
                     int elements = 0;
                     while((queueElement = queue.poll())!= null && elements <10) {
+                        if(fistcommand){
+                            sendMessage("manual-begin");
+                            fistcommand = false;
+                        }
+
                         sendMessage(queueElement);
                         elements++;
                     }

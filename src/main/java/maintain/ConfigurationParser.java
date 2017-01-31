@@ -66,11 +66,11 @@ public class ConfigurationParser extends Task<List<String>> {
             SAXReader reader = new SAXReader();
             Document document = reader.read( inputFile );
 
-            Node node = document.selectSingleNode( "//configuration/input/route-files" );
+            Node node = document.selectSingleNode( "/configuration/input/route-files" );
             String routevalue = node.valueOf( "@value" );
 
 
-            String routefile= inputFile.getParent()+"\\"+routevalue;
+            String routefile= inputFile.getParent()+"/"+routevalue;
 
             inputFile  = new File(routefile);
             document = reader.read(inputFile);

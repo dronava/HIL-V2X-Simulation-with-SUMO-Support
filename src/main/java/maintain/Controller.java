@@ -56,6 +56,7 @@ public class Controller implements Initializable{
         cachedPool = Executors.newCachedThreadPool();
         queue = new LinkedBlockingQueue<String>();
         System.out.println("GPSD_HOME: " + System.getenv("GPSD_HOME"));
+        System.out.println("OS: "+ System.getProperty("os.name"));
     }
     public void runGpsfake(){
         if(!vehicleID.isEmpty() && !gpsfakeAvailableIDComboBox.getSelectionModel().isEmpty()) {
@@ -70,7 +71,7 @@ public class Controller implements Initializable{
 
             vehicleID.remove(gpsfakeAvailableIDComboBox.getValue().toString());
             gpsfakeAvailableIDComboBox.setItems(vehicleID);
-            cachedPool.execute(management);
+            //cachedPool.execute(management);
             System.out.println("Run new gpsfake");
         }
     }
@@ -105,11 +106,17 @@ public class Controller implements Initializable{
 
             simulation = new maintain.Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues);
             cachedPool.execute(simulation);
+
+            for(GpsfakeRun gpsfakeRun: gpsfakes){
+                gpsfakeRun.runManagementThread(cachedPool);
+            }
+
         }
     }
 
     public void FileChooserClick(){
-        String userDirectoryString = "C:\\Users\\szzso\\IdeaProjects\\V2X-Simulation\\simulation";//System.getProperty("user.home");
+       // String userDirectoryString = "C:\\Users\\szzso\\IdeaProjects\\V2X-Simulation\\simulation";//System.getProperty("user.home");
+        String userDirectoryString ="/home/szezso/V2X-Simulation-with-SUMO/simulation/";
         File userDirectory = new File(userDirectoryString);
         if(!userDirectory.canRead()) {
             userDirectory = new File("c:/");

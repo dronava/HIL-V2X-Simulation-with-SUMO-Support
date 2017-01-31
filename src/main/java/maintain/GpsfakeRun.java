@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
 
 public class GpsfakeRun implements Runnable {
 
@@ -60,7 +61,8 @@ public class GpsfakeRun implements Runnable {
     }
 
 
-    public GpsfakeRun(String command, String vehicleid, Accordion accordion,ConcurrentLinkedQueue<String> queue ){
+    public GpsfakeRun(String command, String vehicleid, Accordion accordion,
+                      ConcurrentLinkedQueue<String> queue ){
         this.host ="localhost";
         this.command= command;
         this.vehicleID = vehicleid.split("-")[0];
@@ -70,6 +72,44 @@ public class GpsfakeRun implements Runnable {
         makeTiledPane(accordion);
 
         management = new GpsfakeManagement(host, managementPort, queue);
+    }
+
+    @Override
+    public void run() {
+        try {
+            System.out.println(command);
+
+            //Az új gpsfake elindítása, a környezeti változó megadása
+            String environmentVariable= System.getenv("GPSD_HOME");
+            /*if(environmentVariable == null)
+                process = Runtime.getRuntime().exec(command,new String[]{"GPSD_HOME=/opt/local/sbin"});
+            else*/
+            process = Runtime.getRuntime().exec(command);
+            process.waitFor();
+
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+            //Parancs kimenete
+            System.out.println("Standard output of the command:\n");
+            String s;
+            while ((s = stdInput.readLine()) != null) {
+                System.out.println(s);
+            }
+
+            //Parancs
+            System.out.println("Standard error of the command (if any):\n");
+            while ((s = stdError.readLine()) != null) {
+                System.out.println(s);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void runManagementThread(ExecutorService executorService){
+        executorService.execute(management);
     }
 
     //gpsfake -o -G -P 5555 -M 6555 -c 0.07
@@ -111,37 +151,5 @@ public class GpsfakeRun implements Runnable {
     }
 
 
-    @Override
-    public void run() {
-        try {
-            System.out.println(command);
 
-            //Az új gpsfake elindítása, a környezeti változó megadása
-            String environmentVariable= System.getenv("GPSD_HOME");
-            if(environmentVariable == null)
-                process = Runtime.getRuntime().exec(command,new String[]{"GPSD_HOME=/opt/local/sbin"});
-            else
-                process = Runtime.getRuntime().exec(command);
-            process.waitFor();
-
-            BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
-            //Parancs kimenete
-            System.out.println("Standard output of the command:\n");
-            String s;
-            while ((s = stdInput.readLine()) != null) {
-                System.out.println(s);
-            }
-
-            //Parancs
-            System.out.println("Standard error of the command (if any):\n");
-            while ((s = stdError.readLine()) != null) {
-                System.out.println(s);
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 }

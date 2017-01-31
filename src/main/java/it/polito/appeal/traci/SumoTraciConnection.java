@@ -881,7 +881,7 @@ public class SumoTraciConnection {
 	/**
 	 * Set the duration of a step
 	 * 
-	 * @param length
+	 * @param steplength
 	 *            the time in ms
 	 */
 	public void setStepLength(int steplength) {

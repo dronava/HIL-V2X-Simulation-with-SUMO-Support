@@ -44,6 +44,7 @@ public class Simulation implements Runnable {
             // the first two steps of this simulation have no vehicles.
             conn.nextSimStep();
             conn.nextSimStep();
+            System.out.println("ok");
 
             do {
                 Date date = new Date();
