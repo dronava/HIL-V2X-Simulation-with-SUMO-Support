@@ -1,6 +1,7 @@
 package maintain;
 
 
+import it.polito.appeal.traci.Edge;
 import it.polito.appeal.traci.PositionConversionQuery;
 import it.polito.appeal.traci.SumoTraciConnection;
 import it.polito.appeal.traci.Vehicle;
@@ -25,7 +26,7 @@ public class Simulation implements Runnable {
 
     private boolean closeSumo;
 
-    public Simulation(String configfile, long delay, Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues){
+    public Simulation(String configfile, int delay, Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues){
         this.configfile = configfile;
         this.delay = delay;
         this.gpsfakeManagmentQueues = gpsfakeManagmentQueues;
@@ -41,12 +42,23 @@ public class Simulation implements Runnable {
             );
             conn.runServer(true);
 
+
             // the first two steps of this simulation have no vehicles.
             conn.nextSimStep();
             conn.nextSimStep();
             System.out.println("ok");
+            Vehicle fVehicle = conn.getVehicleRepository().getByID("555");
+
+            List<Edge> actroute1=  fVehicle.getCurrentRoute();
+            Edge src = actroute1.get(0);
+            Edge dst = actroute1.get(actroute1.size()-1);
+            System.out.println("Src: " + src);
+            System.out.println("Dst: " + dst);
+
+
 
             do {
+                //System.out.println("Time: "+ conn.getCurrentSimTime());
                 Date date = new Date();
                 String actdate = dateFormatdate.format(date);
                 String acttime = dateFormattime.format(date);
@@ -55,6 +67,27 @@ public class Simulation implements Runnable {
                     String vehicleID = managmentQueue.getKey();
                     ConcurrentLinkedQueue<String> queue = managmentQueue.getValue();
                     Vehicle actVehicle = conn.getVehicleRepository().getByID(vehicleID);
+
+                    if(actVehicle == null)
+                        System.out.println("A " + vehicleID + " null értékű");
+
+                    List<Edge> actroute=  actVehicle.getCurrentRoute();
+
+
+                    Edge actedge = actVehicle.getCurrentEdge();
+                   // System.out.println("ASD");
+                    //System.out.println("Act edge: " + actedge.toString());
+                    if(actroute.get(actroute.size()-1) == actVehicle.getCurrentEdge()){
+
+                        Edge newdst = src;
+                        src = dst;
+                        dst = newdst;
+                        System.out.println("A végére ért a kör elindul " + actVehicle.getCurrentEdge() +" -ról ide: "+ newdst);
+                        System.out.println("New src: "+ src + " new dst: "+ dst );
+                        if(newdst != null)
+                            actVehicle.changeTarget(newdst);
+
+                    }
 
                     double speed = actVehicle.getSpeed();
                     double angle = actVehicle.getAngle();
@@ -70,7 +103,7 @@ public class Simulation implements Runnable {
                     queue.offer(nmea.getGGA());
                 }
 
-                Thread.sleep(delay);
+                //Thread.sleep(delay);
                 conn.nextSimStep();
             }while(closeSumo);
 

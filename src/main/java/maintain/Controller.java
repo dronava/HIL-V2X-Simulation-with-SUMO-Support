@@ -29,7 +29,7 @@ public class Controller implements Initializable{
     private ObservableList<String> vehicleID = FXCollections.observableArrayList();
 
     private String configurationFile;
-    private long simulationDelay;
+    private int simulationDelay;
 
 
     @FXML
@@ -57,6 +57,7 @@ public class Controller implements Initializable{
         queue = new LinkedBlockingQueue<String>();
         System.out.println("GPSD_HOME: " + System.getenv("GPSD_HOME"));
         System.out.println("OS: "+ System.getProperty("os.name"));
+        gpsfakeCommandTextField.setText("gpsfake -o -G -P 5555 -M 7777 -f");
     }
     public void runGpsfake(){
         if(!vehicleID.isEmpty() && !gpsfakeAvailableIDComboBox.getSelectionModel().isEmpty()) {

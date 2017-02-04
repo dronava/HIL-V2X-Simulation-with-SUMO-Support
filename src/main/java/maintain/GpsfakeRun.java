@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 
@@ -79,6 +80,13 @@ public class GpsfakeRun implements Runnable {
         try {
             System.out.println(command);
 
+
+            PrintWriter writer = new PrintWriter("empty-nmea.nmea", "UTF-8");
+
+            writer.close();
+
+            command = command.concat(" empty-nmea.nmea");
+
             //Az új gpsfake elindítása, a környezeti változó megadása
             String environmentVariable= System.getenv("GPSD_HOME");
             /*if(environmentVariable == null)
@@ -112,7 +120,7 @@ public class GpsfakeRun implements Runnable {
         executorService.execute(management);
     }
 
-    //gpsfake -o -G -P 5555 -M 6555 -c 0.07
+    //gpsfake -o -G -P 5555 -M 7777 -f -c 0.07
     private void commandProcess(){
         String[] splitcommand = command.split(" ");
         for (int i = 1; i < splitcommand.length; i++) {
