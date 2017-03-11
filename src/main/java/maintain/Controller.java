@@ -80,6 +80,19 @@ public class Controller implements Initializable{
     public void loadConfiguration(){
         if(!configFileTextField.getText().isEmpty()){
 
+            if(gpsfakes.size() != 0){
+                gpsfakeManagmentQueues.clear();
+
+                for (int i = 0; i < gpsfakes.size(); i++) {
+                    gpsfakes.get(i).stop();
+                    Future actgpsfakeThread = cachedPool.submit(gpsfakes.get(i));
+                   //actgpsfakeThread.cancel(true);
+                   System.out.println("Canceled: " +actgpsfakeThread.isCancelled());
+                }
+                //gpsfakes.clear();
+
+            }
+
             configurationParser = new ConfigurationParser(configFileTextField.getText());
             cachedPool.execute(configurationParser);
             configurationFile = configFileTextField.getText();

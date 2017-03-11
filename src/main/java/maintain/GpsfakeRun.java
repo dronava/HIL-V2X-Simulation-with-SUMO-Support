@@ -3,7 +3,9 @@ package maintain;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,6 +23,7 @@ public class GpsfakeRun implements Runnable {
     private String command;
     private GpsfakeManagement management;
     private Process process;
+    private  boolean running;
 
     @FXML
     private TitledPane tiledpane;
@@ -73,6 +76,7 @@ public class GpsfakeRun implements Runnable {
         makeTiledPane(accordion);
 
         management = new GpsfakeManagement(host, managementPort, queue);
+        running = false;
     }
 
     @Override
@@ -93,6 +97,7 @@ public class GpsfakeRun implements Runnable {
                 process = Runtime.getRuntime().exec(command,new String[]{"GPSD_HOME=/opt/local/sbin"});
             else*/
             process = Runtime.getRuntime().exec(command);
+            running = true;
             process.waitFor();
 
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -101,19 +106,20 @@ public class GpsfakeRun implements Runnable {
             //Parancs kimenete
             System.out.println("Standard output of the command:\n");
             String s;
-            while ((s = stdInput.readLine()) != null) {
+            while ((s = stdInput.readLine()) != null && Thread.currentThread().isAlive()) {
                 System.out.println(s);
             }
 
             //Parancs
             System.out.println("Standard error of the command (if any):\n");
-            while ((s = stdError.readLine()) != null) {
+            while ((s = stdError.readLine()) != null && Thread.currentThread().isAlive()) {
                 System.out.println(s);
             }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        running = false;
     }
 
     public void runManagementThread(ExecutorService executorService){
@@ -134,10 +140,21 @@ public class GpsfakeRun implements Runnable {
         }
     }
 
+    public synchronized void stop() {
+        if (running) {
+
+            Thread.currentThread().interrupt();
+            System.out.println(Thread.currentThread().isAlive());
+        }
+
+    }
+
     private void makeTiledPane(Accordion accordion){
         TitledPane tiledPane = new TitledPane();
         GridPane grid = new GridPane();
         grid.setVgap(4);
+        //grid.setHgap(4);
+        grid.setMinWidth(200);
 
         grid.setPadding(new Insets(5, 5, 5, 5));
         grid.add(new Label("Vehicle ID: "), 0, 0);
@@ -150,8 +167,17 @@ public class GpsfakeRun implements Runnable {
         grid.add(new Label(Integer.toString(managementPort)), 1, 3);
 
         grid.add(new Button("Restart"), 0, 4);
-        grid.add(new Button("Stop"), 1, 4);
+        grid.add(new Button("Stop"), 0, 5);
 
+
+       // grid.setMinWidth(Control.USE_COMPUTED_SIZE);
+      // grid.getColumnConstraints().add(new ColumnConstraints().setMinWidth(Control.USE_COMPUTED_SIZE)); // column 0 is 100 wide
+
+        ColumnConstraints colcon = new ColumnConstraints();
+        colcon.setPrefWidth(Control.USE_COMPUTED_SIZE);
+        colcon.setMinWidth(Control.USE_COMPUTED_SIZE);
+        colcon.setHgrow(Priority.ALWAYS) ;
+        grid.getColumnConstraints().addAll(colcon);
         tiledPane.setText("gpsfake"+accordion.getPanes().size());
         tiledPane.setContent(grid);
         tiledPane.setAnimated(true);

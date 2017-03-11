@@ -69,12 +69,12 @@
                                     </GridPane.margin>
                                 </Label>
                                 <Button fx:id="startSimulationButton" disable="true" mnemonicParsing="false" onAction="#startSimulation" text="Start simulation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                                <Label fx:id="configurationFileLoaderLabel" prefHeight="17.0" prefWidth="146.0" text="Configuration file missing" textFill="#f81111" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                <Label fx:id="configurationFileLoaderLabel" prefHeight="17.0" prefWidth="146.0" textFill="#f81111" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets left="10.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Label prefHeight="17.0" prefWidth="149.0" text="Something important " textFill="#f81111" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                <Label prefHeight="17.0" prefWidth="149.0" textFill="#f81111" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                     <GridPane.margin>
                                         <Insets left="10.0" />
                                     </GridPane.margin>
@@ -138,9 +138,9 @@
                 <Tab text="Console">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <Button layoutX="248.0" layoutY="98.0" mnemonicParsing="false" text="Button" />
-                            </children></AnchorPane>
+                     <children>
+                        <TextArea disable="true" layoutX="23.0" layoutY="14.0" prefHeight="296.0" prefWidth="757.0" />
+                     </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="Summary">
@@ -191,7 +191,7 @@
                                         <Insets left="20.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Label text="Label" GridPane.rowIndex="3">
+                                <Label GridPane.rowIndex="3">
                                     <GridPane.margin>
                                         <Insets left="20.0" />
                                     </GridPane.margin>

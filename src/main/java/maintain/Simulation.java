@@ -23,6 +23,7 @@ public class Simulation implements Runnable {
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
     private DateFormat dateFormatdate = new SimpleDateFormat("ddMMyy");
     private DateFormat dateFormattime = new SimpleDateFormat("HHmmss.SS");
+    private List<SumoVehicle> vehicleScrDst = new ArrayList<SumoVehicle>();
 
     private boolean closeSumo;
 
@@ -40,6 +41,8 @@ public class Simulation implements Runnable {
                     configfile,  // config file
                     12345                                  // random seed
             );
+
+            conn.addOption("quit-on-end", "1");
             conn.runServer(true);
 
 
@@ -80,8 +83,10 @@ public class Simulation implements Runnable {
                     if(actroute.get(actroute.size()-1) == actVehicle.getCurrentEdge()){
 
                         Edge newdst = src;
+
                         src = dst;
                         dst = newdst;
+
                         System.out.println("A végére ért a kör elindul " + actVehicle.getCurrentEdge() +" -ról ide: "+ newdst);
                         System.out.println("New src: "+ src + " new dst: "+ dst );
                         if(newdst != null)
@@ -103,51 +108,17 @@ public class Simulation implements Runnable {
                     queue.offer(nmea.getGGA());
                 }
 
-                //Thread.sleep(delay);
+
                 conn.nextSimStep();
             }while(closeSumo);
 
             conn.close();
-
-            //it.polito.appeal.traci.Vehicle aVehicle  = conn.getVehicleRepository().getByID("555");
-
-           // Collection<it.polito.appeal.traci.Vehicle> vehicles = conn.getVehicleRepository().getAll().values();
-
-           // it.polito.appeal.traci.Vehicle aVehicle = vehicles.iterator().next();
-
-
-
-
-
-
-            /*Point2D pos2d = aVehicle.getPosition();
-            PositionConversionQuery pcq = conn.queryPositionConversion();
-            pcq.setPositionToConvert(pos2d, true);
-            Point2D latlon = pcq.get();
-            System.out.println("Pos: "+latlon.getX()+ ", "+latlon.getY() );
-            System.out.println("Vehicle " + aVehicle
-                    + " will traverse these edges: "
-                    + aVehicle.getCurrentRoute());
-
-            Nmea nmea = new Nmea(angle, speed, latlon, mydate, mytime);
-
-            System.out.println(nmea.newGGA());
-            System.out.println(nmea.newRMC());
-            int index=0;
-            do {
-                index++;
-                it.polito.appeal.traci.Vehicle aVehiclem  = conn.getVehicleRepository().getByID("555");
-                Point2D pos2dm = aVehiclem.getPosition();
-                PositionConversionQuery pcqm = conn.queryPositionConversion();
-                pcq.setPositionToConvert(pos2d, true);
-                Point2D latlonm = pcq.get();
-                Thread.sleep(200);
-                conn.nextSimStep();
-            }while(index<1005);
-            conn.close();*/
         }
         catch(Exception e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
+
+        System.out.println("SUMO shutdown");
     }
 }
