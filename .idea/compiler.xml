@@ -19,8 +19,8 @@
         <module name="V2X-Simulation" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="V2X-Simulation" target="1.6" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="V2X-Simulation" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

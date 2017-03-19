@@ -23,8 +23,11 @@ public class Controller implements Initializable{
     ExecutorService cachedPool = Executors.newCachedThreadPool();
     List<GpsfakeRun> gpsfakes = new ArrayList<GpsfakeRun>();
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
+    private Queue<Task> taskQueue = new ConcurrentLinkedQueue();
+
 
     private maintain.Simulation simulation;
+    private V2XConfigurationServer configurationServer;
     private ConfigurationParser configurationParser;
     private ObservableList<String> vehicleID = FXCollections.observableArrayList();
 
@@ -118,8 +121,11 @@ public class Controller implements Initializable{
         if(!simulationDelayTextField.getText().isEmpty()){
             simulationDelay =Integer.parseInt(simulationDelayTextField.getText());
 
-            simulation = new maintain.Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues);
+            simulation = new maintain.Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues, taskQueue);
             cachedPool.execute(simulation);
+
+            configurationServer = new V2XConfigurationServer(11111,cachedPool,taskQueue);
+            cachedPool.execute(configurationServer);
 
             for(GpsfakeRun gpsfakeRun: gpsfakes){
                 gpsfakeRun.runManagementThread(cachedPool);

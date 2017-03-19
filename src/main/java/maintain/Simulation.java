@@ -1,10 +1,7 @@
 package maintain;
 
 
-import it.polito.appeal.traci.Edge;
-import it.polito.appeal.traci.PositionConversionQuery;
-import it.polito.appeal.traci.SumoTraciConnection;
-import it.polito.appeal.traci.Vehicle;
+import it.polito.appeal.traci.*;
 
 import java.awt.geom.Point2D;
 import java.io.IOException;
@@ -21,16 +18,19 @@ public class Simulation implements Runnable {
     private long delay;
     private String configfile;
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
+    private Queue<Task> taskQueue;
     private DateFormat dateFormatdate = new SimpleDateFormat("ddMMyy");
     private DateFormat dateFormattime = new SimpleDateFormat("HHmmss.SS");
     private List<SumoVehicle> vehicleScrDst = new ArrayList<SumoVehicle>();
 
     private boolean closeSumo;
 
-    public Simulation(String configfile, int delay, Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues){
+    public Simulation(String configfile, int delay, Map<String,
+            ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues, Queue<Task> taskQueue){
         this.configfile = configfile;
         this.delay = delay;
         this.gpsfakeManagmentQueues = gpsfakeManagmentQueues;
+        this.taskQueue = taskQueue;
         closeSumo = true;
     }
 
@@ -60,8 +60,21 @@ public class Simulation implements Runnable {
 
 
 
+
             do {
-                //System.out.println("Time: "+ conn.getCurrentSimTime());
+                Task task;
+                while((task = taskQueue.poll())!= null){
+                    if(gpsfakeManagmentQueues.containsKey(task.getId())) {
+                        System.out.print("SUMO id: " + task.getId() + "command: " + task.getCommand());
+                        for (int i = 0; i < task.getParameter().size(); i++) {
+                            System.out.print(task.getParameter().get(i));
+                        }
+                        System.out.print("\n");
+
+                        creatCommand(task,conn);
+                    }
+                }
+
                 Date date = new Date();
                 String actdate = dateFormatdate.format(date);
                 String acttime = dateFormattime.format(date);
@@ -77,6 +90,7 @@ public class Simulation implements Runnable {
                     List<Edge> actroute=  actVehicle.getCurrentRoute();
 
 
+
                     Edge actedge = actVehicle.getCurrentEdge();
                    // System.out.println("ASD");
                     //System.out.println("Act edge: " + actedge.toString());
@@ -86,6 +100,7 @@ public class Simulation implements Runnable {
 
                         src = dst;
                         dst = newdst;
+
 
                         System.out.println("A végére ért a kör elindul " + actVehicle.getCurrentEdge() +" -ról ide: "+ newdst);
                         System.out.println("New src: "+ src + " new dst: "+ dst );
@@ -110,7 +125,7 @@ public class Simulation implements Runnable {
 
 
                 conn.nextSimStep();
-            }while(closeSumo);
+            }while(closeSumo && !conn.isClosed());
 
             conn.close();
         }
@@ -120,5 +135,36 @@ public class Simulation implements Runnable {
         }
 
         System.out.println("SUMO shutdown");
+    }
+
+    public void creatCommand(Task task, SumoTraciConnection conn){
+        String command = task.getCommand().toLowerCase();
+        Vehicle actVehicle = null;
+        try {
+            actVehicle = conn.getVehicleRepository().getByID(task.getId());
+
+            if (actVehicle != null) {
+                switch (command) {
+                    case "speed":
+                        actVehicle.changeSpeed(Double.valueOf(task.getParameter().get(0)));
+                        break;
+                    case "dst":
+
+                        Point2D.Double latlon = new Point2D.Double(Double.valueOf(task.getParameter().get(0)),
+                                Double.valueOf(task.getParameter().get(1)));
+                        PositionConversionQuery pcq = conn.queryPositionConversion();
+                        pcq.setPositionToConvert(latlon, false);
+                        Point2D posCartesian = pcq.get();
+
+                        
+
+
+                        System.out.println("Cartesian pos: "  +posCartesian.toString());
+                        break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
