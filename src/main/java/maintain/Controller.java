@@ -96,9 +96,10 @@ public class Controller implements Initializable{
 
             }
 
-            configurationParser = new ConfigurationParser(configFileTextField.getText());
-            cachedPool.execute(configurationParser);
             configurationFile = configFileTextField.getText();
+            configurationParser = new ConfigurationParser(configurationFile);
+            cachedPool.execute(configurationParser);
+
             configurationParser.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
                     new EventHandler<WorkerStateEvent>() {
                         @Override

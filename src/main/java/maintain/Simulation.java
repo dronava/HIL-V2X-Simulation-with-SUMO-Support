@@ -156,7 +156,7 @@ public class Simulation implements Runnable {
                         pcq.setPositionToConvert(latlon, false);
                         Point2D posCartesian = pcq.get();
 
-                        
+
 
 
                         System.out.println("Cartesian pos: "  +posCartesian.toString());

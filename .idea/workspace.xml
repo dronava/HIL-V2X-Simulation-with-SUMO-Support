@@ -2,171 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/maintain/Task.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationServer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/de/uniluebeck/itm/tcpip/Socket.class" afterPath="$PROJECT_DIR$/target/classes/de/uniluebeck/itm/tcpip/Socket.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/de/uniluebeck/itm/tcpip/Storage.class" afterPath="$PROJECT_DIR$/target/classes/de/uniluebeck/itm/tcpip/Storage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/AddRouteQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/AddRouteQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/AddVehicleQuery$IllegalLaneException.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/AddVehicleQuery$IllegalLaneException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/AddVehicleQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/AddVehicleQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeColorQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeColorQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeCompleteProgramQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeCompleteProgramQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeDecelQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeDecelQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeEdgeTravelTimeQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeEdgeTravelTimeQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeGlobalTravelTimeQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeGlobalTravelTimeQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeLaneIndexQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeLaneIndexQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeLightsStateQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeLightsStateQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeMaxSpeedQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeMaxSpeedQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeMinGapQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeMinGapQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeObjectStateQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeObjectStateQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeObjectVarQuery$ChangeDoubleQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeObjectVarQuery$ChangeDoubleQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeObjectVarQuery$ChangeIntegerQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeObjectVarQuery$ChangeIntegerQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeObjectVarQuery$ChangeStringQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeObjectVarQuery$ChangeStringQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeObjectVarQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeObjectVarQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangePositionQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangePositionQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeRouteQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeRouteQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeSpeedQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeSpeedQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeStateQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeStateQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeTargetQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ChangeTargetQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/CloseQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/CloseQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ConfigFileContentHandler.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ConfigFileContentHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ControlledLink.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ControlledLink.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ControlledLinks.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ControlledLinks.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Edge$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Edge$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Edge$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Edge$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Edge.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Edge.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/InductionLoop$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/InductionLoop$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/InductionLoop.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/InductionLoop.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/LaArDetector$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/LaArDetector$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/LaArDetector.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/LaArDetector.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Lane$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Lane$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Lane.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Lane.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/LaneIndexQueryParameter.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/LaneIndexQueryParameter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/LaneListQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/LaneListQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/LightState.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/LightState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Link.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Link.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Logic.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Logic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/MeMeDetector$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/MeMeDetector$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/MeMeDetector.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/MeMeDetector.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/MultiQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/MultiQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ObjectCollectionQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ObjectCollectionQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ObjectFactory.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ObjectFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/POI$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/POI$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/POI$2.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/POI$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/POI$3.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/POI$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/POI$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/POI$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/POI.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/POI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Phase.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Phase.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/PositionConversionQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/PositionConversionQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Program.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Program.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Query.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Query.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadCompleteDefinitionQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadCompleteDefinitionQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadControlledLinksQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadControlledLinksQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadGlobalTravelTimeQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadGlobalTravelTimeQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadLinksQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadLinksQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$BoundingBoxQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$BoundingBoxQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$ColorQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$ColorQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$DoubleQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$DoubleQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$EdgeQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$EdgeQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$IntegerQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$IntegerQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$LaneQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$LaneQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$PositionQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$PositionQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$StringListQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$StringListQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$StringQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$StringQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$TraciObjectQ.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery$TraciObjectQ.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadObjectVarQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadShapeQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadShapeQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadTLStateQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ReadTLStateQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/RemoveVehicleQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/RemoveVehicleQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Edges$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Edges$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Edges.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Edges.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$InductionLoops$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$InductionLoops$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$InductionLoops.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$InductionLoops.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$LaArDetectors$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$LaArDetectors$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$LaArDetectors.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$LaArDetectors.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Lanes$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Lanes$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Lanes.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Lanes.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$MeMeDetectors$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$MeMeDetectors$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$MeMeDetectors.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$MeMeDetectors.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$POIs$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$POIs$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$POIs.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$POIs.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Routes$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Routes$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Routes.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Routes.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$TrafficLights$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$TrafficLights$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$TrafficLights.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$TrafficLights.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$UpdatableRepository.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$UpdatableRepository.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$VehicleTypes$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$VehicleTypes$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$VehicleTypes.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$VehicleTypes.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Vehicles$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Vehicles$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Vehicles.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository$Vehicles.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Repository.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/RerouteQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/RerouteQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Route$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Route$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Route.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Route.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/RouteQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/RouteQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SimStepQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SimStepQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SimulationData$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SimulationData$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SimulationData$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SimulationData$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SimulationData.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SimulationData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/StepAdvanceListener.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/StepAdvanceListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/StreamLogger$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/StreamLogger$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/StreamLogger$StreamLoggerTyp.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/StreamLogger$StreamLoggerTyp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/StreamLogger.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/StreamLogger.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SumoHttpRetriever.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SumoHttpRetriever.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SumoTraciConnection$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SumoTraciConnection$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SumoTraciConnection.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/SumoTraciConnection.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TLState.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TLState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TraCIException$UnexpectedData.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TraCIException$UnexpectedData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TraCIException$UnexpectedDatatype.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TraCIException$UnexpectedDatatype.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TraCIException.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TraCIException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TraciObject.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TraciObject.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TrafficLight$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TrafficLight$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TrafficLight.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/TrafficLight.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Utils.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Utils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ValueReadQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/ValueReadQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$2.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$3.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$4.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$5.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$6.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$7.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/Vehicle.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleLifecycleObserver.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleLifecycleObserver.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleSetQuery.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleSetQuery.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType$1.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType$2.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType$3.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType$4.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType$Variable.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType$Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/VehicleType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/BoundingBox.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/BoundingBox.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/Command.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/Command.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/Constants.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/Constants.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/Polygon.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/Polygon.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/RequestMessage.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/RequestMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/ResponseContainer.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/ResponseContainer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/ResponseMessage.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/ResponseMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/RoadmapPosition.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/RoadmapPosition.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/StatusResponse.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/StatusResponse.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/StringList.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/StringList.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/WriteableToStorage.class" afterPath="$PROJECT_DIR$/target/classes/it/polito/appeal/traci/protocol/WriteableToStorage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/ConfigurationParser.class" afterPath="$PROJECT_DIR$/target/classes/maintain/ConfigurationParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/Controller$1.class" afterPath="$PROJECT_DIR$/target/classes/maintain/Controller$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/Controller.class" afterPath="$PROJECT_DIR$/target/classes/maintain/Controller.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/GpsfakeManagement.class" afterPath="$PROJECT_DIR$/target/classes/maintain/GpsfakeManagement.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/GpsfakeRun.class" afterPath="$PROJECT_DIR$/target/classes/maintain/GpsfakeRun.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/Main.class" afterPath="$PROJECT_DIR$/target/classes/maintain/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/Nmea.class" afterPath="$PROJECT_DIR$/target/classes/maintain/Nmea.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/Simulation.class" afterPath="$PROJECT_DIR$/target/classes/maintain/Simulation.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/Sumo.class" afterPath="$PROJECT_DIR$/target/classes/maintain/Sumo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/SumoVehicle.class" afterPath="$PROJECT_DIR$/target/classes/maintain/SumoVehicle.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/process/EdgeElement.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/process/EdgeSearch.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/process/NetFileLoad.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/V2X-Simulation.iml" afterPath="$PROJECT_DIR$/V2X-Simulation.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manualTrack.nmea" afterPath="$PROJECT_DIR$/manualTrack.nmea" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/maintain/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/maintain/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/maintain/Simulation.java" afterPath="$PROJECT_DIR$/src/main/java/maintain/Simulation.java" />
     </list>
@@ -231,15 +72,22 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="126" column="60" lean-forward="false" selection-start-line="126" selection-start-column="38" selection-end-line="126" selection-end-column="60" />
+            <state relative-caret-position="279">
+              <caret line="99" column="75" lean-forward="false" selection-start-line="99" selection-start-column="75" selection-end-line="99" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NetFileLoad.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/process/NetFileLoad.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="558">
+              <caret line="31" column="20" lean-forward="true" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#675#687#0" expanded="false" />
-                <element signature="e#782#821#0" expanded="false" />
-                <element signature="e#2307#2315#0" expanded="false" />
-                <element signature="e#3889#4635#0" expanded="false" />
-                <element signature="e#4634#4635#0" expanded="false" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#371#372#0" expanded="true" />
+                <element signature="e#423#424#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -248,7 +96,7 @@
       <file leaf-file-name="GpsfakeRun.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/maintain/GpsfakeRun.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1224">
+            <state relative-caret-position="1710">
               <caret line="124" column="67" lean-forward="false" selection-start-line="124" selection-start-column="52" selection-end-line="124" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="false" />
@@ -270,41 +118,55 @@
                 <element signature="e#1393#1394#0" expanded="false" />
                 <element signature="e#1441#1442#0" expanded="false" />
                 <element signature="e#1474#1475#0" expanded="false" />
+                <element signature="e#3553#3554#0" expanded="false" />
+                <element signature="e#3604#3605#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Simulation.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Simulation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Simulation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="158" column="24" lean-forward="false" selection-start-line="158" selection-start-column="24" selection-end-line="158" selection-end-column="24" />
+            <state relative-caret-position="888">
+              <caret line="136" column="33" lean-forward="false" selection-start-line="136" selection-start-column="33" selection-end-line="136" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="V2XConfigurationServer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationServer.java">
+      <file leaf-file-name="EdgeSearch.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeSearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="24" column="35" lean-forward="false" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+            <state relative-caret-position="252">
+              <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="46" />
               <folding>
-                <marker date="1489868072130" expanded="true" signature="533:674" ph="{...}" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#494#510#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="V2XConfigurationThread.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationThread.java">
+      <file leaf-file-name="EdgeElement.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeElement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="94" column="46" lean-forward="false" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
+            <state relative-caret-position="-1218">
+              <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1821#1830#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConfigurationParser.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/maintain/ConfigurationParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-570">
+              <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -312,21 +174,8 @@
       <file leaf-file-name="GpsfakeManagement.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/maintain/GpsfakeManagement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
+            <state relative-caret-position="860">
               <caret line="77" column="28" lean-forward="false" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="63" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#805#813#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Task.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Task.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -386,6 +235,8 @@
       <find>OS_NAME_PROPERTY</find>
       <find>ima</find>
       <find>actVehicle</find>
+      <find>ConfigurationParser</find>
+      <find>configurationFile</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -426,10 +277,13 @@
         <option value="$PROJECT_DIR$/src/main/java/maintain/GpsfakeRun.java" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/V2XConfiguration.java" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/Task.java" />
-        <option value="$PROJECT_DIR$/src/main/java/maintain/Controller.java" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/Simulation.java" />
+        <option value="$PROJECT_DIR$/src/main/java/process/EdgeElement.java" />
+        <option value="$PROJECT_DIR$/src/main/java/process/EdgeSearch.java" />
+        <option value="$PROJECT_DIR$/src/main/java/maintain/Controller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/process/NetFileLoad.java" />
       </list>
     </option>
   </component>
@@ -464,8 +318,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
     <option name="y" value="24" />
-    <option name="width" value="1301" />
-    <option name="height" value="744" />
+    <option name="width" value="1855" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -486,6 +340,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -569,14 +425,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="process" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="V2X-Simulation-with-SUMO" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="V2X-Simulation-with-SUMO" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="maintain" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -595,7 +475,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_opened_file_path" value="/opt/JavaFXSceneBuilder2.0/JavaFXSceneBuilder2.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Groovy JUnit" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
@@ -606,6 +486,18 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="groovy.util.GroovyTestCase" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -947,12 +839,19 @@
       <workItem from="1489843527161" duration="898000" />
       <workItem from="1489844824578" duration="3087000" />
       <workItem from="1489848701422" duration="32000" />
-      <workItem from="1489860652097" duration="13678000" />
+      <workItem from="1489860652097" duration="14272000" />
+      <workItem from="1491053512098" duration="38000" />
+      <workItem from="1491053646943" duration="1447000" />
+      <workItem from="1491055305205" duration="35000" />
+      <workItem from="1491055398955" duration="917000" />
+      <workItem from="1491231189318" duration="756000" />
+      <workItem from="1491232115768" duration="519000" />
+      <workItem from="1491249962814" duration="2680000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155175000" />
+    <option name="totallyTimeSpent" value="162161000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -964,25 +863,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1301" height="744" extended-state="6" />
+    <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32735425" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2929746" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19139124" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19784367" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39760837" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -990,9 +886,12 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39760837" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32735425" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2929746" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1016,9 +915,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/traci/java/de/uniluebeck/itm/tcpip/Socket.java" />
-    <entry file="file://$PROJECT_DIR$/src/traci/xslt/traciObject.xslt" />
-    <entry file="file://$PROJECT_DIR$/src/traci/xml/traciObjects/Lane.xml" />
     <entry file="file://$PROJECT_DIR$/src/traci/java/it/polito/appeal/traci/AddRouteQuery.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/xml/traciObjects/Edge.xml" />
     <entry file="file://$PROJECT_DIR$/target/src/java-gen/it/polito/appeal/traci/Route.java" />
@@ -1149,16 +1045,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/ConfigurationParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1188">
-          <caret line="72" column="54" lean-forward="false" selection-start-line="72" selection-start-column="54" selection-end-line="72" selection-end-column="54" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Sumo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1215,25 +1101,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/SumoVehicle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="42" column="17" lean-forward="false" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
-          <folding>
-            <element signature="e#223#224#0" expanded="false" />
-            <element signature="e#248#249#0" expanded="false" />
-            <element signature="e#276#277#0" expanded="false" />
-            <element signature="e#302#303#0" expanded="false" />
-            <element signature="e#338#339#0" expanded="false" />
-            <element signature="e#368#369#0" expanded="false" />
-            <element signature="e#396#397#0" expanded="false" />
-            <element signature="e#422#423#0" expanded="false" />
-            <element signature="e#458#459#0" expanded="false" />
-            <element signature="e#488#489#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="852">
@@ -1252,17 +1119,9 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Task.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/maintain/GpsfakeRun.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
+        <state relative-caret-position="1710">
           <caret line="124" column="67" lean-forward="false" selection-start-line="124" selection-start-column="52" selection-end-line="124" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="false" />
@@ -1284,31 +1143,8 @@
             <element signature="e#1393#1394#0" expanded="false" />
             <element signature="e#1441#1442#0" expanded="false" />
             <element signature="e#1474#1475#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="126" column="60" lean-forward="false" selection-start-line="126" selection-start-column="38" selection-end-line="126" selection-end-column="60" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#675#687#0" expanded="false" />
-            <element signature="e#782#821#0" expanded="false" />
-            <element signature="e#2307#2315#0" expanded="false" />
-            <element signature="e#3889#4635#0" expanded="false" />
-            <element signature="e#4634#4635#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="24" column="35" lean-forward="false" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
-          <folding>
-            <marker date="1489868072130" expanded="true" signature="533:674" ph="{...}" />
+            <element signature="e#3553#3554#0" expanded="false" />
+            <element signature="e#3604#3605#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1317,10 +1153,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
           <caret line="886" column="16" lean-forward="false" selection-start-line="886" selection-start-column="16" selection-end-line="886" selection-end-column="16" />
-          <folding>
-            <element signature="e#26565#26566#0" expanded="false" />
-            <element signature="e#26600#26601#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1328,18 +1160,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="13" column="61" lean-forward="false" selection-start-line="13" selection-start-column="61" selection-end-line="13" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/GpsfakeManagement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="77" column="28" lean-forward="false" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#805#813#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1347,24 +1167,117 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
           <caret line="178" column="4" lean-forward="false" selection-start-line="178" selection-start-column="4" selection-end-line="178" selection-end-column="4" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/SumoVehicle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="42" column="17" lean-forward="false" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
+          <folding>
+            <element signature="e#223#224#0" expanded="false" />
+            <element signature="e#248#249#0" expanded="false" />
+            <element signature="e#276#277#0" expanded="false" />
+            <element signature="e#302#303#0" expanded="false" />
+            <element signature="e#338#339#0" expanded="false" />
+            <element signature="e#368#369#0" expanded="false" />
+            <element signature="e#396#397#0" expanded="false" />
+            <element signature="e#422#423#0" expanded="false" />
+            <element signature="e#458#459#0" expanded="false" />
+            <element signature="e#488#489#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
+        <state relative-caret-position="1512">
           <caret line="94" column="46" lean-forward="false" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#736#737#0" expanded="false" />
+            <element signature="e#787#788#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/GpsfakeManagement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="860">
+          <caret line="77" column="28" lean-forward="false" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="63" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Simulation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="158" column="24" lean-forward="false" selection-start-line="158" selection-start-column="24" selection-end-line="158" selection-end-column="24" />
+        <state relative-caret-position="888">
+          <caret line="136" column="33" lean-forward="false" selection-start-line="136" selection-start-column="33" selection-end-line="136" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1218">
+          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1821#1830#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="99" column="75" lean-forward="false" selection-start-line="99" selection-start-column="75" selection-end-line="99" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeSearch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#494#510#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/process/NetFileLoad.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="31" column="20" lean-forward="true" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#371#372#0" expanded="true" />
+            <element signature="e#423#424#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/maintain/ConfigurationParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-570">
+          <caret line="21" column="8" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="41" />
           <folding />
         </state>
       </provider>
