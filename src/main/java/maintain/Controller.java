@@ -1,5 +1,7 @@
 package maintain;
 
+import gpsfake.GpsfakeRun;
+import gpsfake.V2XConfigurationServer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
@@ -16,6 +18,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import java.io.File;
 import javafx.stage.FileChooser.ExtensionFilter;
+import gpsfake.GpsfakeManagement;
+import org.w3c.dom.Document;
+import process.ConfigurationFile;
+import process.ConfigurationParser;
+import process.NetFileLoad;
+import simulation.Simulation;
+import simulation.Task;
 
 public class Controller implements Initializable{
 
@@ -26,9 +35,12 @@ public class Controller implements Initializable{
     private Queue<Task> taskQueue = new ConcurrentLinkedQueue();
 
 
-    private maintain.Simulation simulation;
+    private Simulation simulation;
     private V2XConfigurationServer configurationServer;
     private ConfigurationParser configurationParser;
+    private ConfigurationFile configurationFiles;
+    private NetFileLoad netFileLoad;
+    private Document netFileDocument;
     private ObservableList<String> vehicleID = FXCollections.observableArrayList();
 
     private String configurationFile;
@@ -104,7 +116,9 @@ public class Controller implements Initializable{
                     new EventHandler<WorkerStateEvent>() {
                         @Override
                         public void handle(WorkerStateEvent t) {
-                            vehicleID.addAll(configurationParser.getValue());
+                            configurationFiles = configurationParser.getValue();
+
+                            vehicleID.addAll(configurationFiles.getVehicleIds());
                             gpsfakeAvailableIDComboBox.setItems(vehicleID);
                             configurationReadSateLabel.setText("Configuration file loaded");
                             configurationReadSateLabel.setTextFill(Color.web("#3ae437"));
@@ -113,16 +127,27 @@ public class Controller implements Initializable{
                             for (String s: vehicleID){
                                 System.out.println("Vehicles: "+ s);
                             }
+
+                            netFileLoad = new NetFileLoad(configurationFiles.getNetFilePath());
+                            cachedPool.execute(netFileLoad);
+                            netFileLoad.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
+                                    new EventHandler<WorkerStateEvent>() {
+                                        @Override
+                                        public void handle(WorkerStateEvent t) {
+                                            netFileDocument  = netFileLoad.getValue();
+                                        }
+                                    });
+
                         }
                     });
         }
     }
 
     public void startSimulation(){
-        if(!simulationDelayTextField.getText().isEmpty()){
+        if(!simulationDelayTextField.getText().isEmpty() && netFileDocument != null){
             simulationDelay =Integer.parseInt(simulationDelayTextField.getText());
 
-            simulation = new maintain.Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues, taskQueue);
+            simulation = new Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues, taskQueue, netFileDocument);
             cachedPool.execute(simulation);
 
             configurationServer = new V2XConfigurationServer(11111,cachedPool,taskQueue);

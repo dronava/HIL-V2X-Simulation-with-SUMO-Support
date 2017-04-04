@@ -1,7 +1,10 @@
-package maintain;
+package simulation;
 
 
 import it.polito.appeal.traci.*;
+import org.w3c.dom.Document;
+import process.EdgeConvertType;
+import process.EdgeSearch;
 
 import java.awt.geom.Point2D;
 import java.io.IOException;
@@ -17,22 +20,31 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Simulation implements Runnable {
     private long delay;
     private String configfile;
+    private Document netFileDocument;
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
     private Queue<Task> taskQueue;
     private DateFormat dateFormatdate = new SimpleDateFormat("ddMMyy");
     private DateFormat dateFormattime = new SimpleDateFormat("HHmmss.SS");
     private List<SumoVehicle> vehicleScrDst = new ArrayList<SumoVehicle>();
 
+
+    private Queue<EdgeConvertType> pointToEdgeQueue = new ConcurrentLinkedQueue<>();
+    private Queue<EdgeConvertType> resultEdge = new ConcurrentLinkedQueue<>();
+    private EdgeSearch edgeSearch;
+
     private boolean closeSumo;
 
     public Simulation(String configfile, int delay, Map<String,
-            ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues, Queue<Task> taskQueue){
+            ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues, Queue<Task> taskQueue, Document netFileDocument){
         this.configfile = configfile;
         this.delay = delay;
         this.gpsfakeManagmentQueues = gpsfakeManagmentQueues;
         this.taskQueue = taskQueue;
+        this.netFileDocument = netFileDocument;
         closeSumo = true;
+        edgeSearch = new EdgeSearch(netFileDocument, pointToEdgeQueue, resultEdge);
     }
+    //555;dst;47.473643;19.052962
 
     @Override
     public void run() {
@@ -75,6 +87,19 @@ public class Simulation implements Runnable {
                     }
                 }
 
+                while(!resultEdge.isEmpty()){
+                    EdgeConvertType result = resultEdge.poll();
+                    if(result.getEdge() != "") {
+                        Vehicle actVehicle = conn.getVehicleRepository().getByID(result.getVehicleID());
+                        dst = conn.getEdgeRepository().getByID(result.getEdge());
+                        actVehicle.changeTarget(dst);
+
+                    }
+                    else{
+                        System.out.println("Not found the EDGE!!!");
+                    }
+                }
+
                 Date date = new Date();
                 String actdate = dateFormatdate.format(date);
                 String acttime = dateFormattime.format(date);
@@ -86,41 +111,42 @@ public class Simulation implements Runnable {
 
                     if(actVehicle == null)
                         System.out.println("A " + vehicleID + " null értékű");
+                    else {
 
-                    List<Edge> actroute=  actVehicle.getCurrentRoute();
-
-
-
-                    Edge actedge = actVehicle.getCurrentEdge();
-                   // System.out.println("ASD");
-                    //System.out.println("Act edge: " + actedge.toString());
-                    if(actroute.get(actroute.size()-1) == actVehicle.getCurrentEdge()){
-
-                        Edge newdst = src;
-
-                        src = dst;
-                        dst = newdst;
+                        List<Edge> actroute = actVehicle.getCurrentRoute();
 
 
-                        System.out.println("A végére ért a kör elindul " + actVehicle.getCurrentEdge() +" -ról ide: "+ newdst);
-                        System.out.println("New src: "+ src + " new dst: "+ dst );
-                        if(newdst != null)
-                            actVehicle.changeTarget(newdst);
+                        Edge actedge = actVehicle.getCurrentEdge();
+                        // System.out.println("ASD");
+                        //System.out.println("Act edge: " + actedge.toString());
+                        if (actroute.get(actroute.size() - 1) == actVehicle.getCurrentEdge()) {
 
+                            Edge newdst = src;
+
+                            src = dst;
+                            dst = newdst;
+
+
+                            System.out.println("A végére ért a kör elindul " + actVehicle.getCurrentEdge() + " -ról ide: " + newdst);
+                            System.out.println("New src: " + src + " new dst: " + dst);
+                            if (newdst != null)
+                                actVehicle.changeTarget(newdst);
+
+                        }
+
+                        double speed = actVehicle.getSpeed();
+                        double angle = actVehicle.getAngle();
+
+                        Point2D posCartesian = actVehicle.getPosition();
+                        PositionConversionQuery pcq = conn.queryPositionConversion();
+                        pcq.setPositionToConvert(posCartesian, true);
+                        Point2D latlon = pcq.get();
+
+                        Nmea nmea = new Nmea(angle, speed, latlon, actdate, acttime);
+
+                        queue.offer(nmea.getRMC());
+                        queue.offer(nmea.getGGA());
                     }
-
-                    double speed = actVehicle.getSpeed();
-                    double angle = actVehicle.getAngle();
-
-                    Point2D posCartesian = actVehicle.getPosition();
-                    PositionConversionQuery pcq = conn.queryPositionConversion();
-                    pcq.setPositionToConvert(posCartesian, true);
-                    Point2D latlon = pcq.get();
-
-                    Nmea nmea = new Nmea(angle, speed, latlon, actdate, acttime);
-
-                    queue.offer(nmea.getRMC());
-                    queue.offer(nmea.getGGA());
                 }
 
 
@@ -149,14 +175,26 @@ public class Simulation implements Runnable {
                         actVehicle.changeSpeed(Double.valueOf(task.getParameter().get(0)));
                         break;
                     case "dst":
-
+                        System.out.println("Command: dst ");
                         Point2D.Double latlon = new Point2D.Double(Double.valueOf(task.getParameter().get(0)),
                                 Double.valueOf(task.getParameter().get(1)));
                         PositionConversionQuery pcq = conn.queryPositionConversion();
                         pcq.setPositionToConvert(latlon, false);
                         Point2D posCartesian = pcq.get();
 
+                        System.out.println("Param: " + latlon.getX()+ ","+latlon.getY());
 
+                        EdgeConvertType target = new EdgeConvertType(task.getId(), posCartesian);
+                        pointToEdgeQueue.offer(target);
+                        if(edgeSearch.isRunning) {
+                            synchronized (edgeSearch) {
+                                edgeSearch.notify();
+                            }
+                        }
+                        else {
+                            edgeSearch = new EdgeSearch(netFileDocument, pointToEdgeQueue, resultEdge);
+                            edgeSearch.start();
+                        }
 
 
                         System.out.println("Cartesian pos: "  +posCartesian.toString());

@@ -15,8 +15,8 @@ public class NetFileLoad extends Task<Document> {
 
     private String configfilepath;
 
-    public  NetFileLoad(String configfilepath){
-        this.configfilepath = configfilepath;
+    public  NetFileLoad(String configFilePath){
+        this.configfilepath = configFilePath;
     }
 
     @Override
@@ -29,6 +29,6 @@ public class NetFileLoad extends Task<Document> {
         Document doc = dBuilder.parse(inputFile);
         doc.getDocumentElement().normalize();
 
-        return null;
+        return doc;
     }
 }

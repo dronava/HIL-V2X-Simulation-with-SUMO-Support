@@ -1,4 +1,4 @@
-package maintain;
+package gpsfake;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
