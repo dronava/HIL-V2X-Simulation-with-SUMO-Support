@@ -1,5 +1,9 @@
 package process;
 
+import com.github.davidmoten.rtree.Entry;
+import com.github.davidmoten.rtree.RTree;
+import com.github.davidmoten.rtree.geometry.Geometries;
+import com.github.davidmoten.rtree.geometry.Rectangle;
 import javafx.concurrent.Task;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -8,14 +12,16 @@ import org.w3c.dom.NodeList;
 
 import java.awt.geom.Point2D;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by szezso on 2017.04.01..
  */
-public class EdgeSearch extends Thread {
+public class EdgeSearch {
 
     private Document netFile;
 
@@ -25,17 +31,43 @@ public class EdgeSearch extends Thread {
     private Queue<EdgeConvertType> pointToEdgeQueue;
     private Queue<EdgeConvertType> resultEdge;
 
+    RTree<String, Rectangle> rTree;
+
     public volatile boolean isRunning;
 
-    public EdgeSearch(Document netFile, Queue<EdgeConvertType> pointToEdgeQueue, Queue<EdgeConvertType> resultEdge){
-        this.netFile = netFile;
+    public EdgeSearch(RTree<String, Rectangle> rTree){
+        this.rTree = rTree;
         this.pointToEdgeQueue = pointToEdgeQueue;
         this.resultEdge = resultEdge;
         //netFile.getDocumentElement().normalize();
         isRunning = false;
     }
 
-    @Override
+    public String getEdgeFromCoordinate(Point2D destination, String vehicleType){
+        String result = "";
+
+        long kezdKeres = System.nanoTime();
+        Iterable<Entry<String, Rectangle>> results =
+                rTree.search(Geometries.point(1974.35,4293.80)).toBlocking().toIterable();
+
+        Iterator<Entry<String,Rectangle>> iter = results.iterator();
+        while(iter.hasNext()) {
+            Entry<String,Rectangle> act =iter.next();
+            System.out.println("Found: " +act.value());
+        }
+
+        long vegKeres = System.nanoTime();
+
+
+        long differenceKeres = vegKeres-kezdKeres;
+        System.out.println("Total execution time Search: " +
+                String.format("%d mil", TimeUnit.NANOSECONDS.toMillis(differenceKeres)));
+
+
+        return result;
+    }
+
+   /* @Override
     public void run() {
         isRunning = true;
         while(isRunning){
@@ -145,5 +177,5 @@ public class EdgeSearch extends Thread {
             }
         }
         return "";
-    }
+    }*/
 }

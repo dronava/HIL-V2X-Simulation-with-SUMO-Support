@@ -1,5 +1,7 @@
 package maintain;
 
+import com.github.davidmoten.rtree.RTree;
+import com.github.davidmoten.rtree.geometry.Rectangle;
 import gpsfake.GpsfakeRun;
 import gpsfake.V2XConfigurationServer;
 import javafx.collections.FXCollections;
@@ -40,7 +42,7 @@ public class Controller implements Initializable{
     private ConfigurationParser configurationParser;
     private ConfigurationFile configurationFiles;
     private NetFileLoad netFileLoad;
-    private Document netFileDocument;
+    private RTree<String, Rectangle> edgeRTree;
     private ObservableList<String> vehicleID = FXCollections.observableArrayList();
 
     private String configurationFile;
@@ -134,7 +136,7 @@ public class Controller implements Initializable{
                                     new EventHandler<WorkerStateEvent>() {
                                         @Override
                                         public void handle(WorkerStateEvent t) {
-                                            netFileDocument  = netFileLoad.getValue();
+                                            edgeRTree  = netFileLoad.getValue();
                                         }
                                     });
 
@@ -144,10 +146,10 @@ public class Controller implements Initializable{
     }
 
     public void startSimulation(){
-        if(!simulationDelayTextField.getText().isEmpty() && netFileDocument != null){
+        if(!simulationDelayTextField.getText().isEmpty() && edgeRTree != null){
             simulationDelay =Integer.parseInt(simulationDelayTextField.getText());
 
-            simulation = new Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues, taskQueue, netFileDocument);
+            simulation = new Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues, taskQueue, edgeRTree);
             cachedPool.execute(simulation);
 
             configurationServer = new V2XConfigurationServer(11111,cachedPool,taskQueue);

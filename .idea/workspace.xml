@@ -2,34 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/process/ConfigurationFile.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/process/EdgeConvertType.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/maintain/ConfigurationParser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/maintain/GpsfakeManagement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/maintain/GpsfakeRun.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/maintain/Nmea.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/maintain/Simulation.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/maintain/SumoVehicle.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/maintain/Task.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/maintain/V2XConfigurationServer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/maintain/V2XConfigurationThread.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/maintain/ConfigurationParser.java" afterPath="$PROJECT_DIR$/src/main/java/process/ConfigurationParser.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/maintain/GpsfakeManagement.java" afterPath="$PROJECT_DIR$/src/main/java/gpsfake/GpsfakeManagement.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/maintain/GpsfakeRun.java" afterPath="$PROJECT_DIR$/src/main/java/gpsfake/GpsfakeRun.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/maintain/Nmea.java" afterPath="$PROJECT_DIR$/src/main/java/simulation/Nmea.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/maintain/Simulation.java" afterPath="$PROJECT_DIR$/src/main/java/simulation/Simulation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/maintain/SumoVehicle.java" afterPath="$PROJECT_DIR$/src/main/java/simulation/SumoVehicle.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/maintain/Task.java" afterPath="$PROJECT_DIR$/src/main/java/simulation/Task.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationServer.java" afterPath="$PROJECT_DIR$/src/main/java/gpsfake/V2XConfigurationServer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationThread.java" afterPath="$PROJECT_DIR$/src/main/java/gpsfake/V2XConfigurationThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/Controller$1.class" afterPath="$PROJECT_DIR$/target/classes/maintain/Controller$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/maintain/Controller.class" afterPath="$PROJECT_DIR$/target/classes/maintain/Controller.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manualTrack.nmea" afterPath="$PROJECT_DIR$/manualTrack.nmea" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/V2X-Simulation.iml" afterPath="$PROJECT_DIR$/V2X-Simulation.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulation/map.net.xml" afterPath="$PROJECT_DIR$/simulation/map.net.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/maintain/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/maintain/Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/process/EdgeElement.java" afterPath="$PROJECT_DIR$/src/main/java/process/EdgeElement.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/process/EdgeSearch.java" afterPath="$PROJECT_DIR$/src/main/java/process/EdgeSearch.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/process/NetFileLoad.java" afterPath="$PROJECT_DIR$/src/main/java/process/NetFileLoad.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/simulation/Simulation.java" afterPath="$PROJECT_DIR$/src/main/java/simulation/Simulation.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -92,31 +74,38 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-47">
-              <caret line="146" column="75" lean-forward="false" selection-start-line="146" selection-start-column="60" selection-end-line="146" selection-end-column="75" />
+            <state relative-caret-position="2214">
+              <caret line="151" column="118" lean-forward="false" selection-start-line="151" selection-start-column="118" selection-end-line="151" selection-end-column="118" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NetFileLoad.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NetFileLoad.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/process/NetFileLoad.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding>
-                <element signature="e#371#372#0" expanded="true" />
-                <element signature="e#423#424#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="465">
+              <caret line="159" column="85" lean-forward="false" selection-start-line="159" selection-start-column="85" selection-end-line="159" selection-end-column="85" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Simulation.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Predicate.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/function/Predicate.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="213">
+              <caret line="48" column="12" lean-forward="false" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Simulation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/simulation/Simulation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-346">
-              <caret line="142" column="51" lean-forward="true" selection-start-line="142" selection-start-column="51" selection-end-line="142" selection-end-column="51" />
+            <state relative-caret-position="442">
+              <caret line="193" column="113" lean-forward="false" selection-start-line="193" selection-start-column="113" selection-end-line="193" selection-end-column="113" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -127,8 +116,18 @@
       <file leaf-file-name="EdgeSearch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeSearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2340">
-              <caret line="143" column="39" lean-forward="false" selection-start-line="143" selection-start-column="39" selection-end-line="143" selection-end-column="39" />
+            <state relative-caret-position="342">
+              <caret line="48" column="43" lean-forward="true" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EdgeElement.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeElement.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="35" column="20" lean-forward="false" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -137,52 +136,8 @@
       <file leaf-file-name="EdgeConvertType.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeConvertType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
+            <state relative-caret-position="576">
               <caret line="45" column="5" lean-forward="false" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Nmea.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/simulation/Nmea.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#398#399#0" expanded="false" />
-                <element signature="e#425#426#0" expanded="false" />
-                <element signature="e#465#466#0" expanded="false" />
-                <element signature="e#497#498#0" expanded="false" />
-                <element signature="e#528#529#0" expanded="false" />
-                <element signature="e#555#556#0" expanded="false" />
-                <element signature="e#595#596#0" expanded="false" />
-                <element signature="e#627#628#0" expanded="false" />
-                <element signature="e#659#660#0" expanded="false" />
-                <element signature="e#687#688#0" expanded="false" />
-                <element signature="e#729#730#0" expanded="false" />
-                <element signature="e#763#764#0" expanded="false" />
-                <element signature="e#795#796#0" expanded="false" />
-                <element signature="e#823#824#0" expanded="false" />
-                <element signature="e#865#866#0" expanded="false" />
-                <element signature="e#899#900#0" expanded="false" />
-                <element signature="e#932#933#0" expanded="false" />
-                <element signature="e#960#961#0" expanded="false" />
-                <element signature="e#1003#1004#0" expanded="false" />
-                <element signature="e#1037#1038#0" expanded="false" />
-                <element signature="e#2489#2490#0" expanded="false" />
-                <element signature="e#2544#2545#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="V2XConfigurationServer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/gpsfake/V2XConfigurationServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -191,37 +146,9 @@
       <file leaf-file-name="V2XConfigurationThread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/gpsfake/V2XConfigurationThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
+            <state relative-caret-position="1386">
               <caret line="88" column="47" lean-forward="false" selection-start-line="88" selection-start-column="35" selection-end-line="88" selection-end-column="47" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Task.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/simulation/Task.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="11" column="26" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#233#234#0" expanded="false" />
-                <element signature="e#263#264#0" expanded="false" />
-                <element signature="e#309#310#0" expanded="false" />
-                <element signature="e#347#348#0" expanded="false" />
-                <element signature="e#376#377#0" expanded="false" />
-                <element signature="e#401#402#0" expanded="false" />
-                <element signature="e#437#438#0" expanded="false" />
-                <element signature="e#465#466#0" expanded="false" />
-                <element signature="e#507#508#0" expanded="false" />
-                <element signature="e#539#540#0" expanded="false" />
-                <element signature="e#595#596#0" expanded="false" />
-                <element signature="e#637#638#0" expanded="false" />
-                <element signature="e#682#683#0" expanded="false" />
-                <element signature="e#718#719#0" expanded="false" />
-                <element signature="e#738#739#0" expanded="false" />
-                <element signature="e#789#790#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -265,6 +192,8 @@
       <find>queue</find>
       <find>que</find>
       <find>task</find>
+      <find>typeMap</find>
+      <find>Edges</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -292,7 +221,6 @@
         <option value="$PROJECT_DIR$/src/maintain/Simulation.java" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/Sumo.java" />
         <option value="$PROJECT_DIR$/src/main/java/it/polito/appeal/traci/Vehicle.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/view.fxml" />
         <option value="$PROJECT_DIR$/src/main/resources/maintain/view.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/Gpsfake.java" />
@@ -306,7 +234,6 @@
         <option value="$PROJECT_DIR$/src/main/java/maintain/Task.java" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/V2XConfigurationServer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/process/EdgeElement.java" />
         <option value="$PROJECT_DIR$/src/main/java/maintain/ConfigurationParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/process/ConfigurationFile.java" />
         <option value="$PROJECT_DIR$/src/main/java/process/ConfigurationParser.java" />
@@ -314,16 +241,18 @@
         <option value="$PROJECT_DIR$/src/main/java/simulation/SumoVehicle.java" />
         <option value="$PROJECT_DIR$/src/main/java/gpsfake/GpsfakeRun.java" />
         <option value="$PROJECT_DIR$/src/main/java/gpsfake/Controller.java" />
-        <option value="$PROJECT_DIR$/src/main/java/maintain/Controller.java" />
         <option value="$PROJECT_DIR$/src/main/java/gpsfake/GpsfakeManagement.java" />
         <option value="$PROJECT_DIR$/src/main/java/gpsfake/V2XConfigurationServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/gpsfake/V2XConfigurationThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/simulation/Nmea.java" />
         <option value="$PROJECT_DIR$/src/main/java/simulation/Task.java" />
         <option value="$PROJECT_DIR$/src/main/java/process/EdgeConvertType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/process/NetFileLoad.java" />
-        <option value="$PROJECT_DIR$/src/main/java/process/EdgeSearch.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/maintain/Controller.java" />
         <option value="$PROJECT_DIR$/src/main/java/simulation/Simulation.java" />
+        <option value="$PROJECT_DIR$/src/main/java/process/EdgeSearch.java" />
+        <option value="$PROJECT_DIR$/src/main/java/process/EdgeElement.java" />
+        <option value="$PROJECT_DIR$/src/main/java/process/NetFileLoad.java" />
       </list>
     </option>
   </component>
@@ -358,8 +287,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
     <option name="y" value="24" />
-    <option name="width" value="1855" />
-    <option name="height" value="1056" />
+    <option name="width" value="1301" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -380,8 +309,21 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="V2X-Simulation-with-SUMO" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="V2X-Simulation-with-SUMO" />
@@ -546,9 +488,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -944,11 +883,13 @@
       <workItem from="1491249962814" duration="3173000" />
       <workItem from="1491305824150" duration="10951000" />
       <workItem from="1491334071959" duration="6897000" />
+      <workItem from="1492938494798" duration="5615000" />
+      <workItem from="1492951632150" duration="4473000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="180502000" />
+    <option name="totallyTimeSpent" value="190590000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -960,39 +901,39 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
+    <frame x="65" y="24" width="1301" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32721713" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2925586" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09326146" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27440432" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39760837" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32721713" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1012,23 +953,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/target/src/java-gen/it/polito/appeal/traci/Route.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/it/polito/appeal/traci/AddRouteQuery.java" />
-    <entry file="jar://$PROJECT_DIR$/lib/TraaS.jar!/it/polito/appeal/traci/SumoTraciConnection.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/it/polito/appeal/traci/Repository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
-          <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/TraaS.jar!/de/tudresden/sumo/cmd/Vehicle.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="14" column="5" lean-forward="false" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_111/src.zip!/java/lang/Override.java" />
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_111/src.zip!/java/lang/Thread.java" />
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_111/javafx-src.zip!/com/sun/javafx/application/LauncherImpl.java" />
@@ -1120,13 +1044,6 @@
       </provider>
     </entry>
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_111/src.zip!/java/util/List.java" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="524">
-          <caret line="49" column="21" lean-forward="false" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/maintain/view.fxml" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/maintain/pictures/BME_logo.png">
       <provider selected="true" editor-type-id="images">
@@ -1221,16 +1138,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/process/ConfigurationFile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="665">
@@ -1253,38 +1160,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/simulation/Nmea.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#398#399#0" expanded="false" />
-            <element signature="e#425#426#0" expanded="false" />
-            <element signature="e#465#466#0" expanded="false" />
-            <element signature="e#497#498#0" expanded="false" />
-            <element signature="e#528#529#0" expanded="false" />
-            <element signature="e#555#556#0" expanded="false" />
-            <element signature="e#595#596#0" expanded="false" />
-            <element signature="e#627#628#0" expanded="false" />
-            <element signature="e#659#660#0" expanded="false" />
-            <element signature="e#687#688#0" expanded="false" />
-            <element signature="e#729#730#0" expanded="false" />
-            <element signature="e#763#764#0" expanded="false" />
-            <element signature="e#795#796#0" expanded="false" />
-            <element signature="e#823#824#0" expanded="false" />
-            <element signature="e#865#866#0" expanded="false" />
-            <element signature="e#899#900#0" expanded="false" />
-            <element signature="e#932#933#0" expanded="false" />
-            <element signature="e#960#961#0" expanded="false" />
-            <element signature="e#1003#1004#0" expanded="false" />
-            <element signature="e#1037#1038#0" expanded="false" />
-            <element signature="e#2489#2490#0" expanded="false" />
-            <element signature="e#2544#2545#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Sumo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -1303,10 +1178,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="985">
           <caret line="132" column="46" lean-forward="true" selection-start-line="132" selection-start-column="46" selection-end-line="132" selection-end-column="46" />
-          <folding>
-            <element signature="e#3552#3553#0" expanded="false" />
-            <element signature="e#3603#3604#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1314,86 +1185,124 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="11" column="26" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#233#234#0" expanded="false" />
-            <element signature="e#263#264#0" expanded="false" />
-            <element signature="e#309#310#0" expanded="false" />
-            <element signature="e#347#348#0" expanded="false" />
-            <element signature="e#376#377#0" expanded="false" />
-            <element signature="e#401#402#0" expanded="false" />
-            <element signature="e#437#438#0" expanded="false" />
-            <element signature="e#465#466#0" expanded="false" />
-            <element signature="e#507#508#0" expanded="false" />
-            <element signature="e#539#540#0" expanded="false" />
-            <element signature="e#595#596#0" expanded="false" />
-            <element signature="e#637#638#0" expanded="false" />
-            <element signature="e#682#683#0" expanded="false" />
-            <element signature="e#718#719#0" expanded="false" />
-            <element signature="e#738#739#0" expanded="false" />
-            <element signature="e#789#790#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/process/NetFileLoad.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="e#371#372#0" expanded="true" />
-            <element signature="e#423#424#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/gpsfake/V2XConfigurationServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
+        <state relative-caret-position="126">
           <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/gpsfake/V2XConfigurationThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
+        <state relative-caret-position="1386">
           <caret line="88" column="47" lean-forward="false" selection-start-line="88" selection-start-column="35" selection-end-line="88" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/simulation/Nmea.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1386">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/davidmoten/rtree/RTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="37" column="19" lean-forward="false" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/davidmoten/rtree/internal/FactoryDefault.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/davidmoten/rtree/Entry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/davidmoten/rtree/internal/NonLeafDefault.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="15" column="19" lean-forward="false" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/maintain/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-47">
-          <caret line="146" column="75" lean-forward="false" selection-start-line="146" selection-start-column="60" selection-end-line="146" selection-end-column="75" />
+        <state relative-caret-position="2214">
+          <caret line="151" column="118" lean-forward="false" selection-start-line="151" selection-start-column="118" selection-end-line="151" selection-end-column="118" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeConvertType.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="45" column="5" lean-forward="false" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeSearch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2340">
-          <caret line="143" column="39" lean-forward="false" selection-start-line="143" selection-start-column="39" selection-end-line="143" selection-end-column="39" />
+        <state relative-caret-position="450">
+          <caret line="67" column="21" lean-forward="false" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/simulation/Simulation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-346">
-          <caret line="142" column="51" lean-forward="true" selection-start-line="142" selection-start-column="51" selection-end-line="142" selection-end-column="51" />
+        <state relative-caret-position="442">
+          <caret line="193" column="113" lean-forward="false" selection-start-line="193" selection-start-column="113" selection-end-line="193" selection-end-column="113" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeConvertType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="45" column="5" lean-forward="false" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/function/Predicate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="48" column="12" lean-forward="false" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeSearch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="48" column="43" lean-forward="true" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/process/EdgeElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="35" column="20" lean-forward="false" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/process/NetFileLoad.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="159" column="85" lean-forward="false" selection-start-line="159" selection-start-column="85" selection-end-line="159" selection-end-column="85" />
+          <folding />
         </state>
       </provider>
     </entry>
