@@ -1,11 +1,13 @@
 package simulation;
 
 
+import com.github.davidmoten.rtree.Entry;
 import com.github.davidmoten.rtree.RTree;
 import com.github.davidmoten.rtree.geometry.Rectangle;
 import it.polito.appeal.traci.*;
 import org.w3c.dom.Document;
 import process.EdgeConvertType;
+import process.EdgeElement;
 import process.EdgeSearch;
 
 import java.awt.geom.Point2D;
@@ -22,12 +24,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Simulation implements Runnable {
     private long delay;
     private String configfile;
-    private RTree<String, Rectangle> edgeRTree;
+    private RTree<EdgeElement, Rectangle> edgeRTree;
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
     private Queue<Task> taskQueue;
     private DateFormat dateFormatdate = new SimpleDateFormat("ddMMyy");
     private DateFormat dateFormattime = new SimpleDateFormat("HHmmss.SS");
-    private List<SumoVehicle> vehicleScrDst = new ArrayList<SumoVehicle>();
+    private Map<String,SumoVehicle> vehicleSrcDst = new HashMap<>();
 
 
     private Queue<EdgeConvertType> pointToEdgeQueue = new ConcurrentLinkedQueue<>();
@@ -37,7 +39,7 @@ public class Simulation implements Runnable {
     private boolean closeSumo;
 
     public Simulation(String configfile, int delay, Map<String,
-            ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues, Queue<Task> taskQueue, RTree<String, Rectangle> edgeRTree){
+            ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues, Queue<Task> taskQueue, RTree<EdgeElement, Rectangle> edgeRTree){
         this.configfile = configfile;
         this.delay = delay;
         this.gpsfakeManagmentQueues = gpsfakeManagmentQueues;
@@ -64,19 +66,16 @@ public class Simulation implements Runnable {
             conn.nextSimStep();
             conn.nextSimStep();
             System.out.println("ok");
-            Vehicle fVehicle = conn.getVehicleRepository().getByID("555");
-
-            List<Edge> actroute1=  fVehicle.getCurrentRoute();
-            Edge src = actroute1.get(0);
-            Edge dst = actroute1.get(actroute1.size()-1);
-            System.out.println("Src: " + src);
-            System.out.println("Dst: " + dst);
-
-
 
 
             do {
+                if(conn.getVehicleRepository().getAll().size() > vehicleSrcDst.size() ){
+                    Map<String,Vehicle> vehicles = conn.getVehicleRepository().getAll();
+                    storeVehicleSrcDst(vehicles);
+                }
+
                 Task task;
+                //TODO erre jobb feltetelt adni, igy beragadhat
                 while((task = taskQueue.poll())!= null){
                     if(gpsfakeManagmentQueues.containsKey(task.getId())) {
                         System.out.print("SUMO id: " + task.getId() + "command: " + task.getCommand());
@@ -89,7 +88,7 @@ public class Simulation implements Runnable {
                     }
                 }
 
-                //TODO erre jobb feltetelt adni, igy beragadhat
+               /* /
                 while(!resultEdge.isEmpty()){
                     EdgeConvertType result = resultEdge.poll();
                     if(result.getEdge() != "") {
@@ -101,7 +100,7 @@ public class Simulation implements Runnable {
                     else{
                         System.out.println("Not found the EDGE!!!");
                     }
-                }
+                }*/
 
                 Date date = new Date();
                 String actdate = dateFormatdate.format(date);
@@ -124,16 +123,13 @@ public class Simulation implements Runnable {
                         //System.out.println("Act edge: " + actedge.toString());
                         if (actroute.get(actroute.size() - 1) == actVehicle.getCurrentEdge()) {
 
-                            Edge newdst = src;
-
-                            src = dst;
-                            dst = newdst;
+                            vehicleSrcDst.get(vehicleID).changeSrcDst();
 
 
-                            System.out.println("A végére ért a kör elindul " + actVehicle.getCurrentEdge() + " -ról ide: " + newdst);
-                            System.out.println("New src: " + src + " new dst: " + dst);
-                            if (newdst != null)
-                                actVehicle.changeTarget(newdst);
+
+                            System.out.println("A végére ért a kör elindul " + actVehicle.getCurrentEdge() + " -ról ide: " + vehicleSrcDst.get(vehicleID).getDst());
+                            if (vehicleSrcDst.get(vehicleID).getDst() != null)
+                                actVehicle.changeTarget(vehicleSrcDst.get(vehicleID).getDst());
 
                         }
 
@@ -187,11 +183,23 @@ public class Simulation implements Runnable {
                             pcq.setPositionToConvert(latlon, false);
                             Point2D posCartesian = pcq.get();
 
-                            String vehicleType = actVehicle.getType();
+                            //TODO megirni a VehicleClass-t traciban, nem lehet lekerni
+                            String vehicleType = "passenger";
                             System.out.println("Vehcile type (new dst)" + vehicleType);
                             System.out.println("Param: " + latlon.getX() + "," + latlon.getY());
+                            posCartesian = new Point2D.Double(2533.27,3901.24);
 
                             String vehicleNewDstEdge = edgeSearch.getEdgeFromCoordinate(posCartesian, vehicleType);
+                            if(vehicleNewDstEdge !="") {
+                                SumoVehicle modifyDst = vehicleSrcDst.get(task.getId());
+                                modifyDst.setDst(conn.getEdgeRepository().getByID(vehicleNewDstEdge));
+
+                                actVehicle.changeTarget(modifyDst.getDst());
+                                vehicleSrcDst.put(task.getId(), modifyDst);
+                            }
+                            else{
+                                System.out.println("Not found Edge");
+                            }
                             //EdgeConvertType target = new EdgeConvertType(task.getId(), posCartesian);
 
 
@@ -217,6 +225,19 @@ public class Simulation implements Runnable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void storeVehicleSrcDst(Map<String, Vehicle> vehicles) throws IOException {
+        Set<Map.Entry<String, Vehicle>> vehicleSet= vehicles.entrySet();
+        for(Map.Entry<String,Vehicle> entry: vehicleSet){
+            if(!vehicleSrcDst.containsKey(entry.getKey())){
+                List<Edge> actroute=  entry.getValue().getCurrentRoute();
+                System.out.println("Src: " +entry.getKey() +" - " + actroute.get(0));
+                System.out.println("Dst: " + actroute.get(actroute.size()-1));
+                vehicleSrcDst.put(entry.getKey(), new SumoVehicle(actroute.get(0),actroute.get(actroute.size()-1)));
+            }
+
         }
     }
 }

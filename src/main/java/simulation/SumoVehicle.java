@@ -9,11 +9,6 @@ public class SumoVehicle {
 
     private Edge src;
     private Edge dst;
-    private String id;
-
-    public String getId() {
-        return id;
-    }
 
     public Edge getSrc() {
         return src;
@@ -31,10 +26,9 @@ public class SumoVehicle {
         this.dst = dst;
     }
 
-    public SumoVehicle(Edge src, Edge dst, String id) {
+    public SumoVehicle(Edge src, Edge dst) {
         this.src = src;
         this.dst = dst;
-        this.id = id;
     }
 
     public void changeSrcDst(){

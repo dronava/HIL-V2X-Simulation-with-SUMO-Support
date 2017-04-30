@@ -24,6 +24,7 @@ import gpsfake.GpsfakeManagement;
 import org.w3c.dom.Document;
 import process.ConfigurationFile;
 import process.ConfigurationParser;
+import process.EdgeElement;
 import process.NetFileLoad;
 import simulation.Simulation;
 import simulation.Task;
@@ -42,7 +43,7 @@ public class Controller implements Initializable{
     private ConfigurationParser configurationParser;
     private ConfigurationFile configurationFiles;
     private NetFileLoad netFileLoad;
-    private RTree<String, Rectangle> edgeRTree;
+    private RTree<EdgeElement, Rectangle> edgeRTree;
     private ObservableList<String> vehicleID = FXCollections.observableArrayList();
 
     private String configurationFile;

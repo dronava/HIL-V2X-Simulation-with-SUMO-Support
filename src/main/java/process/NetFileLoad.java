@@ -200,9 +200,33 @@ public class NetFileLoad extends Task<RTree<EdgeElement, Rectangle>> {
             rectangle = Geometries.rectangle(point2.getX(), point2.getY(), point1.getX(), point1.getY());
 
             rTree = rTree.add(actedge, rectangle);
+
+            if (point1.getX() > point2.getX() && point1.getY() > point2.getY()) {
+                rectangle = Geometries.rectangle(point2.getX(), point2.getY(), point1.getX(), point1.getY());
+
+                rTree = rTree.add(actedge, rectangle);
+            } else if (point1.getX() < point2.getX() && point1.getY() < point2.getY()) {
+                rectangle = Geometries.rectangle(point1.getX(), point1.getY(), point2.getX(), point2.getY());
+                rTree = rTree.add(actedge, rectangle);
+            } else {
+                Point2D tmp1 = point1;
+                Point2D tmp2 = point2;
+                point1 = newPoint(points[i], points[i + 1], 1, actedge.getWidth()); // ((j%2)== 0?-1:1)));
+                point2 = newPoint(points[i + 1], points[i], 1, actedge.getWidth());
+                if (point1.getX() > point2.getX() && point1.getY() > point2.getY()) {
+                    rectangle = Geometries.rectangle(point2.getX(), point2.getY(), point1.getX(), point1.getY());
+
+                    rTree = rTree.add(actedge, rectangle);
+                } else if (point1.getX() < point2.getX() && point1.getY() < point2.getY()) {
+                    rectangle = Geometries.rectangle(point1.getX(), point1.getY(), point2.getX(), point2.getY());
+                    rTree = rTree.add(actedge, rectangle);
+                }
+            }
+
+
         }
     }
-
+    
     private Point2D newPoint(Point2D a, Point2D b, int heading, double width) {
 
         double dx = a.getX() - b.getX();

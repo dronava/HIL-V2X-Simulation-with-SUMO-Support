@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import rx.observables.BlockingObservable;
 
 import java.awt.geom.Point2D;
 import java.util.HashMap;
@@ -31,29 +32,33 @@ public class EdgeSearch {
     private Queue<EdgeConvertType> pointToEdgeQueue;
     private Queue<EdgeConvertType> resultEdge;
 
-    RTree<String, Rectangle> rTree;
+    RTree<EdgeElement, Rectangle> rTree;
 
     public volatile boolean isRunning;
 
-    public EdgeSearch(RTree<String, Rectangle> rTree){
+    public EdgeSearch(RTree<EdgeElement, Rectangle> rTree){
         this.rTree = rTree;
-        this.pointToEdgeQueue = pointToEdgeQueue;
-        this.resultEdge = resultEdge;
+        //this.pointToEdgeQueue = pointToEdgeQueue;
+        //this.resultEdge = resultEdge;
         //netFile.getDocumentElement().normalize();
         isRunning = false;
     }
 
     public String getEdgeFromCoordinate(Point2D destination, String vehicleType){
-        String result = "";
-
+        //1974.35,4293.80
         long kezdKeres = System.nanoTime();
-        Iterable<Entry<String, Rectangle>> results =
-                rTree.search(Geometries.point(1974.35,4293.80)).toBlocking().toIterable();
+        //Iterable<Entry<EdgeElement, Rectangle>> results =
+                //rTree.search(Geometries.point(destination.getX(), destination.getY())).toBlocking().toIterable();
 
-        Iterator<Entry<String,Rectangle>> iter = results.iterator();
+        BlockingObservable<Entry<EdgeElement, Rectangle>> results = rTree.search(Geometries.point(destination.getX(),destination.getY()))
+                // filter for allowed vehicle type
+                .filter(entry ->(entry.value().getAllow().contains(vehicleType) && !entry.value().getDisallow().contains(vehicleType))).toBlocking();
+
+        Iterator<Entry<EdgeElement,Rectangle>> iter = results.toIterable().iterator();
+
         while(iter.hasNext()) {
-            Entry<String,Rectangle> act =iter.next();
-            System.out.println("Found: " +act.value());
+            Entry<EdgeElement,Rectangle> act =iter.next();
+            System.out.println("Found: " +act.value().getId());
         }
 
         long vegKeres = System.nanoTime();
@@ -64,7 +69,13 @@ public class EdgeSearch {
                 String.format("%d mil", TimeUnit.NANOSECONDS.toMillis(differenceKeres)));
 
 
-        return result;
+
+        Entry<EdgeElement, Rectangle> result = results.firstOrDefault(null);
+        if(result != null){
+            return result.value().getId();
+        }
+        else
+            return "";
     }
 
    /* @Override
