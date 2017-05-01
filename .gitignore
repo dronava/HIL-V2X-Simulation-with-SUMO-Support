@@ -7,7 +7,7 @@
 
 # User-specific stuff:
 .idea/**/workspace.xml
-.idea/
+.idea/*
 .idea/**/tasks.xml
 .idea/dictionaries
 
@@ -56,7 +56,7 @@ fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-# *.iml
+*.iml
 # modules.xml
 # .idea/misc.xml
 # *.ipr
@@ -68,6 +68,8 @@ fabric.properties
 # Compiled class file
 *.class
 
+target/
+
 # Log file
 *.log
 
@@ -78,7 +80,7 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#*.jar
 *.war
 *.ear
 *.zip

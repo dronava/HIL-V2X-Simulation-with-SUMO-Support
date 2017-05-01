@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.jsi.Rectangle;
+
+
 /**
  * Created by szezso on 2017.04.01..
  */
@@ -19,6 +22,8 @@ public class EdgeElement {
 
     String type;
     List<List<Point2D>> shapes = new ArrayList<List<Point2D>>();
+
+    Rectangle rectangle;
 
     public String getId() {
         return id;
@@ -63,6 +68,10 @@ public class EdgeElement {
     public String getDisallow() { return disallow; }
 
     public void setDisallow(String disallow) { this.disallow = disallow; }
+
+    public  void  setRectangle(Rectangle rect){this.rectangle = rect;}
+
+    public Rectangle getRectangle(){return  this.rectangle;}
 
     public EdgeElement() {
         //http://sumo.dlr.de/wiki/Simulation/SublaneModel Default width = 3.2m

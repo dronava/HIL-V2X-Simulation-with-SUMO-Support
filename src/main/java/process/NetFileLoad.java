@@ -1,6 +1,7 @@
 package process;
 
 import javafx.concurrent.Task;
+import net.sf.jsi.Rectangle;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -8,15 +9,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import java.util.concurrent.TimeUnit;
 
-import com.github.davidmoten.rtree.Entry;
-import com.github.davidmoten.rtree.RTree;
-import com.github.davidmoten.rtree.geometry.Geometries;
-import com.github.davidmoten.rtree.geometry.Rectangle;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -24,10 +20,10 @@ import org.w3c.dom.NodeList;
 /**
  * Created by szezso on 2017.04.04..
  */
-public class NetFileLoad extends Task<RTree<EdgeElement, Rectangle>> {
+public class NetFileLoad extends Task<MyRTree> {
 
     private String configfilepath;
-    private RTree<EdgeElement, Rectangle> rTree;
+    private MyRTree rTree;
     private List<EdgeElement> typeElements= new ArrayList<>();
 
     public NetFileLoad(String configFilePath) {
@@ -35,8 +31,8 @@ public class NetFileLoad extends Task<RTree<EdgeElement, Rectangle>> {
     }
 
     @Override
-    protected RTree<EdgeElement, Rectangle> call() throws Exception {
-        rTree = RTree.create();
+    protected MyRTree call() throws Exception {
+        rTree = new MyRTree();
         double width = 3.2;
 
         try {
@@ -168,11 +164,9 @@ public class NetFileLoad extends Task<RTree<EdgeElement, Rectangle>> {
             long veg = System.nanoTime();
 
             long difference = veg - kezd;
-            System.out.println("Tree size " + rTree.size());
+            System.out.println("Tree size " + rTree.getRTree().size());
             System.out.println("Total execution time: " +
                     String.format("%d mil", TimeUnit.NANOSECONDS.toMillis(difference)));
-            rTree.visualize(1366, 768).save(new File("target/treeMapEdgeEnhanced.png"), "PNG");
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -196,37 +190,14 @@ public class NetFileLoad extends Task<RTree<EdgeElement, Rectangle>> {
             Point2D point1 = newPoint(points[i], points[i + 1], -1, actedge.getWidth()); // ((j%2)== 0?-1:1)));
             Point2D point2 = newPoint(points[i + 1], points[i], -1, actedge.getWidth());
 
-            Rectangle rectangle;
-            rectangle = Geometries.rectangle(point2.getX(), point2.getY(), point1.getX(), point1.getY());
+            Rectangle rectangle = new Rectangle((float) point1.getX(), (float) point1.getY(),
+                    (float) point2.getX(), (float) point2.getY());
+            actedge.setRectangle(rectangle);
 
-            rTree = rTree.add(actedge, rectangle);
-
-            if (point1.getX() > point2.getX() && point1.getY() > point2.getY()) {
-                rectangle = Geometries.rectangle(point2.getX(), point2.getY(), point1.getX(), point1.getY());
-
-                rTree = rTree.add(actedge, rectangle);
-            } else if (point1.getX() < point2.getX() && point1.getY() < point2.getY()) {
-                rectangle = Geometries.rectangle(point1.getX(), point1.getY(), point2.getX(), point2.getY());
-                rTree = rTree.add(actedge, rectangle);
-            } else {
-                Point2D tmp1 = point1;
-                Point2D tmp2 = point2;
-                point1 = newPoint(points[i], points[i + 1], 1, actedge.getWidth()); // ((j%2)== 0?-1:1)));
-                point2 = newPoint(points[i + 1], points[i], 1, actedge.getWidth());
-                if (point1.getX() > point2.getX() && point1.getY() > point2.getY()) {
-                    rectangle = Geometries.rectangle(point2.getX(), point2.getY(), point1.getX(), point1.getY());
-
-                    rTree = rTree.add(actedge, rectangle);
-                } else if (point1.getX() < point2.getX() && point1.getY() < point2.getY()) {
-                    rectangle = Geometries.rectangle(point1.getX(), point1.getY(), point2.getX(), point2.getY());
-                    rTree = rTree.add(actedge, rectangle);
-                }
-            }
-
-
+            rTree.add(actedge, rectangle);
         }
     }
-    
+
     private Point2D newPoint(Point2D a, Point2D b, int heading, double width) {
 
         double dx = a.getX() - b.getX();

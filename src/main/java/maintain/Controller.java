@@ -1,7 +1,5 @@
 package maintain;
 
-import com.github.davidmoten.rtree.RTree;
-import com.github.davidmoten.rtree.geometry.Rectangle;
 import gpsfake.GpsfakeRun;
 import gpsfake.V2XConfigurationServer;
 import javafx.collections.FXCollections;
@@ -21,29 +19,24 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import javafx.stage.FileChooser.ExtensionFilter;
 import gpsfake.GpsfakeManagement;
-import org.w3c.dom.Document;
-import process.ConfigurationFile;
-import process.ConfigurationParser;
-import process.EdgeElement;
-import process.NetFileLoad;
+import process.*;
 import simulation.Simulation;
 import simulation.Task;
 
 public class Controller implements Initializable{
 
-    BlockingQueue<String> queue;
-    ExecutorService cachedPool = Executors.newCachedThreadPool();
-    List<GpsfakeRun> gpsfakes = new ArrayList<GpsfakeRun>();
+    private BlockingQueue<String> queue;
+    private ExecutorService cachedPool = Executors.newCachedThreadPool();
+    private List<GpsfakeRun> gpsfakes = new ArrayList<>();
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
     private Queue<Task> taskQueue = new ConcurrentLinkedQueue();
-
 
     private Simulation simulation;
     private V2XConfigurationServer configurationServer;
     private ConfigurationParser configurationParser;
     private ConfigurationFile configurationFiles;
     private NetFileLoad netFileLoad;
-    private RTree<EdgeElement, Rectangle> edgeRTree;
+    private MyRTree edgeRTree;
     private ObservableList<String> vehicleID = FXCollections.observableArrayList();
 
     private String configurationFile;
@@ -72,7 +65,7 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cachedPool = Executors.newCachedThreadPool();
-        queue = new LinkedBlockingQueue<String>();
+        queue = new LinkedBlockingQueue<>();
         System.out.println("GPSD_HOME: " + System.getenv("GPSD_HOME"));
         System.out.println("OS: "+ System.getProperty("os.name"));
         gpsfakeCommandTextField.setText("gpsfake -o -G -P 5555 -M 7777 -f");
@@ -126,7 +119,7 @@ public class Controller implements Initializable{
                             configurationReadSateLabel.setText("Configuration file loaded");
                             configurationReadSateLabel.setTextFill(Color.web("#3ae437"));
 
-                            startSimulationButton.setDisable(false);
+
                             for (String s: vehicleID){
                                 System.out.println("Vehicles: "+ s);
                             }
@@ -138,7 +131,10 @@ public class Controller implements Initializable{
                                         @Override
                                         public void handle(WorkerStateEvent t) {
                                             edgeRTree  = netFileLoad.getValue();
+                                            configurationReadSateLabel.setText("Net file loaded");
+                                            startSimulationButton.setDisable(false);
                                         }
+
                                     });
 
                         }

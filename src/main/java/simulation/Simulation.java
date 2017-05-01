@@ -1,14 +1,10 @@
 package simulation;
 
 
-import com.github.davidmoten.rtree.Entry;
-import com.github.davidmoten.rtree.RTree;
-import com.github.davidmoten.rtree.geometry.Rectangle;
 import it.polito.appeal.traci.*;
-import org.w3c.dom.Document;
 import process.EdgeConvertType;
-import process.EdgeElement;
 import process.EdgeSearch;
+import process.MyRTree;
 
 import java.awt.geom.Point2D;
 import java.io.IOException;
@@ -24,7 +20,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Simulation implements Runnable {
     private long delay;
     private String configfile;
-    private RTree<EdgeElement, Rectangle> edgeRTree;
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
     private Queue<Task> taskQueue;
     private DateFormat dateFormatdate = new SimpleDateFormat("ddMMyy");
@@ -39,12 +34,11 @@ public class Simulation implements Runnable {
     private boolean closeSumo;
 
     public Simulation(String configfile, int delay, Map<String,
-            ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues, Queue<Task> taskQueue, RTree<EdgeElement, Rectangle> edgeRTree){
+            ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues, Queue<Task> taskQueue, MyRTree edgeRTree){
         this.configfile = configfile;
         this.delay = delay;
         this.gpsfakeManagmentQueues = gpsfakeManagmentQueues;
         this.taskQueue = taskQueue;
-        this.edgeRTree = edgeRTree;
         closeSumo = true;
         edgeSearch = new EdgeSearch(edgeRTree);
     }
@@ -111,8 +105,10 @@ public class Simulation implements Runnable {
                     ConcurrentLinkedQueue<String> queue = managmentQueue.getValue();
                     Vehicle actVehicle = conn.getVehicleRepository().getByID(vehicleID);
 
-                    if(actVehicle == null)
+                    if(actVehicle == null) {
                         System.out.println("A " + vehicleID + " null értékű");
+                        gpsfakeManagmentQueues.remove(vehicleID);
+                    }
                     else {
 
                         List<Edge> actroute = actVehicle.getCurrentRoute();
