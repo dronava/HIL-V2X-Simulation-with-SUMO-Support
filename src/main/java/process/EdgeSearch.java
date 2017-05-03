@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class EdgeSearch {
 
     private EdgeElement edgeElement = new EdgeElement();
-    Map<String, Double> typeMap = new HashMap<String, Double>();
+    Map<String, Double> typeMap = new HashMap<>();
 
     private Queue<EdgeConvertType> pointToEdgeQueue;
     private Queue<EdgeConvertType> resultEdge;

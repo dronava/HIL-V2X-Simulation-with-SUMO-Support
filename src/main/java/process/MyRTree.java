@@ -4,15 +4,17 @@ import net.sf.jsi.Rectangle;
 import net.sf.jsi.SpatialIndex;
 import net.sf.jsi.rtree.RTree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by szezso on 2017.04.30..
  */
-public class MyRTree {
-    static SpatialIndex rTree;
-    static List<EdgeElement> rTreeNodes;
+public class MyRTree implements Serializable {
+    static final long SerialVersionUID = -4862926644813433707L;
+    private SpatialIndex rTree;
+    private List<EdgeElement> rTreeNodes;
 
     public EdgeElement getNode(int i){
         return rTreeNodes.get(i);
