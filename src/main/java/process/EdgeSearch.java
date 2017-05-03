@@ -38,15 +38,19 @@ public class EdgeSearch {
                     if((rTree.getNode(i).getAllow().contains(vehicleType) || rTree.getNode(i).getAllow().isEmpty())
                             && !rTree.getNode(i).getDisallow().contains(vehicleType)){
                         results.add(rTree.getNode(i));
-                        if(rTree.getNode(i).getRectangle().distance(dest) < nearest[0]){
-                            nearest[0] = results.size()-1;
+                        if(rTree.getNode(i).getRectangle().distance(dest) < nearest[0]) {
+                            nearest[0] = results.size() - 1;
                             nearestval[0] = rTree.getNode(i).getRectangle().distance(dest);
                         }
+
                     }
                     System.out.println("Rectangle nearest " + i + " " + rTree.getNode(i).getId() + " dist: "
-                            + rTree.getNode(i).getRectangle().distance(dest));
+                            + rTree.getNode(i).getRectangle().distance(dest) + " nearest: " + nearest[0]);
                     return true;              // return true here to continue receiving results
                 },Float.MAX_VALUE);
+
+        //EdgeElement result = results.stream().min(Comparator.comparing(i->i.getRectangle().distance(dest))).orElse(null);
+        EdgeElement result = results.get(nearest[0]);
 
         long vegKeres = System.nanoTime();
         long differenceKeres = vegKeres-kezdKeres;
@@ -54,9 +58,9 @@ public class EdgeSearch {
         System.out.println("Total execution time Search: " +
                 String.format("%d mil", TimeUnit.NANOSECONDS.toMillis(differenceKeres)));
 
-        if(results.size() > 0){
-            System.out.println("Search result: " + results.get(nearest[0]).getId());
-            return results.get(nearest[0]).getId();
+        if(result != null){
+            System.out.println("Search result: " + result.getId());
+            return result.getId();
         }
         else
             return "";

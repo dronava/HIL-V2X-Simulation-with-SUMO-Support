@@ -183,7 +183,7 @@ public class Simulation implements Runnable {
                             String vehicleType = "passenger";
                             System.out.println("Vehcile type (new dst)" + vehicleType);
                             System.out.println("Param: " + latlon.getX() + "," + latlon.getY());
-                            posCartesian = new Point2D.Double(2533.27,3901.24);
+                            //posCartesian = new Point2D.Double(2533.27,3901.24);
 
                             String vehicleNewDstEdge = edgeSearch.getEdgeFromCoordinate(posCartesian, vehicleType);
                             if(vehicleNewDstEdge !="") {
