@@ -311,31 +311,28 @@ public class NetFileLoad extends Task<MyRTree> {
         }
     }
 
-    private  static void serializeMapsCatalogue(HashMap<String,String> map) throws IOException {
-        File mapFile = new File("saved_maps/netFiles.dat");
-        mapFile.getParentFile().mkdirs();
-        mapFile.createNewFile(); // if file already exists will do nothing
-
-        FileOutputStream fos =
-                new FileOutputStream(mapFile);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(map);
-        oos.close();
-        fos.close();
+    private void serializeMapsCatalogue(HashMap<String,String> map) throws IOException {
+        serializeMyObject(map, "saved_maps/netFiles.dat");
     }
 
     private  String serializeTree() throws IOException {
-
         LocalDateTime currentTime = LocalDateTime.now();
         String fileName = "saved_maps/".concat(currentTime.toString() + ".dat");
-        File ftreeFile= new File(fileName);
-        ftreeFile.getParentFile().mkdirs();
+        serializeMyObject(rTree, fileName);
+        return fileName;
+    }
+
+
+    private <T extends Serializable> void serializeMyObject(T serializeObject, String fileName) throws IOException {
+        File file = new File(fileName);
+        file.getParentFile().mkdirs();
+        file.createNewFile(); // if file already exists will do nothing
+
         FileOutputStream fos =
                 new FileOutputStream(fileName);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(rTree);
+        oos.writeObject(serializeObject);
         oos.close();
         fos.close();
-        return fileName;
     }
 }

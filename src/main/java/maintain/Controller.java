@@ -143,9 +143,11 @@ public class Controller implements Initializable{
     }
 
     public void startSimulation(){
-        if(!simulationDelayTextField.getText().isEmpty() && edgeRTree != null){
-            simulationDelay =Integer.parseInt(simulationDelayTextField.getText());
-
+        if(edgeRTree != null){
+            //TODO Delay
+            //!simulationDelayTextField.getText().isEmpty() &&
+            //simulationDelay =Integer.parseInt(simulationDelayTextField.getText());
+            simulationDelay = 0;
             simulation = new Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues, taskQueue, edgeRTree);
             cachedPool.execute(simulation);
 

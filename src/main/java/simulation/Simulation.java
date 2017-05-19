@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Created by szzso on 2017. 01. 21..
  */
 public class Simulation implements Runnable {
-    private long delay;
+    private int delay;
     private String configfile;
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
     private Queue<Task> taskQueue;
