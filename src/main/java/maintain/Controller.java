@@ -1,5 +1,6 @@
 package maintain;
 
+import command.AbstractCommand;
 import gpsfake.GpsfakeRun;
 import gpsfake.V2XConfigurationServer;
 import javafx.collections.FXCollections;
@@ -17,6 +18,8 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import java.io.File;
+import java.util.stream.Collectors;
+
 import javafx.stage.FileChooser.ExtensionFilter;
 import gpsfake.GpsfakeManagement;
 import process.*;
@@ -29,7 +32,7 @@ public class Controller implements Initializable{
     private ExecutorService cachedPool = Executors.newCachedThreadPool();
     private List<GpsfakeRun> gpsfakes = new ArrayList<>();
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
-    private Queue<Task> taskQueue = new ConcurrentLinkedQueue();
+    private Queue<AbstractCommand> taskQueue = new ConcurrentLinkedQueue();
 
     private Simulation simulation;
     private V2XConfigurationServer configurationServer;
@@ -67,7 +70,7 @@ public class Controller implements Initializable{
         cachedPool = Executors.newCachedThreadPool();
         queue = new LinkedBlockingQueue<>();
         System.out.println("GPSD_HOME: " + System.getenv("GPSD_HOME"));
-        System.out.println("OS: "+ System.getProperty("os.name"));
+        //System.out.println("OS: "+ System.getProperty("os.name"));
         gpsfakeCommandTextField.setText("gpsfake -o -G -P 5555 -M 7777 -f");
     }
     public void runGpsfake(){
@@ -148,6 +151,8 @@ public class Controller implements Initializable{
             //!simulationDelayTextField.getText().isEmpty() &&
             //simulationDelay =Integer.parseInt(simulationDelayTextField.getText());
             simulationDelay = 0;
+            List<String> managedVehicles = gpsfakes.stream().map(u -> u.getVehicleID()).collect(Collectors.toList());
+            managedVehicles.forEach(u -> System.out.println(u));
             simulation = new Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues, taskQueue, edgeRTree);
             cachedPool.execute(simulation);
 
@@ -166,7 +171,7 @@ public class Controller implements Initializable{
         String userDirectoryString ="/home/szezso/V2X-Simulation-with-SUMO/simulation/";
         File userDirectory = new File(userDirectoryString);
         if(!userDirectory.canRead()) {
-            userDirectory = new File("c:/");
+            userDirectory = new File("/home/");
         }
 
         FileChooser fileChooser = new FileChooser();

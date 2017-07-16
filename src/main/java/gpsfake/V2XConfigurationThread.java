@@ -1,6 +1,8 @@
 package gpsfake;
 
 
+import command.AbstractCommand;
+import command.FactoryCommand;
 import simulation.Task;
 
 import java.io.BufferedReader;
@@ -9,6 +11,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -16,7 +20,7 @@ import java.util.Queue;
  */
 public class V2XConfigurationThread implements Runnable {
     private Socket socket;
-    private Queue<Task> taskQueue;
+    private Queue<AbstractCommand> taskQueue;
 
     boolean m_bRunThread = true;
     boolean ServerOn = true;
@@ -26,7 +30,7 @@ public class V2XConfigurationThread implements Runnable {
         super();
     }
 
-    V2XConfigurationThread(Socket s, Queue<Task> taskQueue)
+    V2XConfigurationThread(Socket s, Queue<AbstractCommand> taskQueue)
     {
         this.socket = s;
         this.taskQueue = taskQueue;
@@ -57,7 +61,7 @@ public class V2XConfigurationThread implements Runnable {
                 // read incoming stream
                 String clientCommand = in.readLine();
                 System.out.println("Client Says :" + clientCommand);
-                Task task;
+                AbstractCommand task;
 
                 if(!ServerOn)
                 {
@@ -83,16 +87,17 @@ public class V2XConfigurationThread implements Runnable {
                     out.println("Server Says : " + clientCommand);
                     String[] splitCommand = clientCommand.split(";");
 
-                    task = new Task();
-
                     if(splitCommand.length > 1){
-                        task.setId(splitCommand[0]);
-                        task.setCommand(splitCommand[1]);
+                        String vehicleID = splitCommand[0];
+                        String command = splitCommand[1];
 
-
+                        List<String> parameters = new ArrayList<>();
                         for (int i = 2; i < splitCommand.length; i++) {
-                            task.addParameter(splitCommand[i]);
+                            parameters.add(splitCommand[i]);
                         }
+                        task = FactoryCommand.getFactory(vehicleID,command, parameters);
+
+
                         taskQueue.offer(task);
                     }
                     out.flush();

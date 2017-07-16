@@ -16,6 +16,7 @@ public class Main extends Application {
         primaryStage.setMinWidth(800);
         primaryStage.setMinHeight(450);
         primaryStage.show();
+        System.out.println("OS: "+ System.getProperty("os.name"));
     }
 
 

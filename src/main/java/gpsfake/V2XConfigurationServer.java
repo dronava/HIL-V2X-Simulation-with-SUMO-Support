@@ -1,5 +1,6 @@
 package gpsfake;
 
+import command.AbstractCommand;
 import simulation.Task;
 
 import java.io.IOException;
@@ -13,14 +14,14 @@ import java.util.concurrent.ExecutorService;
  */
 public class V2XConfigurationServer implements Runnable{
 
-    private Queue<Task> taskQueue;
+    private Queue<AbstractCommand> taskQueue;
     private ServerSocket myServerSocket;
     boolean ServerOn;
     private ExecutorService executorService;
     int port;
 
 
-    public V2XConfigurationServer(int port, ExecutorService executorService, Queue<Task> taskQueue) {
+    public V2XConfigurationServer(int port, ExecutorService executorService, Queue<AbstractCommand> taskQueue) {
         ServerOn =true;
         this.port = port;
         this.executorService = executorService;
