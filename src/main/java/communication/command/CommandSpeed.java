@@ -1,4 +1,4 @@
-package command;
+package communication.command;
 
 import it.polito.appeal.traci.SumoTraciConnection;
 import it.polito.appeal.traci.Vehicle;
@@ -12,13 +12,13 @@ public class CommandSpeed extends AbstractCommand {
 
     private double speed;
 
-    public CommandSpeed(String id, double speed){
+    public CommandSpeed(String id, double speed) {
         this.id = id;
         this.speed = speed;
     }
 
     @Override
-    public String processCommand(SumoTraciConnection conn ) throws IOException {
+    public String processCommand(SumoTraciConnection conn) throws IOException {
         Vehicle actVehicle = conn.getVehicleRepository().getByID(id);
 
         actVehicle.changeSpeed(speed);

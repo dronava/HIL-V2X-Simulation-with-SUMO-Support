@@ -1,4 +1,4 @@
-package command;
+package communication.command;
 
 import it.polito.appeal.traci.Edge;
 import it.polito.appeal.traci.PositionConversionQuery;
@@ -14,7 +14,7 @@ public class CommandNewDestination extends AbstractCommand {
 
     private Point2D.Double dst;
 
-    public CommandNewDestination(String id,Double lat, Double lon){
+    public CommandNewDestination(String id, Double lat, Double lon) {
         this.id = id;
         dst = new Point2D.Double(Double.valueOf(lat), Double.valueOf(lon));
     }
@@ -35,14 +35,13 @@ public class CommandNewDestination extends AbstractCommand {
 
         String action = "";
         String vehicleNewDstEdge = edgeSearch.getEdgeFromCoordinate(posCartesian, vehicleType);
-        if(vehicleNewDstEdge !="") {
-           // SumoVehicle modifyDst = vehicleSrcDst.get(task.getId());
+        if (vehicleNewDstEdge != "") {
+            // SumoVehicle modifyDst = vehicleSrcDst.get(task.getId());
 
             Edge newDst = conn.getEdgeRepository().getByID(vehicleNewDstEdge);
             conn.getVehicleRepository().getByID(getVehicleID()).changeTarget(newDst);
             action = "newDst";
-        }
-        else{
+        } else {
             System.out.println("Not found Edge");
         }
         return action;

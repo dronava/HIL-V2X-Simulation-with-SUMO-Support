@@ -27,8 +27,6 @@
 
 package it.polito.appeal.traci;
 
-import it.polito.appeal.traci.protocol.Constants;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -176,6 +174,8 @@ implements StepAdvanceListener
 	private final ChangeSpeedQuery csqvar_ChangeSpeed;
 	
 	private final ChangeObjectVarQuery.ChangeIntegerQ csqvar_ChangeLaneChangeMode;
+
+	private final ReRouteEffortQuery csqvar_RerouteEffort;
 	Vehicle (
 		DataInputStream dis,
 		DataOutputStream dos, 
@@ -477,6 +477,21 @@ implements StepAdvanceListener
 		, it.polito.appeal.traci.protocol.Constants.VAR_LANE_CHANGE_MODE
 			)
 		;
+
+		csqvar_RerouteEffort = new ReRouteEffortQuery(dis, dos
+
+				, id
+		)
+		{
+			@Override
+			void pickResponses(java.util.Iterator<it.polito.appeal.traci.protocol.ResponseContainer> responseIterator)
+					throws TraCIException {
+				super.pickResponses(responseIterator);
+
+				queryReadCurrentRoute().setObsolete();
+
+			}
+		};
 		
 	
 	}
@@ -807,6 +822,20 @@ implements StepAdvanceListener
 	 */
 	public RerouteQuery queryReroute() {
 		return csqvar_Reroute;
+	}
+
+	public ReRouteEffortQuery queryRerouteEffort() {
+		return csqvar_RerouteEffort;
+	}
+
+	public void rerouteTraveltime() throws IOException{
+		RerouteQuery q = csqvar_Reroute;
+		q.run();
+		//TODO Megcinalni
+	}
+	
+	public void reRouteByEffort() throws IOException {
+		csqvar_RerouteEffort.run();
 	}
 	
 	

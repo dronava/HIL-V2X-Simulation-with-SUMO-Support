@@ -1,7 +1,7 @@
 package simulation;
 
 
-import command.AbstractCommand;
+import communication.command.AbstractCommand;
 import it.polito.appeal.traci.*;
 import process.EdgeSearch;
 import process.MyRTree;
@@ -53,7 +53,30 @@ public class Simulation implements Runnable {
             conn.nextSimStep();
             System.out.println("ok");
 
+            Edge edge1 = conn.getEdgeRepository().getByID("296896085#3");
+            if(edge1 != null) {
+                System.out.println("Effort 296896085#3: " + edge1.getEffort(conn.getCurrentSimTime())); //ge1.getEffort(conn.getCurrentSimTime()));
+                //edge1.queryChangeEffort().setEffort(1000);
+                ChangeGlobalEffortQuery effort = edge1.queryChangeEffort();
+                effort.setEffort(10000);
+                effort.run();
+                System.out.println("Effort 296896085#3: " + edge1.getEffort(conn.getCurrentSimTime()));
+            }
+
+            Edge edge2 = conn.getEdgeRepository().getByID("148233399#0");
+            if(edge2 != null) {
+                System.out.println("Effort 148233399#0: " + edge2.getEffort(conn.getCurrentSimTime()));
+                ChangeGlobalEffortQuery effort= edge2.queryChangeEffort();
+                effort.setEffort(10000);
+                effort.run();
+                System.out.println("Effort 148233399#0: " + edge2.getEffort(conn.getCurrentSimTime()));
+            }
+
+            conn.getVehicleRepository().getByID("555").reRouteByEffort();
+
+
             do {
+
                 if (!managedVehicles.stream().map(u -> u.getVehicleID()).collect(Collectors.toList()).containsAll(gpsfakeManagmentQueues.keySet())) {
                     Map<String, Vehicle> vehicles = conn.getVehicleRepository().getAll();
                     storeVehicleSrcDst(vehicles);
@@ -77,9 +100,13 @@ public class Simulation implements Runnable {
     }
 
     private void storeVehicleSrcDst(Map<String, Vehicle> vehicles) throws IOException {
+
         for (Map.Entry<String, Vehicle> entry : vehicles.entrySet()) {
-            if (!managedVehicles.stream().map(u -> u.getVehicleID()).collect(Collectors.toList()).contains(entry.getKey())) {
+            if (!managedVehicles.stream().map(u -> u.getVehicleID()).collect(Collectors.toList()).contains(entry.getKey()) &&
+                    gpsfakeManagmentQueues.containsKey(entry.getKey())) {
                 List<Edge> actroute = entry.getValue().getCurrentRoute();
+
+                System.out.println();
                 System.out.println("Src: " + entry.getKey() + " - " + actroute.get(0));
                 System.out.println("Dst: " + actroute.get(actroute.size() - 1));
                 managedVehicles.add(new SumoVehicle(entry.getKey(), actroute.get(0), actroute.get(actroute.size() - 1)));

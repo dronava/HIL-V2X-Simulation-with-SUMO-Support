@@ -1,6 +1,6 @@
 package simulation;
 
-import command.AbstractCommand;
+import communication.command.AbstractCommand;
 import it.polito.appeal.traci.*;
 
 import java.awt.geom.Point2D;
@@ -107,7 +107,7 @@ public class SumoVehicle {
     }
 
     private void actionAfterCommand(SumoTraciConnection conn, String action) throws IOException {
-        if(action.equals("newDst")){
+        if(action != null && action.equals("newDst")){
             List<Edge> actroute = conn.getVehicleRepository().getByID(getVehicleID()).getCurrentRoute();
             setDst(actroute.get(actroute.size()-1));
         }

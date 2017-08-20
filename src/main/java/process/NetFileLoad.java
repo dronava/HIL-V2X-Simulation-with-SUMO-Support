@@ -12,6 +12,7 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -317,7 +318,7 @@ public class NetFileLoad extends Task<MyRTree> {
 
     private  String serializeTree() throws IOException {
         LocalDateTime currentTime = LocalDateTime.now();
-        String fileName = "saved_maps/".concat(currentTime.toString() + ".dat");
+        String fileName = "saved_maps".concat(File.separator).concat(currentTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).toString() + ".dat");
         serializeMyObject(rTree, fileName);
         return fileName;
     }

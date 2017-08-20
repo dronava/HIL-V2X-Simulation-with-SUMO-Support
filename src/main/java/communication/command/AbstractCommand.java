@@ -1,4 +1,4 @@
-package command;
+package communication.command;
 
 import it.polito.appeal.traci.SumoTraciConnection;
 import process.EdgeSearch;
@@ -13,12 +13,14 @@ public abstract class AbstractCommand {
     protected String id;
     protected static EdgeSearch edgeSearch;
 
-    public static void setEdgeSearch(EdgeSearch edges){
+    public static void setEdgeSearch(EdgeSearch edges) {
         edgeSearch = edges;
     }
 
-    public String getVehicleID(){ return id; }
+    public String getVehicleID() {
+        return id;
+    }
 
 
-    public abstract String processCommand(SumoTraciConnection conn ) throws IOException;
+    public abstract String processCommand(SumoTraciConnection conn) throws IOException;
 }

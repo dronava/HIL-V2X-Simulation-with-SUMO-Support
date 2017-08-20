@@ -1,11 +1,16 @@
 package process;
 
-import java.io.*;
-import java.util.*;
-
 import javafx.concurrent.Task;
-import org.dom4j.*;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by szzso on 2017. 01. 22..
@@ -59,10 +64,10 @@ public class ConfigurationParser extends Task<ConfigurationFile> {
                 if(element.getName().equals("trip")){
                     indexes.add(element.attribute("id").getValue() + "-" + element.attribute("type").getValue());
                 }
+            }
 
-                for (int j = 0; j < indexes.size(); j++) {
-                    System.out.println("id: "+ indexes.get(j));
-                }
+            for (int j = 0; j < indexes.size(); j++) {
+                System.out.println("id: "+ indexes.get(j));
             }
 
         } catch (DocumentException e) {

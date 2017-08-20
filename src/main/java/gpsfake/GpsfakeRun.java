@@ -94,7 +94,7 @@ public class GpsfakeRun implements Runnable {
             //Az új gpsfake elindítása, a környezeti változó megadása
             String environmentVariable= System.getenv("GPSD_HOME");
             /*if(environmentVariable == null)
-                process = Runtime.getRuntime().exec(command,new String[]{"GPSD_HOME=/opt/local/sbin"});
+                process = Runtime.getRuntime().exec(communication.command,new String[]{"GPSD_HOME=/opt/local/sbin"});
             else*/
             process = Runtime.getRuntime().exec(command);
             running = true;
@@ -104,14 +104,14 @@ public class GpsfakeRun implements Runnable {
             BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 
             //Parancs kimenete
-            System.out.println("Standard output of the command:\n");
+            System.out.println("Standard output of the communication.command:\n");
             String s;
             while ((s = stdInput.readLine()) != null && Thread.currentThread().isAlive()) {
                 System.out.println(s);
             }
 
             //Parancs
-            System.out.println("Standard error of the command (if any):\n");
+            System.out.println("Standard error of the communication.command (if any):\n");
             while ((s = stdError.readLine()) != null && Thread.currentThread().isAlive()) {
                 System.out.println(s);
             }

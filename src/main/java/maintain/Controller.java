@@ -1,32 +1,32 @@
 package maintain;
 
-import command.AbstractCommand;
+import communication.V2XConfigurationServer;
+import communication.command.AbstractCommand;
+import gpsfake.GpsfakeManagement;
 import gpsfake.GpsfakeRun;
-import gpsfake.V2XConfigurationServer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
-import java.net.URL;
-import java.util.*;
-import java.util.concurrent.*;
-
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import process.ConfigurationFile;
+import process.ConfigurationParser;
+import process.MyRTree;
+import process.NetFileLoad;
+import simulation.Simulation;
+
 import java.io.File;
+import java.net.URL;
+import java.util.*;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
-import javafx.stage.FileChooser.ExtensionFilter;
-import gpsfake.GpsfakeManagement;
-import process.*;
-import simulation.Simulation;
-import simulation.Task;
-
-public class Controller implements Initializable{
+public class Controller implements Initializable {
 
     private BlockingQueue<String> queue;
     private ExecutorService cachedPool = Executors.newCachedThreadPool();
@@ -55,11 +55,11 @@ public class Controller implements Initializable{
     @FXML
     private Button startSimulationButton;
     @FXML
-    private  Button gpsfakeRunButton;
+    private Button gpsfakeRunButton;
     @FXML
     private Label configurationReadSateLabel;
     @FXML
-    private  Label configurationFileLoaderLabel;
+    private Label configurationFileLoaderLabel;
     @FXML
     private ComboBox gpsfakeAvailableIDComboBox;
     @FXML
@@ -70,17 +70,19 @@ public class Controller implements Initializable{
         cachedPool = Executors.newCachedThreadPool();
         queue = new LinkedBlockingQueue<>();
         System.out.println("GPSD_HOME: " + System.getenv("GPSD_HOME"));
+        System.out.println("SUMO_HOME: " + System.getenv("SUMO_HOME"));
         //System.out.println("OS: "+ System.getProperty("os.name"));
         gpsfakeCommandTextField.setText("gpsfake -o -G -P 5555 -M 7777 -f");
     }
-    public void runGpsfake(){
-        if(!vehicleID.isEmpty() && !gpsfakeAvailableIDComboBox.getSelectionModel().isEmpty()) {
+
+    public void runGpsfake() {
+        if (!vehicleID.isEmpty() && !gpsfakeAvailableIDComboBox.getSelectionModel().isEmpty()) {
             ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<String>();
             GpsfakeRun gpsfakeRun = new GpsfakeRun(gpsfakeCommandTextField.getText(),
                     gpsfakeAvailableIDComboBox.getValue().toString(),
                     gpsfakeAccordion, queue);
             gpsfakes.add(gpsfakeRun);
-            GpsfakeManagement management =gpsfakeRun.getManagement();
+            GpsfakeManagement management = gpsfakeRun.getManagement();
             gpsfakeManagmentQueues.put(gpsfakeRun.getVehicleID(), queue);
             cachedPool.execute(gpsfakeRun);
 
@@ -91,17 +93,17 @@ public class Controller implements Initializable{
         }
     }
 
-    public void loadConfiguration(){
-        if(!configFileTextField.getText().isEmpty()){
+    public void loadConfiguration() {
+        if (!configFileTextField.getText().isEmpty()) {
 
-            if(gpsfakes.size() != 0){
+            if (gpsfakes.size() != 0) {
                 gpsfakeManagmentQueues.clear();
 
                 for (int i = 0; i < gpsfakes.size(); i++) {
                     gpsfakes.get(i).stop();
                     Future actgpsfakeThread = cachedPool.submit(gpsfakes.get(i));
-                   //actgpsfakeThread.cancel(true);
-                   System.out.println("Canceled: " +actgpsfakeThread.isCancelled());
+                    //actgpsfakeThread.cancel(true);
+                    System.out.println("Canceled: " + actgpsfakeThread.isCancelled());
                 }
                 //gpsfakes.clear();
 
@@ -112,65 +114,59 @@ public class Controller implements Initializable{
             cachedPool.execute(configurationParser);
 
             configurationParser.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
-                    new EventHandler<WorkerStateEvent>() {
-                        @Override
-                        public void handle(WorkerStateEvent t) {
-                            configurationFiles = configurationParser.getValue();
+                    t -> {
+                        configurationFiles = configurationParser.getValue();
 
-                            vehicleID.addAll(configurationFiles.getVehicleIds());
-                            gpsfakeAvailableIDComboBox.setItems(vehicleID);
-                            configurationReadSateLabel.setText("Configuration file loaded");
-                            configurationReadSateLabel.setTextFill(Color.web("#3ae437"));
+                        vehicleID.addAll(configurationFiles.getVehicleIds());
+                        gpsfakeAvailableIDComboBox.setItems(vehicleID);
+                        configurationReadSateLabel.setText("Configuration file loaded");
+                        configurationReadSateLabel.setTextFill(Color.web("#3ae437"));
 
 
-                            for (String s: vehicleID){
-                                System.out.println("Vehicles: "+ s);
-                            }
-
-                            netFileLoad = new NetFileLoad(configurationFiles.getNetFilePath());
-                            cachedPool.execute(netFileLoad);
-                            netFileLoad.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
-                                    new EventHandler<WorkerStateEvent>() {
-                                        @Override
-                                        public void handle(WorkerStateEvent t) {
-                                            edgeRTree  = netFileLoad.getValue();
-                                            configurationReadSateLabel.setText("Net file loaded");
-                                            startSimulationButton.setDisable(false);
-                                        }
-
-                                    });
-
+                        for (String s : vehicleID) {
+                            System.out.println("Vehicles: " + s);
                         }
+
+                        netFileLoad = new NetFileLoad(configurationFiles.getNetFilePath());
+                        cachedPool.execute(netFileLoad);
+                        netFileLoad.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
+                                t1 -> {
+                                    edgeRTree = netFileLoad.getValue();
+                                    configurationReadSateLabel.setText("Net file loaded");
+                                    startSimulationButton.setDisable(false);
+                                });
+
                     });
         }
     }
 
-    public void startSimulation(){
-        if(edgeRTree != null){
+    public void startSimulation() {
+        if (edgeRTree != null) {
             //TODO Delay
             //!simulationDelayTextField.getText().isEmpty() &&
             //simulationDelay =Integer.parseInt(simulationDelayTextField.getText());
             simulationDelay = 0;
             List<String> managedVehicles = gpsfakes.stream().map(u -> u.getVehicleID()).collect(Collectors.toList());
             managedVehicles.forEach(u -> System.out.println(u));
-            simulation = new Simulation(configurationFile,simulationDelay,gpsfakeManagmentQueues, taskQueue, edgeRTree);
+            simulation = new Simulation(configurationFile, simulationDelay, gpsfakeManagmentQueues, taskQueue, edgeRTree);
             cachedPool.execute(simulation);
 
-            configurationServer = new V2XConfigurationServer(11111,cachedPool,taskQueue);
+            configurationServer = new V2XConfigurationServer(11111, cachedPool, taskQueue);
             cachedPool.execute(configurationServer);
 
-            for(GpsfakeRun gpsfakeRun: gpsfakes){
+            for (GpsfakeRun gpsfakeRun : gpsfakes) {
                 gpsfakeRun.runManagementThread(cachedPool);
             }
 
         }
     }
 
-    public void FileChooserClick(){
-       // String userDirectoryString = "C:\\Users\\szzso\\IdeaProjects\\V2X-Simulation\\simulation";//System.getProperty("user.home");
-        String userDirectoryString ="/home/szezso/V2X-Simulation-with-SUMO/simulation/";
+    public void FileChooserClick() {
+        // String userDirectoryString = "C:\\Users\\szzso\\IdeaProjects\\V2X-Simulation\\simulation";
+        System.out.println(System.getProperty("user.home"));
+        String userDirectoryString = "/home/szezso/V2X-Simulation-with-SUMO/simulation/";
         File userDirectory = new File(userDirectoryString);
-        if(!userDirectory.canRead()) {
+        if (!userDirectory.canRead()) {
             userDirectory = new File("/home/");
         }
 
@@ -181,7 +177,7 @@ public class Controller implements Initializable{
                 new ExtensionFilter("Configuration Files", "*.cfg"),
                 new ExtensionFilter("All Files", "*.*"));
         File selectedFile = fileChooser.showOpenDialog(configFileTextField.getScene().getWindow());
-        if(selectedFile!=null)
+        if (selectedFile != null)
             configFileTextField.setText(selectedFile.getPath());
 
     }

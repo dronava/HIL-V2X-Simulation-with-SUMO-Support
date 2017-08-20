@@ -27,6 +27,8 @@
 
 package it.polito.appeal.traci;
 
+import it.polito.appeal.traci.protocol.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -99,11 +101,25 @@ implements StepAdvanceListener
 		 * @see #queryReadNoiseEmission
 		 */
 		NOISE_EMISSION,
-		
+
+		/**
+		 * Query "ReadLastStepMeanSpeed"
+		 * @see #queryLastStepMeanVehicle
+		 */
+		LAST_STEP_MEAN_SPEED,
+
+		/**
+		 * Query "EdgeEffortInformation
+		 * @see #
+		 */
+		EDGE_EFFORT_INFORMATION,
+
 	}
 	
 	
 	private final ChangeGlobalTravelTimeQuery csqvar_ChangeTravelTime;
+	private final ChangeGlobalEffortQuery csqvar_ChangeEffort;
+	private final ReadGlobalEffortQuery effortQuery;
 	Edge (
 		DataInputStream dis,
 		DataOutputStream dos, 
@@ -195,7 +211,23 @@ implements StepAdvanceListener
 			
 				
 				));
-		
+
+		addReadQuery(Variable.LAST_STEP_MEAN_SPEED,
+				new ReadLinksQuery.DoubleQ (dis, dos,
+						Constants.CMD_GET_EDGE_VARIABLE,
+						id,
+						it.polito.appeal.traci.protocol.Constants.LAST_STEP_MEAN_SPEED));
+
+
+		effortQuery = new ReadGlobalEffortQuery (dis, dos,
+				Constants.CMD_GET_EDGE_VARIABLE,
+				id,
+				Constants.VAR_EDGE_EFFORT);
+
+		addReadQuery(Variable.EDGE_EFFORT_INFORMATION,effortQuery
+				);
+
+
 
 		/*
 		 * initialization of change state queries
@@ -213,6 +245,17 @@ implements StepAdvanceListener
 				
 				queryReadGlobalTravelTime().setObsolete();
 				
+			}
+		};
+
+		csqvar_ChangeEffort = new ChangeGlobalEffortQuery(dis, dos, id){
+			@Override
+			void pickResponses(java.util.Iterator<it.polito.appeal.traci.protocol.ResponseContainer> responseIterator)
+					throws TraCIException {
+				super.pickResponses(responseIterator);
+
+
+				queryReadGlobalEffort().setObsolete();
 			}
 		};
 		
@@ -235,6 +278,10 @@ implements StepAdvanceListener
 		getReadQuery(Variable.FUEL_CONSUMPTION).setObsolete();
 		
 		getReadQuery(Variable.NOISE_EMISSION).setObsolete();
+
+		getReadQuery(Variable.LAST_STEP_MEAN_SPEED).setObsolete();
+
+		getReadQuery(Variable.EDGE_EFFORT_INFORMATION).setObsolete();
 		
 	}
 	
@@ -352,8 +399,7 @@ implements StepAdvanceListener
 	public ReadObjectVarQuery<java.lang.Double> queryReadNoiseEmission() {
 		return (ReadObjectVarQuery.DoubleQ) getReadQuery(Variable.NOISE_EMISSION);
 	}
-	
-	
+
 	/**
 	 * Executes an instance of {@link ReadObjectVarQuery} relative to this query,
 	 * and returns the corresponding value.
@@ -367,6 +413,48 @@ implements StepAdvanceListener
 	 */
 	public ChangeGlobalTravelTimeQuery queryChangeTravelTime() {
 		return csqvar_ChangeTravelTime;
+	}
+
+	public ChangeGlobalEffortQuery queryChangeEffort() { return  csqvar_ChangeEffort; }
+
+	public void  changeEffort(double effort, int beginTime, int endTime) throws IOException {
+		csqvar_ChangeEffort.setEffort(effort);
+		csqvar_ChangeEffort.setBeginTime(beginTime);
+		csqvar_ChangeEffort.setEndTime(endTime);
+		csqvar_ChangeEffort.run();
+	}
+
+	public void  changeEffort(double effort) throws IOException {
+		csqvar_ChangeEffort.setEffort(effort);
+		csqvar_ChangeEffort.run();
+	}
+
+	/**
+	 *
+	 */
+	public  ReadObjectVarQuery<java.lang.Double> queryLastStepMeanVehicle(){
+		return (ReadObjectVarQuery.DoubleQ) getReadQuery(Variable.LAST_STEP_MEAN_SPEED);
+	}
+
+	public java.lang.Double getLastStepMeanSpeed() throws IOException{
+		return  ((ReadObjectVarQuery.DoubleQ) getReadQuery(Variable.LAST_STEP_MEAN_SPEED)).get();
+	}
+
+	public ReadObjectVarQuery<java.lang.Double> queryEffort() {
+		return (ReadObjectVarQuery.DoubleQ) getReadQuery(Variable.EDGE_EFFORT_INFORMATION);
+	}
+
+	public java.lang.Double getEffort(int time) throws IOException {
+		effortQuery.setEffort(time);
+		return ((ReadGlobalEffortQuery.DoubleQ) getReadQuery(Variable.EDGE_EFFORT_INFORMATION)).get();
+	}
+
+	/**
+	 * @return the instance of {@link ReadGlobalEffortQuery} relative to this query.
+	 */
+	public ReadGlobalEffortQuery queryReadGlobalEffort() {
+
+		return (ReadGlobalEffortQuery) getReadQuery(Variable.EDGE_EFFORT_INFORMATION);
 	}
 	
 	

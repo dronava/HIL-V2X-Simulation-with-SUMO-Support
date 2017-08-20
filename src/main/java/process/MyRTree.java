@@ -16,28 +16,28 @@ public class MyRTree implements Serializable {
     private SpatialIndex rTree;
     private List<EdgeElement> rTreeNodes;
 
-    public EdgeElement getNode(int i){
+    public EdgeElement getNode(int i) {
         return rTreeNodes.get(i);
     }
 
-    public void addNode(EdgeElement edge){
+    public void addNode(EdgeElement edge) {
         rTreeNodes.add(edge);
     }
 
-    public void addRTreeElement(Rectangle rectangle){
-        rTree.add(rectangle, rTreeNodes.size()-1);
+    public void addRTreeElement(Rectangle rectangle) {
+        rTree.add(rectangle, rTreeNodes.size() - 1);
     }
 
-    public SpatialIndex getRTree(){
+    public SpatialIndex getRTree() {
         return rTree;
     }
 
-    public void add(EdgeElement edge, Rectangle rectangle){
+    public void add(EdgeElement edge, Rectangle rectangle) {
         rTreeNodes.add(edge);
-        rTree.add(rectangle, rTreeNodes.size()-1);
+        rTree.add(rectangle, rTreeNodes.size() - 1);
     }
 
-    public MyRTree(){
+    public MyRTree() {
         rTree = new RTree();
         rTreeNodes = new ArrayList<>();
         rTree.init(null);

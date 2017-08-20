@@ -1,7 +1,6 @@
-package gpsfake;
+package communication;
 
-import command.AbstractCommand;
-import simulation.Task;
+import communication.command.AbstractCommand;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -12,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 /**
  * Created by szezso on 2017.03.18..
  */
-public class V2XConfigurationServer implements Runnable{
+public class V2XConfigurationServer implements Runnable {
 
     private Queue<AbstractCommand> taskQueue;
     private ServerSocket myServerSocket;
@@ -22,7 +21,7 @@ public class V2XConfigurationServer implements Runnable{
 
 
     public V2XConfigurationServer(int port, ExecutorService executorService, Queue<AbstractCommand> taskQueue) {
-        ServerOn =true;
+        ServerOn = true;
         this.port = port;
         this.executorService = executorService;
         this.taskQueue = taskQueue;
