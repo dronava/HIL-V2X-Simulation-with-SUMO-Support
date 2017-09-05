@@ -2,15 +2,16 @@ package maintain;
 
 import communication.V2XConfigurationServer;
 import communication.command.AbstractCommand;
+import configuration.LoadConfiguration;
 import gpsfake.GpsfakeManagement;
 import gpsfake.GpsfakeRun;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -21,6 +22,7 @@ import process.NetFileLoad;
 import simulation.Simulation;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.*;
@@ -44,6 +46,7 @@ public class Controller implements Initializable {
 
     private String configurationFile;
     private int simulationDelay;
+    LoadConfiguration loadConfiguration;
 
 
     @FXML
@@ -57,6 +60,8 @@ public class Controller implements Initializable {
     @FXML
     private Button gpsfakeRunButton;
     @FXML
+    private Button configButton;
+    @FXML
     private Label configurationReadSateLabel;
     @FXML
     private Label configurationFileLoaderLabel;
@@ -64,6 +69,9 @@ public class Controller implements Initializable {
     private ComboBox gpsfakeAvailableIDComboBox;
     @FXML
     private Accordion gpsfakeAccordion;
+    @FXML
+    private GridPane configurationGridPane;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -73,6 +81,9 @@ public class Controller implements Initializable {
         System.out.println("SUMO_HOME: " + System.getenv("SUMO_HOME"));
         //System.out.println("OS: "+ System.getProperty("os.name"));
         gpsfakeCommandTextField.setText("gpsfake -o -G -P 5555 -M 7777 -f");
+
+       loadYaml();
+       System.out.println(loadConfiguration.getAppConfig().getSimulationDirectory());
     }
 
     public void runGpsfake() {
@@ -127,7 +138,7 @@ public class Controller implements Initializable {
                             System.out.println("Vehicles: " + s);
                         }
 
-                        netFileLoad = new NetFileLoad(configurationFiles.getNetFilePath());
+                        netFileLoad = new NetFileLoad(configurationFiles.getNetFilePath(), loadConfiguration);
                         cachedPool.execute(netFileLoad);
                         netFileLoad.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
                                 t1 -> {
@@ -151,7 +162,7 @@ public class Controller implements Initializable {
             simulation = new Simulation(configurationFile, simulationDelay, gpsfakeManagmentQueues, taskQueue, edgeRTree);
             cachedPool.execute(simulation);
 
-            configurationServer = new V2XConfigurationServer(11111, cachedPool, taskQueue);
+            configurationServer = new V2XConfigurationServer(loadConfiguration.getAppConfig().getCommunicationPort(), cachedPool, taskQueue);
             cachedPool.execute(configurationServer);
 
             for (GpsfakeRun gpsfakeRun : gpsfakes) {
@@ -164,7 +175,7 @@ public class Controller implements Initializable {
     public void FileChooserClick() {
         // String userDirectoryString = "C:\\Users\\szzso\\IdeaProjects\\V2X-Simulation\\simulation";
         System.out.println(System.getProperty("user.home"));
-        String userDirectoryString = "/home/szezso/V2X-Simulation-with-SUMO/simulation/";
+        String userDirectoryString = loadConfiguration.getAppConfig().getSimulationDirectory();// "/home/szezso/V2X-Simulation-with-SUMO/simulation/";
         File userDirectory = new File(userDirectoryString);
         if (!userDirectory.canRead()) {
             userDirectory = new File("/home/");
@@ -179,6 +190,17 @@ public class Controller implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(configFileTextField.getScene().getWindow());
         if (selectedFile != null)
             configFileTextField.setText(selectedFile.getPath());
+
+    }
+
+    public void loadYaml() {
+        System.out.println("Load Yaml");
+
+        try {
+            loadConfiguration = new LoadConfiguration();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

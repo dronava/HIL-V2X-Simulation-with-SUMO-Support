@@ -1,5 +1,6 @@
 package process;
 
+import configuration.LoadConfiguration;
 import javafx.concurrent.Task;
 import net.sf.jsi.Rectangle;
 import org.w3c.dom.Document;
@@ -33,9 +34,11 @@ public class NetFileLoad extends Task<MyRTree> {
     private String configfilepath;
     private MyRTree rTree;
     private List<EdgeElement> typeElements= new ArrayList<>();
+    private LoadConfiguration loadConfiguration;
 
-    public NetFileLoad(String configFilePath) {
+    public NetFileLoad(String configFilePath, LoadConfiguration loadConfiguration) {
         this.configfilepath = configFilePath;
+        this.loadConfiguration = loadConfiguration;
     }
 
     @Override
@@ -44,7 +47,8 @@ public class NetFileLoad extends Task<MyRTree> {
 
         HashMap<String, String> map = new HashMap<>();
         //TODO config file
-        File storedFile = new File("saved_maps/netFiles.dat");
+        File storedFile = new File( loadConfiguration.getAppConfig().getMapSaveConfig().getSaveDir() +
+                loadConfiguration.getAppConfig().getMapSaveConfig().getSaveFile() );
 
 
         try {
@@ -318,7 +322,9 @@ public class NetFileLoad extends Task<MyRTree> {
 
     private  String serializeTree() throws IOException {
         LocalDateTime currentTime = LocalDateTime.now();
-        String fileName = "saved_maps".concat(File.separator).concat(currentTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).toString() + ".dat");
+        String fileName = "saved_maps".concat(File.separator).concat(currentTime.format(
+                DateTimeFormatter.ofPattern(loadConfiguration.getAppConfig().getMapSaveConfig().getNamePattern()))
+                .toString() + ".dat");
         serializeMyObject(rTree, fileName);
         return fileName;
     }

@@ -1,0 +1,6 @@
+communicationPort: 11111
+simulationDirectory: /home/szezso/V2X-Simulation-with-SUMO/simulation/
+mapSaveConfig:
+    namePattern: yyyy-MM-dd HH:mm:ss.SSS
+    saveDir: saved_maps/
+    saveFile: netFiles.dat
