@@ -6,7 +6,8 @@ import java.lang.reflect.Field;
 
 public class AppConfig {
     private String simulationDirectory;
-    private int communicationPort;
+    private int communicationListeningPort;
+    private int v2xAppListeningPort;
     private MapSaveConfig mapSaveConfig;
 
     public String getSimulationDirectory() {
@@ -17,12 +18,12 @@ public class AppConfig {
         this.simulationDirectory = simulationDirectory;
     }
 
-    public int getCommunicationPort() {
-        return communicationPort;
+    public int getCommunicationListeningPort() {
+        return communicationListeningPort;
     }
 
-    public void setCommunicationPort(int communicationPort) {
-        this.communicationPort = communicationPort;
+    public void setCommunicationListeningPort(int communicationListeningPort) {
+        this.communicationListeningPort = communicationListeningPort;
     }
 
     public MapSaveConfig getMapSaveConfig() {
@@ -33,11 +34,18 @@ public class AppConfig {
         this.mapSaveConfig = mapSaveConfig;
     }
 
+    public int getV2xAppListeningPort() {
+        return v2xAppListeningPort;
+    }
+
+    public void setV2xAppListeningPort(int v2xAppListeningPort) {
+        this.v2xAppListeningPort = v2xAppListeningPort;
+    }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).add("simulationDirectory", simulationDirectory + "\n")
-                .add("communicationPort", communicationPort + "\n").add("MapSaveConfig", mapSaveConfig + "\n")
+                .add("communicationPort", communicationListeningPort + "\n").add("MapSaveConfig", mapSaveConfig + "\n")
                 .toString();
     }
 

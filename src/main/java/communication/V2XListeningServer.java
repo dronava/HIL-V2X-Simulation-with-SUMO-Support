@@ -1,6 +1,6 @@
 package communication;
 
-import communication.command.AbstractCommand;
+import communication.command.navigation.AbstractNavigationCommand;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,16 +11,16 @@ import java.util.concurrent.ExecutorService;
 /**
  * Created by szezso on 2017.03.18..
  */
-public class V2XConfigurationServer implements Runnable {
+public class V2XListeningServer implements Runnable {
 
-    private Queue<AbstractCommand> taskQueue;
+    private Queue<AbstractNavigationCommand> taskQueue;
     private ServerSocket myServerSocket;
     boolean ServerOn;
     private ExecutorService executorService;
     int port;
 
 
-    public V2XConfigurationServer(int port, ExecutorService executorService, Queue<AbstractCommand> taskQueue) {
+    public V2XListeningServer(int port, ExecutorService executorService, Queue<AbstractNavigationCommand> taskQueue) {
         ServerOn = true;
         this.port = port;
         this.executorService = executorService;
@@ -56,7 +56,7 @@ public class V2XConfigurationServer implements Runnable {
 
                 // Start a Service thread
 
-                V2XConfigurationThread cliThread = new V2XConfigurationThread(clientSocket, taskQueue);
+                V2XListeningThread cliThread = new V2XListeningThread(clientSocket, taskQueue);
                 executorService.execute(cliThread);
 
             } catch (IOException ioe) {

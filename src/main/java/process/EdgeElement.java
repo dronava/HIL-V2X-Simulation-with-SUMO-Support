@@ -22,9 +22,27 @@ public class EdgeElement implements Serializable{
     double length;
 
     String type;
-    List<List<Point2D>> shapes = new ArrayList<List<Point2D>>();
+    List<List<Point2D>> shapes = new ArrayList<>();
+    private List<String> lanes = new ArrayList<>();
 
     Rectangle rectangle;
+    private EdgeCongested edgeCongested;
+
+    public EdgeCongested getEdgeCongested() {
+        return edgeCongested;
+    }
+
+    public List<String> getLanes() {
+        return lanes;
+    }
+
+    public void setLanes(List<String> lanes) {
+        this.lanes = lanes;
+    }
+
+    public void setEdgeCongested(EdgeCongested edgeCongested) {
+        this.edgeCongested = edgeCongested;
+    }
 
     public String getId() {
         return id;

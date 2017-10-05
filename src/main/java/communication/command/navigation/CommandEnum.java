@@ -1,4 +1,4 @@
-package communication.command;
+package communication.command.navigation;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -9,7 +9,10 @@ import java.util.stream.Collectors;
 public enum CommandEnum {
     SPEED("speed"),
     DST("dst"),
-    CONGESTION("congestion");
+    CONGESTION("congestion"),
+    ROUTE("route"),
+    UNDEFINED("undefined"),
+    QUIT("quit");
 
     private String command;
 

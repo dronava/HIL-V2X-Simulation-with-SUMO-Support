@@ -1,57 +1,96 @@
 package communication;
 
-import communication.command.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import communication.command.navigation.*;
+import communication.command.tmc.CommandCongestion;
+import communication.message.MessageCommon;
+import communication.message.MessageDestinationChange;
+import communication.message.MessageSpeed;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Created by szezso on 2017.07.05..
  */
 public class FactoryCommand {
-    public static AbstractCommand getFactory(String id, String command, List<String> parameters) {
-        AbstractCommand concreteCommand = null;
+    public static Optional<AbstractNavigationCommand> getFactory(String address, String messageJSON, CommandEnum command) {
+        Optional<AbstractNavigationCommand> concreteCommand = Optional.empty();
 
-        if (id != null || !id.isEmpty()) {
-            if (CommandEnum.contains(command)) {
-                CommandEnum actCommand = CommandEnum.getNameByValue(command);
-                switch (actCommand) {
-                    case SPEED:
-                        concreteCommand = createSpeedCommand(id, parameters);
-                        break;
-                    case DST:
-                        concreteCommand = createNewDestinationCommand(id, parameters);
-                        break;
-                    case CONGESTION:
-                        concreteCommand = createCongestionCheckCommand(id);
-                        break;
-                }
-            }
+        switch (command) {
+            case SPEED:
+                concreteCommand = createSpeedCommand(messageJSON);
+                break;
+            case DST:
+                concreteCommand = createNewDestinationCommand(messageJSON);
+                break;
+            case CONGESTION:
+                concreteCommand = createCongestionCheckCommand(messageJSON);
+                break;
+            case ROUTE:
+                concreteCommand = createGetRouteCommand(address, messageJSON);
+                break;
         }
         return concreteCommand;
     }
 
-    private static AbstractCommand createSpeedCommand(String id, List<String> parameters) {
-        AbstractCommand concreteCommand = null;
-        if (parameters.size() > 0) {
-            double speed = Double.valueOf(parameters.get(0));
-            concreteCommand = new CommandSpeed(id, speed);
+    public static CommandEnum getCommandType(String messageJSON) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rooteNode;
+        try {
+
+            rooteNode = objectMapper.readTree(messageJSON.getBytes());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return CommandEnum.UNDEFINED;
+        }
+        JsonNode commandNode = rooteNode.path("command");
+        return CommandEnum.getNameByValue(commandNode.asText());
+    }
+
+    private static Optional<AbstractNavigationCommand> createSpeedCommand(String messageJSON) {
+        Optional<AbstractNavigationCommand> concreteCommand = Optional.empty();
+
+        try {
+            MessageSpeed messageSpeed = new ObjectMapper().readValue(messageJSON, MessageSpeed.class);
+            concreteCommand = Optional.of(new CommandSpeed(messageSpeed));
             System.out.println("Create Command Speed Change");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return concreteCommand;
     }
 
-    private static AbstractCommand createNewDestinationCommand(String id, List<String> parameters) {
-        AbstractCommand concreteCommand = null;
-        if (parameters.size() > 1) {
-            double lat = Double.valueOf(parameters.get(0));
-            double lon = Double.valueOf(parameters.get(1));
-            concreteCommand = new CommandNewDestination(id, lat, lon);
+    private static Optional<AbstractNavigationCommand> createNewDestinationCommand(String messageJSON) {
+        Optional<AbstractNavigationCommand> concreteCommand = Optional.empty();
+
+        try {
+            MessageDestinationChange messageDestinationChange =
+                    new ObjectMapper().readValue(messageJSON,MessageDestinationChange.class);
+            concreteCommand = Optional.of(new CommandNewDestination(messageDestinationChange));
             System.out.println("Create Command Destination Change");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return concreteCommand;
     }
 
-    private static AbstractCommand createCongestionCheckCommand(String id) {
-        return new CommandCongestion(id);
+    private static Optional<AbstractNavigationCommand> createCongestionCheckCommand(String messageJSON) {
+        return Optional.of(new CommandCongestion(messageJSON));
+    }
+
+    private static Optional<AbstractNavigationCommand> createGetRouteCommand(String address, String messageJSON) {
+        Optional<AbstractNavigationCommand> concreteCommand = Optional.empty();
+         try {
+            MessageCommon messageCommon =new ObjectMapper().readValue(messageJSON, MessageCommon.class);
+            concreteCommand = Optional.of(new CommandGetRoute(messageCommon, address));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return concreteCommand;
     }
 }

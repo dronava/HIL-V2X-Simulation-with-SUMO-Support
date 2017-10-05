@@ -29,70 +29,66 @@ import org.xml.sax.SAXException;
 /**
  * Created by szezso on 2017.04.04..
  */
-public class NetFileLoad extends Task<MyRTree> {
+public class NetFileLoad extends Task<MapData> {
 
     private String configfilepath;
-    private MyRTree rTree;
-    private List<EdgeElement> typeElements= new ArrayList<>();
+    private MapData mapData;
+    private List<EdgeElement> typeElements = new ArrayList<>();
     private LoadConfiguration loadConfiguration;
+    private String savedNetFilesPath;
 
     public NetFileLoad(String configFilePath, LoadConfiguration loadConfiguration) {
         this.configfilepath = configFilePath;
         this.loadConfiguration = loadConfiguration;
+        savedNetFilesPath = loadConfiguration.getAppConfig().getMapSaveConfig().getSaveDir() + File.separator +
+                loadConfiguration.getAppConfig().getMapSaveConfig().getSaveFile();
+        mapData = MapData.getInstance();
     }
 
     @Override
-    protected MyRTree call() throws Exception {
-        rTree = new MyRTree();
-
+    protected MapData call() throws Exception {
         HashMap<String, String> map = new HashMap<>();
-        //TODO config file
-        File storedFile = new File( loadConfiguration.getAppConfig().getMapSaveConfig().getSaveDir() +
-                loadConfiguration.getAppConfig().getMapSaveConfig().getSaveFile() );
-
+        File storedFile = new File(savedNetFilesPath);
 
         try {
             long kezd = System.nanoTime();
             File inputFile = new File(configfilepath);
 
-            if(storedFile.exists()){
+            if (storedFile.exists()) {
                 FileInputStream fis = new FileInputStream(storedFile);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 map = (HashMap) ois.readObject();
                 ois.close();
                 fis.close();
 
-                for (Map.Entry<String,  String> entry: map.entrySet()){
-                    System.out.println("Key: " + entry.getKey() +" Value: " + entry.getValue());
+                for (Map.Entry<String, String> entry : map.entrySet()) {
+                    System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
                 }
             }
 
             String checkSum = calculateCheckSum(inputFile);
 
-            if(map.containsKey(checkSum)){
+            if (map.containsKey(checkSum)) {
                 String savedMap = map.get(checkSum);
                 File mapFile = new File(savedMap);
-                if(mapFile.exists()) {
+                if (mapFile.exists()) {
                     FileInputStream fis = new FileInputStream(mapFile);
                     ObjectInputStream ois = new ObjectInputStream(fis);
-                    rTree = (MyRTree) ois.readObject();
+                    mapData = (MapData) ois.readObject();
                     ois.close();
                     fis.close();
+                } else {
+                    readAndSerializeTree(checkSum, inputFile, map);
                 }
-                else{
-                    readAndSerializeTree(checkSum, inputFile,map);
-                }
+            } else {
+                readAndSerializeTree(checkSum, inputFile, map);
             }
-            else{
-                readAndSerializeTree(checkSum, inputFile,map );
-            }
-
 
 
             long veg = System.nanoTime();
 
             long difference = veg - kezd;
-            System.out.println("Tree size " + rTree.getRTree().size());
+            System.out.println("Tree size " + mapData.getRTree().getRTree().size());
             System.out.println("Total execution time: " +
                     String.format("%d mil", TimeUnit.NANOSECONDS.toMillis(difference)));
 
@@ -100,7 +96,7 @@ public class NetFileLoad extends Task<MyRTree> {
             e.printStackTrace();
         }
 
-        return rTree;
+        return mapData;
     }
 
     private void createTree(File inputFile) throws ParserConfigurationException, IOException, SAXException {
@@ -122,10 +118,10 @@ public class NetFileLoad extends Task<MyRTree> {
             if (typeElement.hasAttribute("width")) {
                 actType.setWidth(typeElement.getAttribute("width"));
             }
-            if(typeElement.hasAttribute("allow")){
+            if (typeElement.hasAttribute("allow")) {
                 actType.setAllow(typeElement.getAttribute("allow"));
             }
-            if(typeElement.hasAttribute("disallow")){
+            if (typeElement.hasAttribute("disallow")) {
                 actType.setDisallow(typeElement.getAttribute("disallow"));
             }
 
@@ -143,32 +139,30 @@ public class NetFileLoad extends Task<MyRTree> {
 
                 String id = edge.getAttribute("id");
                 actEdge.setId(id);
-                               EdgeElement containsType = null;
+                EdgeElement containsType = null;
 
                 if (edge.hasAttribute("type")) {
                     final String type = edge.getAttribute("type");
                     actEdge.setType(type);
-                    containsType = typeElements.stream().filter(t->t.getId().equals(type)).findFirst().orElse(null);
-                    if ( containsType!= null){
+                    containsType = typeElements.stream().filter(t -> t.getId().equals(type)).findFirst().orElse(null);
+                    if (containsType != null) {
                         actEdge.setWidth(containsType.getWidth());
                     }
                 }
                 if (edge.hasAttribute("width")) {
                     actEdge.setWidth(edge.getAttribute("width"));
                 }
-                if(edge.hasAttribute("allow")){
+                if (edge.hasAttribute("allow")) {
                     actEdge.setAllow(edge.getAttribute("allow"));
-                }
-                else{
-                    if(containsType!= null) {
+                } else {
+                    if (containsType != null) {
                         actEdge.setAllow(containsType.getAllow());
                     }
                 }
-                if(edge.hasAttribute("disallow")){
+                if (edge.hasAttribute("disallow")) {
                     actEdge.setAllow(edge.getAttribute("disallow"));
-                }
-                else{
-                    if(containsType!= null) {
+                } else {
+                    if (containsType != null) {
                         actEdge.setDisallow(containsType.getDisallow());
                     }
                 }
@@ -179,8 +173,8 @@ public class NetFileLoad extends Task<MyRTree> {
                     NodeList laneList = edge.getElementsByTagName("lane");
 
 
-
                     if (laneList.getLength() > 1) {
+                        List<String> lanes = new ArrayList<>();
                         Point2D[][] lanePoints = new Point2D[laneList.getLength()][];
 
                         //TODO lane szelesseg, edge szelesseg meres
@@ -190,8 +184,10 @@ public class NetFileLoad extends Task<MyRTree> {
                             Node nodeEdge = laneList.item(count);
                             Element lane = (Element) nodeEdge;
 
-                            if(lane.hasAttribute("width")){
-                                laneWidth +=  Double.parseDouble(lane.getAttribute("width"));
+                            lanes.add(lane.getAttribute("id"));
+
+                            if (lane.hasAttribute("width")) {
+                                laneWidth += Double.parseDouble(lane.getAttribute("width"));
                             }
 
                             if (lane.hasAttribute("shape")) {
@@ -199,6 +195,7 @@ public class NetFileLoad extends Task<MyRTree> {
                                 lanePoints[count] = convertShapesToDouble(shapes);
                             }
                         }
+                        actEdge.setLanes(lanes);
                         actEdge.setWidth(laneWidth);
 
                         Point2D[] edgePoints = new Point2D[lanePoints[0].length];
@@ -250,7 +247,7 @@ public class NetFileLoad extends Task<MyRTree> {
                     (float) point2.getX(), (float) point2.getY());
             actedge.setRectangle(rectangle);
 
-            rTree.add(actedge, rectangle);
+            mapData.addEdge(actedge,rectangle);
         }
     }
 
@@ -272,12 +269,10 @@ public class NetFileLoad extends Task<MyRTree> {
 
 
     /**
-     *
      * @param inputFile
      * @return
      * @throws NoSuchAlgorithmException
-     * @throws IOException
-     * src https://www.mkyong.com/java/how-to-generate-a-file-checksum-value-in-java/
+     * @throws IOException              src https://www.mkyong.com/java/how-to-generate-a-file-checksum-value-in-java/
      */
     private String calculateCheckSum(File inputFile) throws NoSuchAlgorithmException, IOException {
         MessageDigest md = MessageDigest.getInstance("SHA1");
@@ -288,7 +283,8 @@ public class NetFileLoad extends Task<MyRTree> {
 
         while ((nread = fis.read(dataBytes)) != -1) {
             md.update(dataBytes, 0, nread);
-        };
+        }
+        ;
 
         byte[] mdbytes = md.digest();
 
@@ -305,27 +301,27 @@ public class NetFileLoad extends Task<MyRTree> {
     }
 
 
-    private void readAndSerializeTree(String checkSum, File inputFile, HashMap<String,String> map) throws IOException, SAXException, ParserConfigurationException {
+    private void readAndSerializeTree(String checkSum, File inputFile, HashMap<String, String> map) throws IOException, SAXException, ParserConfigurationException {
         createTree(inputFile);
         String fileName = serializeTree();
-        map.put(checkSum,fileName);
+        map.put(checkSum, fileName);
         serializeMapsCatalogue(map);
 
-        for (Map.Entry<String,  String> entry: map.entrySet()){
-            System.out.println("Key: " + entry.getKey() +" Value: " + entry.getValue());
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
         }
     }
 
-    private void serializeMapsCatalogue(HashMap<String,String> map) throws IOException {
-        serializeMyObject(map, "saved_maps/netFiles.dat");
+    private void serializeMapsCatalogue(HashMap<String, String> map) throws IOException {
+        serializeMyObject(map, savedNetFilesPath);
     }
 
-    private  String serializeTree() throws IOException {
+    private String serializeTree() throws IOException {
         LocalDateTime currentTime = LocalDateTime.now();
         String fileName = "saved_maps".concat(File.separator).concat(currentTime.format(
                 DateTimeFormatter.ofPattern(loadConfiguration.getAppConfig().getMapSaveConfig().getNamePattern()))
                 .toString() + ".dat");
-        serializeMyObject(rTree, fileName);
+        serializeMyObject(mapData, fileName);
         return fileName;
     }
 

@@ -1,4 +1,5 @@
-communicationPort: 11111
+communicationListeningPort: 11111
+v2xAppListeningPort: 15000
 simulationDirectory: /home/szezso/V2X-Simulation-with-SUMO/simulation/
 mapSaveConfig:
     namePattern: yyyy-MM-dd HH:mm:ss.SSS

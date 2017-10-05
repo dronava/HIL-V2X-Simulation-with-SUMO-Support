@@ -1,7 +1,7 @@
 package maintain;
 
-import communication.V2XConfigurationServer;
-import communication.command.AbstractCommand;
+import communication.V2XListeningServer;
+import communication.command.navigation.AbstractNavigationCommand;
 import configuration.LoadConfiguration;
 import gpsfake.GpsfakeManagement;
 import gpsfake.GpsfakeRun;
@@ -15,10 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import process.ConfigurationFile;
-import process.ConfigurationParser;
-import process.MyRTree;
-import process.NetFileLoad;
+import process.*;
 import simulation.Simulation;
 
 import java.io.File;
@@ -34,14 +31,14 @@ public class Controller implements Initializable {
     private ExecutorService cachedPool = Executors.newCachedThreadPool();
     private List<GpsfakeRun> gpsfakes = new ArrayList<>();
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
-    private Queue<AbstractCommand> taskQueue = new ConcurrentLinkedQueue();
+    private Queue<AbstractNavigationCommand> taskQueue = new ConcurrentLinkedQueue();
 
     private Simulation simulation;
-    private V2XConfigurationServer configurationServer;
+    private V2XListeningServer listeningServer;
     private ConfigurationParser configurationParser;
     private ConfigurationFile configurationFiles;
     private NetFileLoad netFileLoad;
-    private MyRTree edgeRTree;
+    private MapData mapData;
     private ObservableList<String> vehicleID = FXCollections.observableArrayList();
 
     private String configurationFile;
@@ -142,7 +139,7 @@ public class Controller implements Initializable {
                         cachedPool.execute(netFileLoad);
                         netFileLoad.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
                                 t1 -> {
-                                    edgeRTree = netFileLoad.getValue();
+                                    mapData = netFileLoad.getValue();
                                     configurationReadSateLabel.setText("Net file loaded");
                                     startSimulationButton.setDisable(false);
                                 });
@@ -152,18 +149,18 @@ public class Controller implements Initializable {
     }
 
     public void startSimulation() {
-        if (edgeRTree != null) {
+        if (mapData != null) {
             //TODO Delay
             //!simulationDelayTextField.getText().isEmpty() &&
             //simulationDelay =Integer.parseInt(simulationDelayTextField.getText());
             simulationDelay = 0;
             List<String> managedVehicles = gpsfakes.stream().map(u -> u.getVehicleID()).collect(Collectors.toList());
             managedVehicles.forEach(u -> System.out.println(u));
-            simulation = new Simulation(configurationFile, simulationDelay, gpsfakeManagmentQueues, taskQueue, edgeRTree);
+            simulation = new Simulation(configurationFile, simulationDelay, gpsfakeManagmentQueues, taskQueue, mapData);
             cachedPool.execute(simulation);
 
-            configurationServer = new V2XConfigurationServer(loadConfiguration.getAppConfig().getCommunicationPort(), cachedPool, taskQueue);
-            cachedPool.execute(configurationServer);
+            listeningServer = new V2XListeningServer(loadConfiguration.getAppConfig().getCommunicationPort(), cachedPool, taskQueue);
+            cachedPool.execute(listeningServer);
 
             for (GpsfakeRun gpsfakeRun : gpsfakes) {
                 gpsfakeRun.runManagementThread(cachedPool);

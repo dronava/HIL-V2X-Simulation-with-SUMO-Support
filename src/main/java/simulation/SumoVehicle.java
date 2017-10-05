@@ -1,6 +1,6 @@
 package simulation;
 
-import communication.command.AbstractCommand;
+import communication.command.navigation.AbstractNavigationCommand;
 import it.polito.appeal.traci.*;
 
 import java.awt.geom.Point2D;
@@ -54,7 +54,7 @@ public class SumoVehicle {
         dst = tmp;
     }
 
-    public void nextStep(SumoTraciConnection conn, ConcurrentLinkedQueue<String> nmeaToDevicesQueue, List<AbstractCommand> tasks) throws IOException {
+    public void nextStep(SumoTraciConnection conn, ConcurrentLinkedQueue<String> nmeaToDevicesQueue, List<AbstractNavigationCommand> tasks) throws IOException {
 
         Vehicle actVehicle = conn.getVehicleRepository().getByID(vehicleID);
 
@@ -62,7 +62,7 @@ public class SumoVehicle {
             List<Edge> actroute = actVehicle.getCurrentRoute();
 
             if(tasks != null) {
-                for (AbstractCommand task : tasks) {
+                for (AbstractNavigationCommand task : tasks) {
                     String action = task.processCommand(conn);
 
                     actionAfterCommand(conn, action);
@@ -84,7 +84,7 @@ public class SumoVehicle {
             nmeaToDevicesQueue.offer(nmea.getGGA());
         }
         else {
-            //TODO ki kell terolni az ilyen jarmuvet
+            //TODO ki kell torolni az ilyen jarmuvet
         }
 
     }

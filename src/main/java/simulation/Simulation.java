@@ -1,10 +1,9 @@
 package simulation;
 
 
-import communication.command.AbstractCommand;
+import communication.command.navigation.AbstractNavigationCommand;
 import it.polito.appeal.traci.*;
-import process.EdgeSearch;
-import process.MyRTree;
+import process.MapData;
 
 import java.io.IOException;
 
@@ -19,7 +18,7 @@ public class Simulation implements Runnable {
     private int delay;
     private String configfile;
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
-    private Queue<AbstractCommand> taskQueue;
+    private Queue<AbstractNavigationCommand> taskQueue;
 
     private List<SumoVehicle> managedVehicles = new ArrayList<>();
 
@@ -27,13 +26,13 @@ public class Simulation implements Runnable {
 
     public Simulation(String configfile, int delay,
                       Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues,
-                      Queue<AbstractCommand> taskQueue, MyRTree edgeRTree) {
+                      Queue<AbstractNavigationCommand> taskQueue, MapData mapData) {
         this.configfile = configfile;
         this.delay = delay;
         this.gpsfakeManagmentQueues = gpsfakeManagmentQueues;
         this.taskQueue = taskQueue;
         closeSumo = true;
-        AbstractCommand.setEdgeSearch(new EdgeSearch(edgeRTree));
+        AbstractNavigationCommand.setEdgeSearch(mapData);
     }
     //555;dst;47.473643;19.052962
 
@@ -82,7 +81,7 @@ public class Simulation implements Runnable {
                     storeVehicleSrcDst(vehicles);
                 }
 
-                Map<String, List<AbstractCommand>> task = processCommands();
+                Map<String, List<AbstractNavigationCommand>> task = processCommands();
 
                 for (SumoVehicle managedVehicle : managedVehicles) {
                     managedVehicle.nextStep(conn, gpsfakeManagmentQueues.get(managedVehicle.getVehicleID()), task.get(managedVehicle.getVehicleID()));
@@ -114,17 +113,17 @@ public class Simulation implements Runnable {
         }
     }
 
-    private Map<String, List<AbstractCommand>> processCommands() {
-        Map<String, List<AbstractCommand>> tasks = new HashMap<>();
+    private Map<String, List<AbstractNavigationCommand>> processCommands() {
+        Map<String, List<AbstractNavigationCommand>> tasks = new HashMap<>();
         int actualCommandQueueSize = taskQueue.size();
         while (actualCommandQueueSize != 0) {
-            AbstractCommand command = taskQueue.poll();
+            AbstractNavigationCommand command = taskQueue.poll();
             actualCommandQueueSize--;
             if (!tasks.containsKey(command.getVehicleID())) {
-                tasks.put(command.getVehicleID(), new ArrayList<AbstractCommand>());
+                tasks.put(command.getVehicleID(), new ArrayList<AbstractNavigationCommand>());
             }
 
-            List<AbstractCommand> commands = tasks.get(command.getVehicleID());
+            List<AbstractNavigationCommand> commands = tasks.get(command.getVehicleID());
             commands.add(command);
             tasks.put(command.getVehicleID(), commands);
         }
