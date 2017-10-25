@@ -1,49 +1,65 @@
 package communication.command.navigation;
 
+import communication.CommandEnum;
+import communication.command.CommandReturnValue;
 import communication.message.MessageDestinationChange;
 import it.polito.appeal.traci.Edge;
 import it.polito.appeal.traci.PositionConversionQuery;
 import it.polito.appeal.traci.SumoTraciConnection;
+import process.MapData;
 
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Created by szezso on 2017.07.03..
  */
 public class CommandNewDestination extends AbstractNavigationCommand {
 
-    private MessageDestinationChange destination;
+    private MessageDestinationChange messageDestination;
 
     public CommandNewDestination(MessageDestinationChange destination) {
-        this.destination = destination;
+        this.messageDestination = destination;
     }
 
     @Override
-    public String processCommand(SumoTraciConnection conn) throws IOException {
+    public Optional<CommandReturnValue> processCommand(SumoTraciConnection connection) throws IOException {
         System.out.println("Command: dst ");
 
-        PositionConversionQuery pcq = conn.queryPositionConversion();
-        pcq.setPositionToConvert(destination.getDestination(), false);
+        PositionConversionQuery pcq = connection.queryPositionConversion();
+        pcq.setPositionToConvert(messageDestination.getDestination(), false);
         Point2D posCartesian = pcq.get();
 
         //TODO megirni a VehicleClass-t traciban, nem lehet lekerni
         String vehicleType = "passenger";
         System.out.println("Vehcile type (new dst)" + vehicleType);
-        System.out.println("Param: " + destination.getDestination().getX() + "," + destination.getDestination().getY());
+        System.out.println("Param: " + messageDestination.getDestination().getX() + "," + messageDestination.getDestination().getY());
         //posCartesian = new Point2D.Double(2533.27,3901.24);
 
-        String action = "";
+        MapData mapData = MapData.getInstance();
         String vehicleNewDstEdge = mapData.getEdgeNameByCoordinate(posCartesian, vehicleType);
-        if (vehicleNewDstEdge != "") {
-            // SumoVehicle modifyDst = vehicleSrcDst.get(task.getId());
 
-            Edge newDst = conn.getEdgeRepository().getByID(vehicleNewDstEdge);
-            conn.getVehicleRepository().getByID(getVehicleID()).changeTarget(newDst);
-            action = "newDst";
+        return createReturnObject(connection, vehicleNewDstEdge);
+    }
+
+    private Optional<CommandReturnValue> createReturnObject(SumoTraciConnection connection,
+                                                                   String vehicleNewDstEdge) throws IOException {
+        Optional<CommandReturnValue> returnValue = Optional.empty();
+        if (vehicleNewDstEdge != "") {
+            Edge newDst = connection.getEdgeRepository().getByID(vehicleNewDstEdge);
+            connection.getVehicleRepository().getByID(messageDestination.getVehicleID()).changeTarget(newDst);
+
+            Optional.of(new CommandReturnValue(CommandEnum.RETURNDST,
+                    connection.getEdgeRepository().getByID(vehicleNewDstEdge)));
         } else {
-            System.out.println("Not found Edge");
+            System.out.println("Edge Not Found");
         }
-        return action;
+        return returnValue;
+    }
+
+    @Override
+    public String getVehicleID() {
+        return messageDestination.getVehicleID();
     }
 }

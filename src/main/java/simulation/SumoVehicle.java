@@ -1,5 +1,6 @@
 package simulation;
 
+import communication.command.CommandReturnValue;
 import communication.command.navigation.AbstractNavigationCommand;
 import it.polito.appeal.traci.*;
 
@@ -9,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -54,7 +56,9 @@ public class SumoVehicle {
         dst = tmp;
     }
 
-    public void nextStep(SumoTraciConnection conn, ConcurrentLinkedQueue<String> nmeaToDevicesQueue, List<AbstractNavigationCommand> tasks) throws IOException {
+    public void nextStep(SumoTraciConnection conn,
+                         ConcurrentLinkedQueue<String> nmeaToDevicesQueue,
+                         List<AbstractNavigationCommand> tasks) throws IOException {
 
         Vehicle actVehicle = conn.getVehicleRepository().getByID(vehicleID);
 
@@ -63,9 +67,10 @@ public class SumoVehicle {
 
             if(tasks != null) {
                 for (AbstractNavigationCommand task : tasks) {
-                    String action = task.processCommand(conn);
+                    Optional<CommandReturnValue> action = task.processCommand(conn);
 
-                    actionAfterCommand(conn, action);
+                    if(action.isPresent())
+                        actionAfterCommand(conn, action.get());
                 }
             }
 
@@ -102,14 +107,18 @@ public class SumoVehicle {
         pcq.setPositionToConvert(posCartesian, true);
         Point2D latlon = pcq.get();
 
-        Nmea nmea = new Nmea(angle, speed, latlon, actdate, acttime);
-        return nmea;
+        return new Nmea(angle, speed, latlon, actdate, acttime);
     }
 
-    private void actionAfterCommand(SumoTraciConnection conn, String action) throws IOException {
-        if(action != null && action.equals("newDst")){
-            List<Edge> actroute = conn.getVehicleRepository().getByID(getVehicleID()).getCurrentRoute();
-            setDst(actroute.get(actroute.size()-1));
+    private void actionAfterCommand(SumoTraciConnection connection, CommandReturnValue action) throws IOException {
+
+        switch (action.getCommand()) {
+            case RETURNDST:
+                    setDst(action.getRouteDestination());
+                break;
+            case ROUTE:
+                    action.getNavigationCommand().processCommand(connection);
+                break;
         }
     }
 }

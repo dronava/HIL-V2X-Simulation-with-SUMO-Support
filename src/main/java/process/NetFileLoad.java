@@ -1,6 +1,7 @@
 package process;
 
 import configuration.LoadConfiguration;
+import configuration.pojo.AppConfig;
 import javafx.concurrent.Task;
 import net.sf.jsi.Rectangle;
 import org.w3c.dom.Document;
@@ -33,15 +34,16 @@ public class NetFileLoad extends Task<MapData> {
 
     private String configfilepath;
     private MapData mapData;
-    private List<EdgeElement> typeElements = new ArrayList<>();
-    private LoadConfiguration loadConfiguration;
+
+    private AppConfig appConfig;
     private String savedNetFilesPath;
 
-    public NetFileLoad(String configFilePath, LoadConfiguration loadConfiguration) {
+    public NetFileLoad(String configFilePath) {
         this.configfilepath = configFilePath;
-        this.loadConfiguration = loadConfiguration;
-        savedNetFilesPath = loadConfiguration.getAppConfig().getMapSaveConfig().getSaveDir() + File.separator +
-                loadConfiguration.getAppConfig().getMapSaveConfig().getSaveFile();
+        appConfig = LoadConfiguration.getAppConfig();
+
+        savedNetFilesPath = appConfig.getMapSaveConfig().getSaveDir() + File.separator +
+                appConfig.getMapSaveConfig().getSaveFile();
         mapData = MapData.getInstance();
     }
 
@@ -89,23 +91,21 @@ public class NetFileLoad extends Task<MapData> {
 
             long difference = veg - kezd;
             System.out.println("Tree size " + mapData.getRTree().getRTree().size());
+            System.out.println("Hash size " + mapData.getHashMap().size());
+            System.out.println("Edge ID " + mapData.getEdgeByName("37392508").getLanes().toString());
             System.out.println("Total execution time: " +
                     String.format("%d mil", TimeUnit.NANOSECONDS.toMillis(difference)));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        System.out.println("Hash code: "+ mapData.hashCode());
         return mapData;
     }
 
-    private void createTree(File inputFile) throws ParserConfigurationException, IOException, SAXException {
-        DocumentBuilderFactory dbFactory =
-                DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(inputFile);
-        doc.getDocumentElement().normalize();
 
+    private List<EdgeElement> readTypes(Document doc){
+        List<EdgeElement> typeElements = new ArrayList<>();
         NodeList nListType = doc.getElementsByTagName("type");
         for (int temp = 0; temp < nListType.getLength(); temp++) {
             Node nNode = nListType.item(temp);
@@ -127,8 +127,11 @@ public class NetFileLoad extends Task<MapData> {
 
             typeElements.add(actType);
         }
+        return typeElements;
+    }
 
 
+    private void readEdges(Document doc, List<EdgeElement> typeElements){
         NodeList nListEdge = doc.getElementsByTagName("edge");
         for (int temp = 0; temp < nListEdge.getLength(); temp++) {
             Node nNode = nListEdge.item(temp);
@@ -138,6 +141,7 @@ public class NetFileLoad extends Task<MapData> {
             if (!edge.hasAttribute("function")) {
 
                 String id = edge.getAttribute("id");
+
                 actEdge.setId(id);
                 EdgeElement containsType = null;
 
@@ -172,7 +176,6 @@ public class NetFileLoad extends Task<MapData> {
                 } else {
                     NodeList laneList = edge.getElementsByTagName("lane");
 
-
                     if (laneList.getLength() > 1) {
                         List<String> lanes = new ArrayList<>();
                         Point2D[][] lanePoints = new Point2D[laneList.getLength()][];
@@ -195,6 +198,7 @@ public class NetFileLoad extends Task<MapData> {
                                 lanePoints[count] = convertShapesToDouble(shapes);
                             }
                         }
+                        if(id.equals("37392508")) System.out.println("37392508 LANE" + lanes.toString());
                         actEdge.setLanes(lanes);
                         actEdge.setWidth(laneWidth);
 
@@ -226,6 +230,19 @@ public class NetFileLoad extends Task<MapData> {
                 }
             }
         }
+
+    }
+
+    private void createTree(File inputFile) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory dbFactory =
+                DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(inputFile);
+        doc.getDocumentElement().normalize();
+
+        List<EdgeElement> typeElements = readTypes(doc);
+
+        readEdges(doc, typeElements);
     }
 
     private Point2D[] convertShapesToDouble(String[] shapes) {
@@ -319,7 +336,7 @@ public class NetFileLoad extends Task<MapData> {
     private String serializeTree() throws IOException {
         LocalDateTime currentTime = LocalDateTime.now();
         String fileName = "saved_maps".concat(File.separator).concat(currentTime.format(
-                DateTimeFormatter.ofPattern(loadConfiguration.getAppConfig().getMapSaveConfig().getNamePattern()))
+                DateTimeFormatter.ofPattern(appConfig.getMapSaveConfig().getNamePattern()))
                 .toString() + ".dat");
         serializeMyObject(mapData, fileName);
         return fileName;

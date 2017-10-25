@@ -1,8 +1,10 @@
 package communication.message;
 
+import communication.CommandEnum;
+
 import java.util.List;
 
-public class MessageCongestion extends MessageCommon{
+public class MessageRouteState extends MessageCommon{
 
     List<MessageEdgeState> edgeState;
 
@@ -14,8 +16,11 @@ public class MessageCongestion extends MessageCommon{
         this.edgeState = edgeState;
     }
 
-    public MessageCongestion(String vehicleID, List<MessageEdgeState> edgeState) {
-        super(vehicleID);
+    public MessageRouteState(CommandEnum command, String vehicleID, List<MessageEdgeState> edgeState) {
+        super(command, vehicleID);
         this.edgeState = edgeState;
+    }
+
+    public MessageRouteState() {
     }
 }

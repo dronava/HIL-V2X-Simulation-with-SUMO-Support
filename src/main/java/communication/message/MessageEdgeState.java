@@ -1,11 +1,17 @@
 package communication.message;
 
-import simulation.CongestionState;
-
 public class MessageEdgeState {
 
     String edge;
-    CongestionState congestionState;
+    double state;
+
+    public double getState() {
+        return state;
+    }
+
+    public void setState(double state) {
+        this.state = state;
+    }
 
     public String getEdge() {
         return edge;
@@ -15,18 +21,12 @@ public class MessageEdgeState {
         this.edge = edge;
     }
 
-    public CongestionState getCongestionState() {
-        return congestionState;
-    }
 
-    public void setCongestionState(CongestionState congestionState) {
-        this.congestionState = congestionState;
-    }
-
-    public MessageEdgeState(){}
-
-    public MessageEdgeState(String edge, CongestionState congestionState) {
+    public MessageEdgeState(String edge, double state) {
         this.edge = edge;
-        this.congestionState = congestionState;
+        this.state = state;
+    }
+
+    public MessageEdgeState() {
     }
 }

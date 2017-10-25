@@ -1,20 +1,20 @@
 package communication.command.navigation;
 
+import communication.command.AbstractCommand;
+import communication.command.CommandReturnValue;
 import it.polito.appeal.traci.SumoTraciConnection;
 import process.MapData;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Created by szezso on 2017.07.03..
  */
-public abstract class AbstractNavigationCommand {
+public abstract class AbstractNavigationCommand extends AbstractCommand {
 
-    protected static MapData mapData;
+    public abstract Optional<CommandReturnValue> processCommand(SumoTraciConnection connection) throws IOException;
 
-    public static void setEdgeSearch(MapData mapData) {
-        AbstractNavigationCommand.mapData = mapData;
-    }
 
-    public abstract String processCommand(SumoTraciConnection conn) throws IOException;
+
 }

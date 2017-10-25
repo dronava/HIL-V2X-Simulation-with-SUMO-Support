@@ -2,13 +2,13 @@ package communication.message;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import communication.CommandEnum;
 
 import java.util.List;
 
-public class MessageRoute {
+public class MessageRoute extends MessageCommon {
 
     private List<String> route;
-    private String command;
 
     public List<String> getRoute() {
         return route;
@@ -18,17 +18,10 @@ public class MessageRoute {
         this.route = route;
     }
 
-    public String getCommand() {
-        return command;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
-    }
-
     @JsonCreator
-    public MessageRoute(@JsonProperty("command") String command,
+    public MessageRoute(@JsonProperty("command")CommandEnum command,  @JsonProperty("vehicleID")String vehicleID,
                         @JsonProperty("route") List<String> route) {
+        super(command, vehicleID);
         this.route = route;
         this.command = command;
     }

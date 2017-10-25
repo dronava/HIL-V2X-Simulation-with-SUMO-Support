@@ -2,6 +2,7 @@ package communication;
 
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -39,12 +40,12 @@ public class V2XCommunicationClient extends Thread {
 
     private void sendMessage() {
         PrintWriter pw;
-        try {
-            pw = new PrintWriter(socket.getOutputStream(), true);
-            pw.println(message);
-            pw.close();
+        try (PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()),true)) {
+            out.println(message);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
+
 }

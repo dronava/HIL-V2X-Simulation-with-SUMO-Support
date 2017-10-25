@@ -1,8 +1,9 @@
 package communication;
 
 
-import communication.command.navigation.AbstractNavigationCommand;
-import communication.command.navigation.CommandEnum;
+import communication.command.AbstractCommand;
+import simulation.RolesChatalog;
+import simulation.RolesEnum;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,16 +13,27 @@ import java.util.Queue;
 /**
  * Created by szezso on 2017.03.18..
  */
-public class V2XListeningThread implements Runnable {
+public  class  V2XListeningThread<C extends AbstractCommand> implements Runnable {
     private Socket socket;
-    private Queue<AbstractNavigationCommand> taskQueue;
+    private Queue<C> taskQueue;
 
     boolean m_bRunThread = true;
     boolean ServerOn = true;
+    private AbstractFactoryCommand factoryCommand;
+    private RolesEnum role;
 
-    V2XListeningThread(Socket s, Queue<AbstractNavigationCommand> taskQueue) {
+    V2XListeningThread(Socket s, Queue<C> taskQueue, RolesEnum role) {
         this.socket = s;
         this.taskQueue = taskQueue;
+        switch (role){
+            case TMC:
+                factoryCommand = new FactoryTMCCommand();
+                break;
+            case NAVIGATION:
+                factoryCommand = new FactoryNavigationCommand();
+                break;
+        }
+        this.role = role;
     }
 
     public void run() {
@@ -38,26 +50,33 @@ public class V2XListeningThread implements Runnable {
             // At this point, we can read for input and reply with appropriate output.
 
             // Run in a loop until m_bRunThread is set to false
-            while (m_bRunThread) {
+            while (m_bRunThread  && socket.isConnected()) {
                 // read incoming stream
                 String message = in.readLine();
-                System.out.println("Client Says :" + message);
 
-                CommandEnum command = FactoryCommand.getCommandType(message);
+                synchronized(this) {
+                    this.wait(200);
+                }
+                CommandEnum command;
+                if(message != null && message.length() >0) {
+                    System.out.println("Client Says :" + message);
+                    command = FactoryNavigationCommand.getCommandType(message);
+                    System.out.println("FACTORY " + command + " Role: " + role);
+                    if (command.equals(CommandEnum.QUIT)) {
+                        // Special communication.command. Quit this thread
+                        m_bRunThread = false;
+                        System.out.print("Stopping client thread for client : ");
+                    } else {
+                        // Process it
+                        //out.println("Server Says : " + message);
 
-                if (command.equals(CommandEnum.QUIT)) {
-                    // Special communication.command. Quit this thread
-                    m_bRunThread = false;
-                    System.out.print("Stopping client thread for client : ");
-                } else {
-                    // Process it
-                    out.println("Server Says : " + message);
+                        Optional<AbstractCommand> task =
+                                factoryCommand.createCommand(message, command);
+                        task.ifPresent(t -> taskQueue.offer((C) t));
 
-                    Optional<AbstractNavigationCommand> task =
-                            FactoryCommand.getFactory(socket.getRemoteSocketAddress().toString(),message, command);
-                    task.ifPresent(t->taskQueue.offer(t));
 
-                    out.flush();
+                        //out.flush();
+                    }
                 }
             }
         } catch (Exception e) {

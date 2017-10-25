@@ -3,7 +3,9 @@ package simulation;
 
 import communication.command.navigation.AbstractNavigationCommand;
 import it.polito.appeal.traci.*;
+import maintain.ThreadManager;
 import process.MapData;
+import simulation.TMC.Tmc;
 
 import java.io.IOException;
 
@@ -32,7 +34,8 @@ public class Simulation implements Runnable {
         this.gpsfakeManagmentQueues = gpsfakeManagmentQueues;
         this.taskQueue = taskQueue;
         closeSumo = true;
-        AbstractNavigationCommand.setEdgeSearch(mapData);
+
+        ThreadManager.getInstance().execute(new Tmc());
     }
     //555;dst;47.473643;19.052962
 
@@ -51,28 +54,6 @@ public class Simulation implements Runnable {
             conn.nextSimStep();
             conn.nextSimStep();
             System.out.println("ok");
-
-            Edge edge1 = conn.getEdgeRepository().getByID("296896085#3");
-            if(edge1 != null) {
-                System.out.println("Effort 296896085#3: " + edge1.getEffort(conn.getCurrentSimTime())); //ge1.getEffort(conn.getCurrentSimTime()));
-                //edge1.queryChangeEffort().setEffort(1000);
-                ChangeGlobalEffortQuery effort = edge1.queryChangeEffort();
-                effort.setEffort(10000);
-                effort.run();
-                System.out.println("Effort 296896085#3: " + edge1.getEffort(conn.getCurrentSimTime()));
-            }
-
-            Edge edge2 = conn.getEdgeRepository().getByID("148233399#0");
-            if(edge2 != null) {
-                System.out.println("Effort 148233399#0: " + edge2.getEffort(conn.getCurrentSimTime()));
-                ChangeGlobalEffortQuery effort= edge2.queryChangeEffort();
-                effort.setEffort(10000);
-                effort.run();
-                System.out.println("Effort 148233399#0: " + edge2.getEffort(conn.getCurrentSimTime()));
-            }
-
-            conn.getVehicleRepository().getByID("555").reRouteByEffort();
-
 
             do {
 
@@ -118,8 +99,9 @@ public class Simulation implements Runnable {
         int actualCommandQueueSize = taskQueue.size();
         while (actualCommandQueueSize != 0) {
             AbstractNavigationCommand command = taskQueue.poll();
+
             actualCommandQueueSize--;
-            if (!tasks.containsKey(command.getVehicleID())) {
+            if (!tasks.containsKey(command .getVehicleID())) {
                 tasks.put(command.getVehicleID(), new ArrayList<AbstractNavigationCommand>());
             }
 
@@ -128,5 +110,30 @@ public class Simulation implements Runnable {
             tasks.put(command.getVehicleID(), commands);
         }
         return tasks;
+    }
+
+
+
+    private void reRoutePROBA(SumoTraciConnection conn) throws IOException {
+        Edge edge1 = conn.getEdgeRepository().getByID("296896085#3");
+        if(edge1 != null) {
+            System.out.println("Effort 296896085#3: " + edge1.getEffort(conn.getCurrentSimTime())); //ge1.getEffort(conn.getCurrentSimTime()));
+            //edge1.queryChangeEffort().setEffort(1000);
+            ChangeGlobalEffortQuery effort = edge1.queryChangeEffort();
+            effort.setEffort(10000);
+            effort.run();
+            System.out.println("Effort 296896085#3: " + edge1.getEffort(conn.getCurrentSimTime()));
+        }
+
+        Edge edge2 = conn.getEdgeRepository().getByID("148233399#0");
+        if(edge2 != null) {
+            System.out.println("Effort 148233399#0: " + edge2.getEffort(conn.getCurrentSimTime()));
+            ChangeGlobalEffortQuery effort= edge2.queryChangeEffort();
+            effort.setEffort(10000);
+            effort.run();
+            System.out.println("Effort 148233399#0: " + edge2.getEffort(conn.getCurrentSimTime()));
+        }
+
+        conn.getVehicleRepository().getByID("555").reRouteByEffort();
     }
 }

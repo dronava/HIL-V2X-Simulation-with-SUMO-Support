@@ -3,6 +3,7 @@ package maintain;
 import communication.V2XListeningServer;
 import communication.command.navigation.AbstractNavigationCommand;
 import configuration.LoadConfiguration;
+import configuration.pojo.AppConfig;
 import gpsfake.GpsfakeManagement;
 import gpsfake.GpsfakeRun;
 import javafx.collections.FXCollections;
@@ -16,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import process.*;
+import simulation.RolesEnum;
 import simulation.Simulation;
 
 import java.io.File;
@@ -43,7 +45,8 @@ public class Controller implements Initializable {
 
     private String configurationFile;
     private int simulationDelay;
-    LoadConfiguration loadConfiguration;
+
+    private AppConfig appConfig;
 
 
     @FXML
@@ -80,7 +83,7 @@ public class Controller implements Initializable {
         gpsfakeCommandTextField.setText("gpsfake -o -G -P 5555 -M 7777 -f");
 
        loadYaml();
-       System.out.println(loadConfiguration.getAppConfig().getSimulationDirectory());
+       System.out.println(appConfig.getSimulationDirectory());
     }
 
     public void runGpsfake() {
@@ -135,7 +138,7 @@ public class Controller implements Initializable {
                             System.out.println("Vehicles: " + s);
                         }
 
-                        netFileLoad = new NetFileLoad(configurationFiles.getNetFilePath(), loadConfiguration);
+                        netFileLoad = new NetFileLoad(configurationFiles.getNetFilePath());
                         cachedPool.execute(netFileLoad);
                         netFileLoad.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
                                 t1 -> {
@@ -159,7 +162,7 @@ public class Controller implements Initializable {
             simulation = new Simulation(configurationFile, simulationDelay, gpsfakeManagmentQueues, taskQueue, mapData);
             cachedPool.execute(simulation);
 
-            listeningServer = new V2XListeningServer(loadConfiguration.getAppConfig().getCommunicationPort(), cachedPool, taskQueue);
+            listeningServer = new V2XListeningServer(appConfig.getNavigationListeningPort(), taskQueue, RolesEnum.NAVIGATION);
             cachedPool.execute(listeningServer);
 
             for (GpsfakeRun gpsfakeRun : gpsfakes) {
@@ -172,7 +175,7 @@ public class Controller implements Initializable {
     public void FileChooserClick() {
         // String userDirectoryString = "C:\\Users\\szzso\\IdeaProjects\\V2X-Simulation\\simulation";
         System.out.println(System.getProperty("user.home"));
-        String userDirectoryString = loadConfiguration.getAppConfig().getSimulationDirectory();// "/home/szezso/V2X-Simulation-with-SUMO/simulation/";
+        String userDirectoryString = appConfig.getSimulationDirectory();// "/home/szezso/V2X-Simulation-with-SUMO/simulation/";
         File userDirectory = new File(userDirectoryString);
         if (!userDirectory.canRead()) {
             userDirectory = new File("/home/");
@@ -193,11 +196,7 @@ public class Controller implements Initializable {
     public void loadYaml() {
         System.out.println("Load Yaml");
 
-        try {
-            loadConfiguration = new LoadConfiguration();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        appConfig = LoadConfiguration.getAppConfig();
 
     }
 }

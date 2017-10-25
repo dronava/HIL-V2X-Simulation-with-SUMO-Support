@@ -1,11 +1,13 @@
 package communication.message;
 
+import communication.CommandEnum;
+
 public class MessageSpeed extends MessageCommon {
 
     double speed;
 
-    public MessageSpeed(String vehicleID, double speed) {
-        super(vehicleID);
+    public MessageSpeed(CommandEnum command, String vehicleID, double speed) {
+        super(command,vehicleID);
         this.speed = speed;
     }
 

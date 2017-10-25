@@ -1,4 +1,5 @@
-communicationListeningPort: 11111
+navigationListeningPort: 11111
+TMCListeningPort: 12222
 v2xAppListeningPort: 15000
 simulationDirectory: /home/szezso/V2X-Simulation-with-SUMO/simulation/
 mapSaveConfig:

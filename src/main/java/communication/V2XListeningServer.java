@@ -1,6 +1,9 @@
 package communication;
 
+import communication.command.AbstractCommand;
 import communication.command.navigation.AbstractNavigationCommand;
+import maintain.ThreadManager;
+import simulation.RolesEnum;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,20 +14,20 @@ import java.util.concurrent.ExecutorService;
 /**
  * Created by szezso on 2017.03.18..
  */
-public class V2XListeningServer implements Runnable {
+public class V2XListeningServer<C extends AbstractCommand> implements Runnable {
 
-    private Queue<AbstractNavigationCommand> taskQueue;
+    private Queue<C> taskQueue;
     private ServerSocket myServerSocket;
+    private RolesEnum role;
     boolean ServerOn;
-    private ExecutorService executorService;
     int port;
 
 
-    public V2XListeningServer(int port, ExecutorService executorService, Queue<AbstractNavigationCommand> taskQueue) {
+    public V2XListeningServer(int port, Queue<C> taskQueue, RolesEnum role) {
         ServerOn = true;
         this.port = port;
-        this.executorService = executorService;
         this.taskQueue = taskQueue;
+        this.role = role;
     }
 
     @Override
@@ -56,8 +59,8 @@ public class V2XListeningServer implements Runnable {
 
                 // Start a Service thread
 
-                V2XListeningThread cliThread = new V2XListeningThread(clientSocket, taskQueue);
-                executorService.execute(cliThread);
+                V2XListeningThread cliThread = new V2XListeningThread(clientSocket, taskQueue, role);
+                ThreadManager.getInstance().execute(cliThread);
 
             } catch (IOException ioe) {
                 System.out.println("Exception encountered on accept. Ignoring. Stack Trace :");

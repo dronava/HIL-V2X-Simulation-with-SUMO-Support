@@ -1,35 +1,48 @@
 package communication.command.tmc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import communication.V2XCommunicationClient;
-import communication.command.navigation.CommandEnum;
+import communication.CommandEnum;
 import communication.message.MessageRoute;
 import configuration.LoadConfiguration;
 import configuration.pojo.AppConfig;
-
-import java.util.List;
+import simulation.RolesChatalog;
+import simulation.TMC.RouteStore;
 
 public class CommandVehicleRoute extends AbstractTMCCommand {
 
-    List<String> route;
+    MessageRoute messageRoute;
+    boolean selfIndicated;
 
-    public CommandVehicleRoute(List<String> route) {
-        this.route = route;
+    public CommandVehicleRoute(MessageRoute messageRoute){
+        this.messageRoute = messageRoute;
+        selfIndicated = false;
+    }
+
+    public CommandVehicleRoute(MessageRoute messageRoute, boolean selfIndicated) {
+        this.messageRoute = messageRoute;
+        this.selfIndicated = selfIndicated;
     }
 
     @Override
     public void processCommand() throws JsonProcessingException {
-
         AppConfig appConfig = LoadConfiguration.getAppConfig();
 
-        MessageRoute messageRouteState = new MessageRoute(CommandEnum.CONGESTION.getCommand(), route);
+        System.out.println("CommandVehicleRoute " + messageRoute.getVehicleID());
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String message = objectMapper.writeValueAsString(messageRouteState);
-        System.out.println(message);
-        V2XCommunicationClient sendMessage = new V2XCommunicationClient("localhost", appConfig.getCommunicationListeningPort(), message);
-        sendMessage.start();
+        if(!selfIndicated){
+            RouteStore.getInstance().putRoute(messageRoute);
+        }
 
+        RouteStore routeStore = RouteStore.getInstance();
+
+        if(routeStore.isReRouteAvailable(getVehicleID())) {
+            messageRoute.setCommand(CommandEnum.ROUTEQUERRY);
+            sendMessagetoHost(RolesChatalog.NAVIGATION, appConfig.getNavigationListeningPort(),messageRoute);
+        }
+    }
+
+    @Override
+    public String getVehicleID() {
+        return messageRoute.getVehicleID();
     }
 }
