@@ -24,6 +24,7 @@ public class V2XCommunicationClient extends Thread {
         int tryNumber = 3;
         while (tryNumber-- > 0) {
             try {
+                System.out.println("Connect to: "+ipAddress +":"+  port);
                 socket = new Socket(ipAddress, port);
 
                 if (socket != null && socket.isConnected()) {
@@ -32,20 +33,16 @@ public class V2XCommunicationClient extends Thread {
                     break;
                 }
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Connection problem: " + e.getMessage());
             }
-
         }
     }
 
     private void sendMessage() {
-        PrintWriter pw;
         try (PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()),true)) {
             out.println(message);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
-
-
 }

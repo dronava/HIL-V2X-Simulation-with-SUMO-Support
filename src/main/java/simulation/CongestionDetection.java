@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CongestionDetection {
 
-    public static boolean detectCongestion(String edge, SumoTraciConnection connection, MapData mapData) {
+    /*public static boolean detectCongestion(String edge, SumoTraciConnection connection, MapData mapData) {
 
         List<String> lanes = mapData.getEdgeByName(edge).getLanes();
 
@@ -35,5 +35,5 @@ public class CongestionDetection {
 
     private static double calculateWeight(double occupancy) {
         return occupancy;
-    }
+    }*/
 }

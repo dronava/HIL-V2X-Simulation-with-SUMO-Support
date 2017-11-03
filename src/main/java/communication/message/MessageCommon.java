@@ -1,6 +1,6 @@
 package communication.message;
 
-import communication.CommandEnum;
+import communication.command.CommandEnum;
 
 public class MessageCommon {
 

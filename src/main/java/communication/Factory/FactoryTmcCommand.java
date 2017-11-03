@@ -1,5 +1,6 @@
-package communication;
+package communication.Factory;
 
+import communication.command.CommandEnum;
 import communication.command.AbstractCommand;
 import communication.command.tmc.CommandOccupancy;
 import communication.command.tmc.CommandVehicleRoute;
@@ -9,10 +10,10 @@ import communication.message.MessageRouteState;
 import java.io.IOException;
 import java.util.Optional;
 
-public class FactoryTMCCommand extends AbstractFactoryCommand {
+public class FactoryTmcCommand extends AbstractFactoryCommand {
 
 
-    public FactoryTMCCommand() {
+    public FactoryTmcCommand() {
     }
 
     @Override

@@ -3,22 +3,20 @@ package simulation.TMC;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import communication.V2XListeningServer;
-import communication.command.tmc.AbstractTMCCommand;
+import communication.command.tmc.AbstractTmcCommand;
 import communication.command.tmc.CommandVehicleRoute;
 import configuration.LoadConfiguration;
 import configuration.pojo.AppConfig;
 import maintain.ThreadManager;
 import simulation.RolesEnum;
 
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Tmc implements Runnable {
 
-    private Queue<AbstractTMCCommand> taskQueue = new ConcurrentLinkedQueue();
+    private Queue<AbstractTmcCommand> taskQueue = new ConcurrentLinkedQueue();
     private V2XListeningServer listeningServer;
 
     private final long waitTime = 500;
@@ -66,7 +64,7 @@ public class Tmc implements Runnable {
     public void processCommand() {
         int actualCommandQueueSize = taskQueue.size();
         while (actualCommandQueueSize != 0) {
-            AbstractTMCCommand command = taskQueue.poll();
+            AbstractTmcCommand command = taskQueue.poll();
             actualCommandQueueSize--;
             try {
                 command.processCommand();

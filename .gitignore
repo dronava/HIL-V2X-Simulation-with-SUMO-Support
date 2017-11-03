@@ -94,3 +94,4 @@ hs_err_pid*
 
 #Project
 *.nmea
+saved_maps/

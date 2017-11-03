@@ -1,13 +1,13 @@
 package communication.command.navigation;
 
-import communication.CommandEnum;
+import communication.command.CommandEnum;
 import communication.command.CommandReturnValue;
 import communication.message.MessageRouteState;
 import communication.message.MessageEdgeState;
 import communication.message.MessageRoute;
 import it.polito.appeal.traci.SumoTraciConnection;
 import process.MapData;
-import simulation.RolesChatalog;
+import simulation.RolesCatalog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class CommandCongestionDetails extends AbstractNavigationCommand{
         MessageRouteState messageRouteState =
                 new MessageRouteState(CommandEnum.OCCUPANCY, messageRoute.getVehicleID(),edgeState);
 
-        sendMessagetoHost(RolesChatalog.TMC, appConfig.getTMCListeningPort(), messageRouteState);
+        sendMessageToHost(RolesCatalog.TMC, appConfig.getTMCListeningPort(), messageRouteState);
 
         return Optional.empty();
     }

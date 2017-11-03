@@ -1,6 +1,6 @@
 package communication.command.navigation;
 
-import communication.CommandEnum;
+import communication.command.CommandEnum;
 import communication.command.CommandReturnValue;
 import communication.message.MessageCommon;
 import communication.message.MessageRouteState;

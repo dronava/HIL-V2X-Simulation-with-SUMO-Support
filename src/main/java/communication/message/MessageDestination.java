@@ -1,10 +1,10 @@
 package communication.message;
 
-import communication.CommandEnum;
+import communication.command.CommandEnum;
 
 import java.awt.geom.Point2D;
 
-public class MessageDestinationChange extends MessageCommon{
+public class MessageDestination extends MessageCommon{
 
     private Point2D.Double destination;
 
@@ -16,7 +16,7 @@ public class MessageDestinationChange extends MessageCommon{
         this.destination = destination;
     }
 
-    public MessageDestinationChange(CommandEnum command, String vehicleID, Point2D.Double destination) {
+    public MessageDestination(CommandEnum command, String vehicleID, Point2D.Double destination) {
         super(command, vehicleID);
         this.destination = destination;
     }

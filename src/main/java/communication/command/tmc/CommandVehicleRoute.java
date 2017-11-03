@@ -1,14 +1,14 @@
 package communication.command.tmc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import communication.CommandEnum;
+import communication.command.CommandEnum;
 import communication.message.MessageRoute;
 import configuration.LoadConfiguration;
 import configuration.pojo.AppConfig;
-import simulation.RolesChatalog;
+import simulation.RolesCatalog;
 import simulation.TMC.RouteStore;
 
-public class CommandVehicleRoute extends AbstractTMCCommand {
+public class CommandVehicleRoute extends AbstractTmcCommand {
 
     MessageRoute messageRoute;
     boolean selfIndicated;
@@ -37,7 +37,7 @@ public class CommandVehicleRoute extends AbstractTMCCommand {
 
         if(routeStore.isReRouteAvailable(getVehicleID())) {
             messageRoute.setCommand(CommandEnum.ROUTEQUERRY);
-            sendMessagetoHost(RolesChatalog.NAVIGATION, appConfig.getNavigationListeningPort(),messageRoute);
+            sendMessageToHost(RolesCatalog.getRSUAddress(), appConfig.getV2xAppListeningPort(),messageRoute);
         }
     }
 

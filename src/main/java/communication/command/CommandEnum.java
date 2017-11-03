@@ -1,4 +1,4 @@
-package communication;
+package communication.command;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -11,9 +11,10 @@ public enum CommandEnum {
     DST("dst"),
     OCCUPANCY("occupancy"),
     ROUTE("route"),
-    ROUTEQUERRY("routequerry"),
+    ROUTEQUERRY("routeQuerry"),
     REROUTE("reroute"),
-    RETURNDST("returndst"),
+    POSITIONRELEVANT("positionRelevant"),
+    RETURNDST("returnDst"),
     NAVIGATION("navigation"),
     UNDEFINED("undefined"),
     QUIT("quit");
@@ -39,5 +40,4 @@ public enum CommandEnum {
                 .filter(c -> c.command.equalsIgnoreCase(command)).findFirst()
                 .get();
     }
-
 }

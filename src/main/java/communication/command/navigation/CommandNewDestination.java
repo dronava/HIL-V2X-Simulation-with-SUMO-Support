@@ -1,8 +1,8 @@
 package communication.command.navigation;
 
-import communication.CommandEnum;
+import communication.command.CommandEnum;
 import communication.command.CommandReturnValue;
-import communication.message.MessageDestinationChange;
+import communication.message.MessageDestination;
 import it.polito.appeal.traci.Edge;
 import it.polito.appeal.traci.PositionConversionQuery;
 import it.polito.appeal.traci.SumoTraciConnection;
@@ -17,9 +17,9 @@ import java.util.Optional;
  */
 public class CommandNewDestination extends AbstractNavigationCommand {
 
-    private MessageDestinationChange messageDestination;
+    private MessageDestination messageDestination;
 
-    public CommandNewDestination(MessageDestinationChange destination) {
+    public CommandNewDestination(MessageDestination destination) {
         this.messageDestination = destination;
     }
 

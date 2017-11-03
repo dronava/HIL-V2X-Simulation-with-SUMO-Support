@@ -1,8 +1,8 @@
 package communication.command.tmc;
 
-import communication.CommandEnum;
+import communication.command.CommandEnum;
 import communication.message.MessageRouteState;
-import simulation.RolesChatalog;
+import simulation.RolesCatalog;
 import simulation.TMC.RouteStore;
 
 import java.time.LocalTime;
@@ -10,7 +10,7 @@ import java.time.LocalTime;
 /**
  * Created by szezso on 2017.07.16..
  */
-public class CommandOccupancy extends AbstractTMCCommand {
+public class CommandOccupancy extends AbstractTmcCommand {
 
     MessageRouteState messageRouteState;
 
@@ -26,7 +26,7 @@ public class CommandOccupancy extends AbstractTMCCommand {
         if(isCrowded()) {
             MessageRouteState messageReRoute = new MessageRouteState(CommandEnum.REROUTE,
                     messageRouteState.getVehicleID(), messageRouteState.getEdgeState());
-            sendMessagetoHost(RolesChatalog.NAVIGATION, appConfig.getNavigationListeningPort(), messageReRoute);
+            sendMessageToHost(RolesCatalog.getRSUAddress(), appConfig.getV2xAppListeningPort(), messageReRoute);
             RouteStore.getInstance().setReRouteQueryTime(messageReRoute.getVehicleID(), LocalTime.now());
         }
     }

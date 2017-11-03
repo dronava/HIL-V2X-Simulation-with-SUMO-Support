@@ -1,6 +1,5 @@
 package communication.command;
 
-import communication.CommandEnum;
 import communication.command.navigation.AbstractNavigationCommand;
 import it.polito.appeal.traci.Edge;
 import it.polito.appeal.traci.SumoTraciConnection;

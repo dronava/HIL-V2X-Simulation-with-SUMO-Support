@@ -1,8 +1,12 @@
 package communication;
 
 
+import communication.Factory.AbstractFactoryCommand;
+import communication.Factory.FactoryNavigationScenario1;
+import communication.Factory.FactoryTmcCommand;
 import communication.command.AbstractCommand;
-import simulation.RolesChatalog;
+import communication.command.CommandEnum;
+import simulation.RolesCatalog;
 import simulation.RolesEnum;
 
 import java.io.*;
@@ -27,10 +31,10 @@ public  class  V2XListeningThread<C extends AbstractCommand> implements Runnable
         this.taskQueue = taskQueue;
         switch (role){
             case TMC:
-                factoryCommand = new FactoryTMCCommand();
+                factoryCommand = new FactoryTmcCommand();
                 break;
             case NAVIGATION:
-                factoryCommand = new FactoryNavigationCommand();
+                factoryCommand = new FactoryNavigationScenario1();
                 break;
         }
         this.role = role;
@@ -60,7 +64,7 @@ public  class  V2XListeningThread<C extends AbstractCommand> implements Runnable
                 CommandEnum command;
                 if(message != null && message.length() >0) {
                     System.out.println("Client Says :" + message);
-                    command = FactoryNavigationCommand.getCommandType(message);
+                    command = AbstractFactoryCommand.getCommandType(message);
                     System.out.println("FACTORY " + command + " Role: " + role);
                     if (command.equals(CommandEnum.QUIT)) {
                         // Special communication.command. Quit this thread
@@ -72,7 +76,11 @@ public  class  V2XListeningThread<C extends AbstractCommand> implements Runnable
 
                         Optional<AbstractCommand> task =
                                 factoryCommand.createCommand(message, command);
-                        task.ifPresent(t -> taskQueue.offer((C) t));
+                        task.ifPresent(t->{
+                            System.out.println("OBU: "+socket.getInetAddress().getHostAddress());
+                            RolesCatalog.newOBU(t.getVehicleID(), socket.getInetAddress().getHostAddress());
+                            taskQueue.offer((C) t);
+                        });
 
 
                         //out.flush();
