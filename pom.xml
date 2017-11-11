@@ -70,9 +70,13 @@
             <version>2.9.1</version>
         </dependency>
 
-
-
-
+        <dependency>
+            <groupId>net.sourceforge.jsi</groupId>
+            <artifactId>jsi</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/jsi.jar</systemPath>
+        </dependency>
 
     </dependencies>
 </project>
