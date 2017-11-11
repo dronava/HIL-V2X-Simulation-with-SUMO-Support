@@ -1,4 +1,4 @@
-package communication.Factory;
+package communication.factory;
 
 import communication.command.CommandEnum;
 import communication.command.AbstractCommand;

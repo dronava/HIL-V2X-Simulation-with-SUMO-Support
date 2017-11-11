@@ -1,4 +1,4 @@
-package communication.Factory;
+package communication.factory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

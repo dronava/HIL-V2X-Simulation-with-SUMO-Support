@@ -4,8 +4,8 @@ package simulation;
 import communication.command.navigation.AbstractNavigationCommand;
 import it.polito.appeal.traci.*;
 import maintain.ThreadManager;
-import process.MapData;
 import simulation.TMC.Tmc;
+import simulation.managedobject.SumoVehicle;
 
 import java.io.IOException;
 
@@ -25,19 +25,20 @@ public class Simulation implements Runnable {
     private List<SumoVehicle> managedVehicles = new ArrayList<>();
 
     private boolean closeSumo;
+    private boolean runGpsFake;
 
     public Simulation(String configfile, int delay,
                       Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues,
-                      Queue<AbstractNavigationCommand> taskQueue, MapData mapData) {
+                      Queue<AbstractNavigationCommand> taskQueue, boolean runGpsFake) {
         this.configfile = configfile;
         this.delay = delay;
         this.gpsfakeManagmentQueues = gpsfakeManagmentQueues;
         this.taskQueue = taskQueue;
         closeSumo = true;
+        this.runGpsFake = runGpsFake;
 
         ThreadManager.getInstance().execute(new Tmc());
     }
-    //555;dst;47.473643;19.052962
 
     @Override
     public void run() {
@@ -54,6 +55,7 @@ public class Simulation implements Runnable {
             conn.nextSimStep();
             conn.nextSimStep();
             System.out.println("ok");
+            gpsfakeManagmentQueues.forEach((key,value)-> System.out.println("Key:" + key));
 
             do {
 
@@ -65,7 +67,7 @@ public class Simulation implements Runnable {
                 Map<String, List<AbstractNavigationCommand>> task = processCommands();
 
                 for (SumoVehicle managedVehicle : managedVehicles) {
-                    managedVehicle.nextStep(conn, gpsfakeManagmentQueues.get(managedVehicle.getVehicleID()), task.get(managedVehicle.getVehicleID()));
+                    managedVehicle.nextStep(conn, task.get(managedVehicle.getVehicleID()));
                 }
                 conn.nextSimStep();
             } while (closeSumo && !conn.isClosed());
@@ -89,7 +91,10 @@ public class Simulation implements Runnable {
                 System.out.println();
                 System.out.println("Src: " + entry.getKey() + " - " + actroute.get(0));
                 System.out.println("Dst: " + actroute.get(actroute.size() - 1));
-                managedVehicles.add(new SumoVehicle(entry.getKey(), actroute.get(0), actroute.get(actroute.size() - 1)));
+                if(runGpsFake)
+                    managedVehicles.add(new SumoVehicle(gpsfakeManagmentQueues.get(entry.getKey()),entry.getKey(), actroute.get(0), actroute.get(actroute.size() - 1)));
+                else
+                    managedVehicles.add(new SumoVehicle(entry.getKey(), actroute.get(0), actroute.get(actroute.size() - 1)));
             }
         }
     }
@@ -101,7 +106,7 @@ public class Simulation implements Runnable {
             AbstractNavigationCommand command = taskQueue.poll();
 
             actualCommandQueueSize--;
-            if (!tasks.containsKey(command .getVehicleID())) {
+            if (!tasks.containsKey(command.getVehicleID())) {
                 tasks.put(command.getVehicleID(), new ArrayList<AbstractNavigationCommand>());
             }
 

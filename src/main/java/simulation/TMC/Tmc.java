@@ -9,6 +9,7 @@ import configuration.LoadConfiguration;
 import configuration.pojo.AppConfig;
 import maintain.ThreadManager;
 import simulation.RolesEnum;
+import simulation.ScenarioEnum;
 
 import java.util.Optional;
 import java.util.Queue;
@@ -25,7 +26,7 @@ public class Tmc implements Runnable {
     public Tmc() {
         AppConfig appConfig = LoadConfiguration.getAppConfig();
 
-        listeningServer = new V2XListeningServer(appConfig.getTMCListeningPort(), taskQueue, RolesEnum.TMC);
+        listeningServer = new V2XListeningServer(appConfig.getTMCListeningPort(), taskQueue, RolesEnum.TMC, ScenarioEnum.SCENARIO1);
     }
 
     @Override

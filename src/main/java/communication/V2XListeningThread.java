@@ -1,13 +1,15 @@
 package communication;
 
 
-import communication.Factory.AbstractFactoryCommand;
-import communication.Factory.FactoryNavigationScenario1;
-import communication.Factory.FactoryTmcCommand;
+import communication.factory.AbstractFactoryCommand;
+import communication.factory.FactoryNavigationScenario1;
+import communication.factory.FactoryNavigationScenario2;
+import communication.factory.FactoryTmcCommand;
 import communication.command.AbstractCommand;
 import communication.command.CommandEnum;
 import simulation.RolesCatalog;
 import simulation.RolesEnum;
+import simulation.ScenarioEnum;
 
 import java.io.*;
 import java.net.Socket;
@@ -25,16 +27,26 @@ public  class  V2XListeningThread<C extends AbstractCommand> implements Runnable
     boolean ServerOn = true;
     private AbstractFactoryCommand factoryCommand;
     private RolesEnum role;
+    private ScenarioEnum scenario;
 
-    V2XListeningThread(Socket s, Queue<C> taskQueue, RolesEnum role) {
+    V2XListeningThread(Socket s, Queue<C> taskQueue, RolesEnum role, ScenarioEnum scenario) {
         this.socket = s;
         this.taskQueue = taskQueue;
+        this.scenario = scenario;
+
         switch (role){
             case TMC:
                 factoryCommand = new FactoryTmcCommand();
                 break;
             case NAVIGATION:
-                factoryCommand = new FactoryNavigationScenario1();
+                if(scenario == ScenarioEnum.SCENARIO1) {
+                    System.out.println("Scenario1 - Navigation");
+                    factoryCommand = new FactoryNavigationScenario1();
+                }
+                if(scenario == ScenarioEnum.SCENARIO2) {
+                    factoryCommand = new FactoryNavigationScenario2();
+                    System.out.println("Scenario2 - Navigation");
+                }
                 break;
         }
         this.role = role;

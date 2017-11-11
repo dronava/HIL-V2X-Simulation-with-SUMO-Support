@@ -75,14 +75,15 @@ public class GpsfakeManagement implements Runnable {
 
                     String queueElement;
                     int elements = 0;
-                    while((queueElement = queue.poll())!= null && elements <10) {
+                    while((queueElement = queue.poll())!= null) {
                         if(fistcommand){
                             sendMessage("manual-begin");
                             fistcommand = false;
                         }
 
+                        System.out.println(queueElement);
                         sendMessage(queueElement);
-                        elements++;
+                        //elements++;
                     }
                 }
             }

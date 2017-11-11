@@ -26,6 +26,7 @@
                                 <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="57.0" minHeight="1.0" prefHeight="46.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="125.0" minHeight="6.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="125.0" minHeight="1.0" prefHeight="56.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="149.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
                             </rowConstraints>
@@ -50,7 +51,7 @@
                                         <Insets left="10.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Button fx:id="startSimulationButton" disable="true" mnemonicParsing="false" onAction="#startSimulation" text="Start simulation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                                <Button fx:id="startSimulationButton" disable="true" mnemonicParsing="false" onAction="#startSimulation" text="Start simulation" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                                 <Label fx:id="configurationFileLoaderLabel" prefHeight="17.0" prefWidth="146.0" textFill="#f81111" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets left="10.0" />
@@ -62,9 +63,15 @@
                                     </GridPane.margin>
                                 </Label>
                                 <Button mnemonicParsing="false" onAction="#FileChooserClick" text="Open" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                <Button fx:id="stopSimulationButton" disable="true" mnemonicParsing="false" text="Stop" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                                <Button mnemonicParsing="false" onAction="#loadConfiguration" text="Load Configuration" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                                <Label fx:id="configurationReadSateLabel" prefHeight="17.0" prefWidth="203.0" text=" " GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                                <Button fx:id="stopSimulationButton" disable="true" mnemonicParsing="false" text="Stop" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                                <Button mnemonicParsing="false" onAction="#loadConfiguration" text="Load Configuration" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                                <Label fx:id="configurationReadSateLabel" prefHeight="17.0" prefWidth="203.0" text=" " GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                        <Label text="Scenario:" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <ComboBox fx:id="scenarioComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             </children>
                         </GridPane>
                     </content>

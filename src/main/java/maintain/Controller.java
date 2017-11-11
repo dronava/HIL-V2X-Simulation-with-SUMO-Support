@@ -16,12 +16,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import process.*;
+import process.ConfigurationFile;
+import process.ConfigurationParser;
+import process.MapData;
+import process.NetFileLoad;
 import simulation.RolesEnum;
+import simulation.ScenarioEnum;
 import simulation.Simulation;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.*;
@@ -42,11 +45,15 @@ public class Controller implements Initializable {
     private NetFileLoad netFileLoad;
     private MapData mapData;
     private ObservableList<String> vehicleID = FXCollections.observableArrayList();
+    ObservableList<String> scenarioObservableList;
+
 
     private String configurationFile;
     private int simulationDelay;
 
     private AppConfig appConfig;
+
+    private boolean runGpsFakeInstance;
 
 
     @FXML
@@ -71,6 +78,8 @@ public class Controller implements Initializable {
     private Accordion gpsfakeAccordion;
     @FXML
     private GridPane configurationGridPane;
+    @FXML
+    private ComboBox scenarioComboBox;
 
 
     @Override
@@ -82,8 +91,12 @@ public class Controller implements Initializable {
         //System.out.println("OS: "+ System.getProperty("os.name"));
         gpsfakeCommandTextField.setText("gpsfake -o -G -P 5555 -M 7777 -f");
 
-       loadYaml();
-       System.out.println(appConfig.getSimulationDirectory());
+        loadYaml();
+        System.out.println(appConfig.getSimulationDirectory());
+        scenarioObservableList = FXCollections.observableArrayList(ScenarioEnum.getAllScenario());
+        scenarioComboBox.setItems(scenarioObservableList);
+        scenarioComboBox.getSelectionModel().selectFirst();
+        runGpsFakeInstance = false;
     }
 
     public void runGpsfake() {
@@ -99,6 +112,7 @@ public class Controller implements Initializable {
 
             vehicleID.remove(gpsfakeAvailableIDComboBox.getValue().toString());
             gpsfakeAvailableIDComboBox.setItems(vehicleID);
+            runGpsFakeInstance = true;
             //cachedPool.execute(management);
             System.out.println("Run new gpsfake");
         }
@@ -146,7 +160,6 @@ public class Controller implements Initializable {
                                     configurationReadSateLabel.setText("Net file loaded");
                                     startSimulationButton.setDisable(false);
                                 });
-
                     });
         }
     }
@@ -157,25 +170,36 @@ public class Controller implements Initializable {
             //!simulationDelayTextField.getText().isEmpty() &&
             //simulationDelay =Integer.parseInt(simulationDelayTextField.getText());
             simulationDelay = 0;
-            List<String> managedVehicles = gpsfakes.stream().map(u -> u.getVehicleID()).collect(Collectors.toList());
+            List<String> managedVehicles;
+            if (runGpsFakeInstance)
+                managedVehicles = gpsfakes.stream().map(u -> u.getVehicleID()).collect(Collectors.toList());
+            else {
+                managedVehicles = gpsfakeAvailableIDComboBox.getItems();
+                managedVehicles.forEach(vehicle ->
+                {
+                    System.out.println("vehcile:" + vehicle.split("-")[0]);
+                    gpsfakeManagmentQueues.put(vehicle.split("-")[0], null);
+                });
+            }
+            System.out.println("managedVehicle: " + managedVehicles.size());
             managedVehicles.forEach(u -> System.out.println(u));
-            simulation = new Simulation(configurationFile, simulationDelay, gpsfakeManagmentQueues, taskQueue, mapData);
+            simulation = new Simulation(configurationFile, simulationDelay, gpsfakeManagmentQueues, taskQueue, runGpsFakeInstance);
             cachedPool.execute(simulation);
 
-            listeningServer = new V2XListeningServer(appConfig.getNavigationListeningPort(), taskQueue, RolesEnum.NAVIGATION);
+            ScenarioEnum scenario = ScenarioEnum.getNameByValue((String) scenarioComboBox.getSelectionModel().getSelectedItem());
+
+            listeningServer = new V2XListeningServer(appConfig.getNavigationListeningPort(), taskQueue, RolesEnum.NAVIGATION, scenario);
             cachedPool.execute(listeningServer);
 
             for (GpsfakeRun gpsfakeRun : gpsfakes) {
                 gpsfakeRun.runManagementThread(cachedPool);
             }
-
         }
     }
 
     public void FileChooserClick() {
-        // String userDirectoryString = "C:\\Users\\szzso\\IdeaProjects\\V2X-Simulation\\simulation";
         System.out.println(System.getProperty("user.home"));
-        String userDirectoryString = appConfig.getSimulationDirectory();// "/home/szezso/V2X-Simulation-with-SUMO/simulation/";
+        String userDirectoryString = appConfig.getSimulationDirectory();
         File userDirectory = new File(userDirectoryString);
         if (!userDirectory.canRead()) {
             userDirectory = new File("/home/");
@@ -190,13 +214,11 @@ public class Controller implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(configFileTextField.getScene().getWindow());
         if (selectedFile != null)
             configFileTextField.setText(selectedFile.getPath());
-
     }
 
     public void loadYaml() {
         System.out.println("Load Yaml");
 
         appConfig = LoadConfiguration.getAppConfig();
-
     }
 }

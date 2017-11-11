@@ -1,7 +1,8 @@
-package simulation;
+package simulation.managedobject;
 
 import communication.command.CommandReturnValue;
 import communication.command.navigation.AbstractNavigationCommand;
+import gpsfake.Nmea;
 import it.polito.appeal.traci.*;
 
 import java.awt.geom.Point2D;
@@ -24,6 +25,9 @@ public class SumoVehicle {
     private DateFormat dateFormatdate = new SimpleDateFormat("ddMMyy");
     private DateFormat dateFormattime = new SimpleDateFormat("HHmmss.SS");
 
+    private ConcurrentLinkedQueue<String> nmeaToDevicesQueue;
+    private boolean gpsFakeEnable;
+
     public Edge getSrc() {
         return src;
     }
@@ -44,10 +48,20 @@ public class SumoVehicle {
         return vehicleID;
     }
 
+    public SumoVehicle(ConcurrentLinkedQueue<String> nmeaToDevicesQueue, String vehicleID, Edge src, Edge dst) {
+        this.vehicleID = vehicleID;
+        this.src = src;
+        this.dst = dst;
+        this.nmeaToDevicesQueue = nmeaToDevicesQueue;
+        gpsFakeEnable= true;
+    }
+
     public SumoVehicle(String vehicleID, Edge src, Edge dst) {
         this.vehicleID = vehicleID;
         this.src = src;
         this.dst = dst;
+        gpsFakeEnable = false;
+
     }
 
     public void changeSrcDst(){
@@ -57,7 +71,6 @@ public class SumoVehicle {
     }
 
     public void nextStep(SumoTraciConnection conn,
-                         ConcurrentLinkedQueue<String> nmeaToDevicesQueue,
                          List<AbstractNavigationCommand> tasks) throws IOException {
 
         Vehicle actVehicle = conn.getVehicleRepository().getByID(vehicleID);
@@ -66,6 +79,7 @@ public class SumoVehicle {
             List<Edge> actroute = actVehicle.getCurrentRoute();
 
             if(tasks != null) {
+
                 for (AbstractNavigationCommand task : tasks) {
                     Optional<CommandReturnValue> action = task.processCommand(conn);
 
@@ -84,9 +98,11 @@ public class SumoVehicle {
 
             }
 
-            Nmea nmea = createNMEA(conn, actVehicle);
-            nmeaToDevicesQueue.offer(nmea.getRMC());
-            nmeaToDevicesQueue.offer(nmea.getGGA());
+            if(gpsFakeEnable) {
+                Nmea nmea = createNmeaSentences(conn, actVehicle);
+                nmeaToDevicesQueue.offer(nmea.getRMC());
+                nmeaToDevicesQueue.offer(nmea.getGGA());
+            }
         }
         else {
             //TODO ki kell torolni az ilyen jarmuvet
@@ -94,7 +110,7 @@ public class SumoVehicle {
 
     }
 
-    private Nmea createNMEA(SumoTraciConnection conn, Vehicle actVehicle) throws IOException {
+    private Nmea createNmeaSentences(SumoTraciConnection conn, Vehicle actVehicle) throws IOException {
         Date date = new Date();
         String actdate = dateFormatdate.format(date);
         String acttime = dateFormattime.format(date);

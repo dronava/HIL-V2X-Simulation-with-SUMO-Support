@@ -4,6 +4,7 @@ import communication.command.AbstractCommand;
 import communication.command.navigation.AbstractNavigationCommand;
 import maintain.ThreadManager;
 import simulation.RolesEnum;
+import simulation.ScenarioEnum;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -21,13 +22,15 @@ public class V2XListeningServer<C extends AbstractCommand> implements Runnable {
     private RolesEnum role;
     boolean ServerOn;
     int port;
+    ScenarioEnum scenario;
 
 
-    public V2XListeningServer(int port, Queue<C> taskQueue, RolesEnum role) {
+    public V2XListeningServer(int port, Queue<C> taskQueue, RolesEnum role, ScenarioEnum scenario) {
         ServerOn = true;
         this.port = port;
         this.taskQueue = taskQueue;
         this.role = role;
+        this.scenario = scenario;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class V2XListeningServer<C extends AbstractCommand> implements Runnable {
 
                 // Start a Service thread
 
-                V2XListeningThread cliThread = new V2XListeningThread(clientSocket, taskQueue, role);
+                V2XListeningThread cliThread = new V2XListeningThread(clientSocket, taskQueue, role, scenario);
                 ThreadManager.getInstance().execute(cliThread);
 
             } catch (IOException ioe) {
