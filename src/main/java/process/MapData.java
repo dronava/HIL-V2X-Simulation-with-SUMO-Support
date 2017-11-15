@@ -64,6 +64,7 @@ public class MapData implements Serializable {
     protected Object readResolve() {
         mapDataInstance.setEdgeMap(getEdgeMap());
         mapDataInstance.setrTree(getrTree());
+        mapDataInstance.setJunctionMap(getJunctionMap());
         return mapDataInstance;
     }
 
