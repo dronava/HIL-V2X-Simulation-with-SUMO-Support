@@ -5,9 +5,9 @@ import net.sf.jsi.Rectangle;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MapData implements Serializable {
 
@@ -15,23 +15,45 @@ public class MapData implements Serializable {
     private static MapData mapDataInstance = new MapData();
 
     private MyRTree rTree;
-    private Map<String, EdgeElement> hashMap;
+    private Map<String, EdgeElement> edgeMap;
+    private Map<String, JunctionElement> junctionMap;
 
     public MyRTree getRTree() {
         return rTree;
     }
 
-    public Map<String, EdgeElement> getHashMap(){
-        return hashMap;
+    public Map<String, EdgeElement> getEdgeMap(){
+        return edgeMap;
     }
 
     public static MapData getInstance() {
         return mapDataInstance;
     }
 
+    public MyRTree getrTree() {
+        return rTree;
+    }
+
+    public void setrTree(MyRTree rTree) {
+        this.rTree = rTree;
+    }
+
+    public void setEdgeMap(Map<String, EdgeElement> edgeMap) {
+        this.edgeMap = edgeMap;
+    }
+
+    public Map<String, JunctionElement> getJunctionMap() {
+        return junctionMap;
+    }
+
+    public void setJunctionMap(Map<String, JunctionElement> junctionMap) {
+        this.junctionMap = junctionMap;
+    }
+
     private MapData() {
         rTree = new MyRTree();
-        hashMap = new HashMap<>();
+        edgeMap = new ConcurrentHashMap<>();
+        junctionMap = new ConcurrentHashMap<>();
     }
 
     /**
@@ -40,13 +62,13 @@ public class MapData implements Serializable {
      * @return
      */
     protected Object readResolve() {
-        mapDataInstance.setHashMap(getHashMap());
+        mapDataInstance.setEdgeMap(getEdgeMap());
         mapDataInstance.setrTree(getrTree());
         return mapDataInstance;
     }
 
     public synchronized EdgeElement getEdgeByName(String edgeName) {
-        return hashMap.get(edgeName);
+        return edgeMap.get(edgeName);
     }
 
 
@@ -60,29 +82,27 @@ public class MapData implements Serializable {
         return rTree.getNearestN(new Point((float) coordinate.getX(), (float) coordinate.getY()), nearestN);
     }
 
+    public synchronized JunctionElement getJunctionById(String id){
+        return junctionMap.get(id);
+    }
+
     public synchronized void setEdgeCongested(String edge, EdgeCongested edgeCongested) {
-        hashMap.get(edge).setEdgeCongested(edgeCongested);
+        edgeMap.get(edge).setEdgeCongested(edgeCongested);
     }
 
     public EdgeCongested getEdgeCongestionState(String edge){
-        return hashMap.get(edge).getEdgeCongested();
+        return edgeMap.get(edge).getEdgeCongested();
     }
 
     public void addEdge(EdgeElement edge, Rectangle rectangle) {
 
         rTree.add(edge, rectangle);
-        hashMap.put(edge.getId(),edge);
+        edgeMap.put(edge.getId(),edge);
     }
 
-    public MyRTree getrTree() {
-        return rTree;
+    public void addJunction(JunctionElement junction){
+        junctionMap.put(junction.getJunctionId(), junction);
     }
 
-    public void setrTree(MyRTree rTree) {
-        this.rTree = rTree;
-    }
 
-    public void setHashMap(Map<String, EdgeElement> hashMap) {
-        this.hashMap = hashMap;
-    }
 }

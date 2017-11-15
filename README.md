@@ -24,6 +24,6 @@ Kiadható parnacsokra példa:
 - gpsfake indítás szintaktikáját és más szintaktikát is tartsd, mert a program nem ellenőrzi
 
 # Külső programok
-- SUMO [telepítés](http://www.sumo.dlr.de/userdoc/Installing.html)
+- Legalább 0.30.0 SUMO [telepítés](http://www.sumo.dlr.de/userdoc/Installing.html)
 - SUMO [wiki](http://sumo.dlr.de/wiki/Simulation_of_Urban_MObility_-_Wiki)
 - Módosított [gpsfake](https://github.com/szzso/GPSD-with-management)

@@ -81,7 +81,7 @@ public class GpsfakeManagement implements Runnable {
                             fistcommand = false;
                         }
 
-                        System.out.println(queueElement);
+                        //System.out.println(queueElement);
                         sendMessage(queueElement);
                         //elements++;
                     }

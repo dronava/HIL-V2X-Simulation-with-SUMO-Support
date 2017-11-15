@@ -15,11 +15,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 import org.w3c.dom.Element;
@@ -49,7 +47,7 @@ public class NetFileLoad extends Task<MapData> {
 
     @Override
     protected MapData call() throws Exception {
-        HashMap<String, String> map = new HashMap<>();
+        ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
         File storedFile = new File(savedNetFilesPath);
 
         try {
@@ -59,7 +57,7 @@ public class NetFileLoad extends Task<MapData> {
             if (storedFile.exists()) {
                 FileInputStream fis = new FileInputStream(storedFile);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                map = (HashMap) ois.readObject();
+                map = (ConcurrentHashMap) ois.readObject();
                 ois.close();
                 fis.close();
 
@@ -91,7 +89,7 @@ public class NetFileLoad extends Task<MapData> {
 
             long difference = veg - kezd;
             System.out.println("Tree size " + mapData.getRTree().getRTree().size());
-            System.out.println("Hash size " + mapData.getHashMap().size());
+            System.out.println("Hash size " + mapData.getEdgeMap().size());
             System.out.println("Edge ID " + mapData.getEdgeByName("37392508").getLanes().toString());
             System.out.println("Total execution time: " +
                     String.format("%d mil", TimeUnit.NANOSECONDS.toMillis(difference)));
@@ -198,7 +196,6 @@ public class NetFileLoad extends Task<MapData> {
                                 lanePoints[count] = convertShapesToDouble(shapes);
                             }
                         }
-                        if(id.equals("37392508")) System.out.println("37392508 LANE" + lanes.toString());
                         actEdge.setLanes(lanes);
                         actEdge.setWidth(laneWidth);
 
@@ -233,6 +230,28 @@ public class NetFileLoad extends Task<MapData> {
 
     }
 
+    private void readJunction(Document document){
+        NodeList nListJunction = document.getElementsByTagName("junction");
+
+        for (int i = 0; i < nListJunction.getLength() ; i++) {
+            Node nNode = nListJunction.item(i);
+            Element junction = (Element) nNode;
+
+            String junctionId;
+            List<String> incLanes;
+
+            if (junction.hasAttribute("id") &&
+                    junction.hasAttribute("incLanes")) {
+                junctionId = junction.getAttribute("id");
+                incLanes = Arrays.asList(junction.getAttribute("incLanes").split(" "));
+
+                mapData.addJunction(new JunctionElement(junctionId, incLanes));
+
+            }
+        }
+
+    }
+
     private void createTree(File inputFile) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory dbFactory =
                 DocumentBuilderFactory.newInstance();
@@ -243,6 +262,7 @@ public class NetFileLoad extends Task<MapData> {
         List<EdgeElement> typeElements = readTypes(doc);
 
         readEdges(doc, typeElements);
+        readJunction(doc);
     }
 
     private Point2D[] convertShapesToDouble(String[] shapes) {
@@ -318,7 +338,7 @@ public class NetFileLoad extends Task<MapData> {
     }
 
 
-    private void readAndSerializeTree(String checkSum, File inputFile, HashMap<String, String> map) throws IOException, SAXException, ParserConfigurationException {
+    private void readAndSerializeTree(String checkSum, File inputFile, ConcurrentHashMap<String, String> map) throws IOException, SAXException, ParserConfigurationException {
         createTree(inputFile);
         String fileName = serializeTree();
         map.put(checkSum, fileName);
@@ -329,7 +349,7 @@ public class NetFileLoad extends Task<MapData> {
         }
     }
 
-    private void serializeMapsCatalogue(HashMap<String, String> map) throws IOException {
+    private void serializeMapsCatalogue(ConcurrentHashMap<String, String> map) throws IOException {
         serializeMyObject(map, savedNetFilesPath);
     }
 
