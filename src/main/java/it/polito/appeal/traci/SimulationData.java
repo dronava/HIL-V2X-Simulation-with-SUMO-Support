@@ -24,11 +24,12 @@ import it.polito.appeal.traci.protocol.Constants;
 import java.awt.geom.Rectangle2D;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 
 /**
  * Representation of the simulation-level data object, that encloses some
  * information about the whole simulation.
- * 
+ *
  * @author Enrico Gueli &lt;enrico.gueli@polito.it&gt;
  * @see <a
  *      href="http://sumo.sourceforge.net/doc/current/docs/userdoc/TraCI/Simulation_Value_Retrieval.html">TraCI
@@ -42,7 +43,9 @@ public class SimulationData extends TraciObject<SimulationData.Variable>
 
 	enum Variable {
 		CURRENT_SIM_TIME(Constants.VAR_TIME_STEP), NET_BOUNDARIES(
-				Constants.VAR_NET_BOUNDING_BOX), ;
+				Constants.VAR_NET_BOUNDING_BOX),
+		DELTA_T(Constants.VAR_DELTA_T);
+
 		public final int id;
 
 		private Variable(int id) {
@@ -65,17 +68,30 @@ public class SimulationData extends TraciObject<SimulationData.Variable>
 						Constants.CMD_GET_SIM_VARIABLE, "",
 						Variable.NET_BOUNDARIES.id));
 
+		addReadQuery(Variable.DELTA_T,
+				new ReadObjectVarQuery.IntegerQ(dis, dos,
+						Constants.CMD_GET_SIM_VARIABLE, "",
+						Constants.VAR_DELTA_T));
+
 		this.dis = dis;
 		this.dos = dos;
 
 	}
 
 	/**
-	 * 
+	 *
 	 * @return a query for obtaining the current simulation time
 	 */
-	public ReadObjectVarQuery<Integer> queryCurrentSimTime() {
+	public ReadObjectVarQuery<java.lang.Integer> queryCurrentSimTime() {
 		return (ReadObjectVarQuery.IntegerQ) getReadQuery(Variable.CURRENT_SIM_TIME);
+	}
+
+	public ReadObjectVarQuery<java.lang.Integer> queryDeltaT() {
+		return (ReadObjectVarQuery.IntegerQ) getReadQuery(Variable.DELTA_T);
+	}
+
+	public java.lang.Integer getDeltaT() throws IOException{
+		return ((ReadObjectVarQuery.IntegerQ) getReadQuery(Variable.DELTA_T)).get();
 	}
 
 	/**
@@ -84,7 +100,7 @@ public class SimulationData extends TraciObject<SimulationData.Variable>
 	 * lanes, as well as position of vehicles, may lie outside these boundaries.
 	 * To read absolute borders, iterate over all lanes and calculate the common
 	 * bounding box.
-	 * 
+	 *
 	 * @return the bounding box of the road network
 	 */
 	public ReadObjectVarQuery<Rectangle2D> queryNetBoundaries() {
@@ -96,7 +112,7 @@ public class SimulationData extends TraciObject<SimulationData.Variable>
 	 * this method returns a new {@link PositionConversionQuery} instance every
 	 * time it is called. This allows to do many point conversions at once in a
 	 * MultiQuery.
-	 * 
+	 *
 	 * @return a query to do position conversion
 	 */
 	public PositionConversionQuery queryPositionConversion() {
@@ -108,5 +124,6 @@ public class SimulationData extends TraciObject<SimulationData.Variable>
 
 	public void nextStep(double step) {
 		queryCurrentSimTime().setObsolete();
+		queryDeltaT().setObsolete();
 	}
 }
