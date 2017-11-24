@@ -23,6 +23,7 @@ import process.NetFileLoad;
 import simulation.RolesEnum;
 import simulation.ScenarioEnum;
 import simulation.Simulation;
+import simulation.SimulationParameter;
 
 import java.io.File;
 import java.net.URL;
@@ -52,6 +53,7 @@ public class Controller implements Initializable {
     private int simulationDelay;
 
     private AppConfig appConfig;
+    private SimulationParameter simulationParameter;
 
     private boolean runGpsFakeInstance;
 
@@ -89,7 +91,7 @@ public class Controller implements Initializable {
         System.out.println("GPSD_HOME: " + System.getenv("GPSD_HOME"));
         System.out.println("SUMO_HOME: " + System.getenv("SUMO_HOME"));
         //System.out.println("OS: "+ System.getProperty("os.name"));
-        gpsfakeCommandTextField.setText("gpsfake -o -G -P 5555 -M 7777 -f");
+        gpsfakeCommandTextField.setText("gpsfake -o -G -P 5554 -M 7777 -c 0.07 -f");
 
         loadYaml();
         System.out.println(appConfig.getSimulationDirectory());
@@ -147,6 +149,8 @@ public class Controller implements Initializable {
                         configurationReadSateLabel.setText("Configuration file loaded");
                         configurationReadSateLabel.setTextFill(Color.web("#3ae437"));
 
+                        simulationParameter = new SimulationParameter(configurationFile,
+                                configurationFiles.getSimulationEndTime());
 
                         for (String s : vehicleID) {
                             System.out.println("Vehicles: " + s);
@@ -182,8 +186,9 @@ public class Controller implements Initializable {
                 });
             }
             System.out.println("managedVehicle: " + managedVehicles.size());
+            simulationParameter.setDelay(simulationDelay);
             managedVehicles.forEach(u -> System.out.println(u));
-            simulation = new Simulation(configurationFile, simulationDelay, gpsfakeManagmentQueues, taskQueue, runGpsFakeInstance);
+            simulation = new Simulation(simulationParameter, gpsfakeManagmentQueues, taskQueue, runGpsFakeInstance);
             cachedPool.execute(simulation);
 
             ScenarioEnum scenario = ScenarioEnum.getNameByValue((String) scenarioComboBox.getSelectionModel().getSelectedItem());

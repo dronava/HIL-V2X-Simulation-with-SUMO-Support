@@ -34,6 +34,7 @@ public class ConfigurationParser extends Task<ConfigurationFile> {
         String netFile="";
         String routeFile = "";
         String guiFile = "";
+        int simulationEndTime = 1;
 
         try {
             File inputFile = new File(configfilepath);
@@ -52,6 +53,9 @@ public class ConfigurationParser extends Task<ConfigurationFile> {
 
             node = document.selectSingleNode( "/configuration/input/route-files" );
             routeFile= inputFile.getParent() + separator + node.valueOf( "@value" );
+
+            node = document.selectSingleNode( "/configuration/time/end" );
+            simulationEndTime= Integer.parseInt(node.valueOf( "@value" ));
 
             inputFile  = new File(routeFile);
             document = reader.read(inputFile);
@@ -74,7 +78,7 @@ public class ConfigurationParser extends Task<ConfigurationFile> {
             e.printStackTrace();
         }
 
-        configurationFile = new ConfigurationFile(indexes, netFile, routeFile, guiFile);
+        configurationFile = new ConfigurationFile(indexes, netFile, routeFile, guiFile, simulationEndTime);
 
         return configurationFile;
     }

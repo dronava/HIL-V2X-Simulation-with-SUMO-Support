@@ -11,6 +11,7 @@ public class ConfigurationFile {
     private String netFilePath;
     private String routeFilePath;
     private String guiFilePath;
+    private int simulationEndTime;
 
     public List<String> getVehicleIds() {
         return vehicleIds;
@@ -44,10 +45,19 @@ public class ConfigurationFile {
         this.guiFilePath = guiFilePath;
     }
 
-    public ConfigurationFile(List<String> vehicleIds, String netFilePath, String routeFilePath, String guiFilePath) {
+    public int getSimulationEndTime() {
+        return simulationEndTime;
+    }
+
+    public void setSimulationEndTime(int simulationEndTime) {
+        this.simulationEndTime = simulationEndTime;
+    }
+
+    public ConfigurationFile(List<String> vehicleIds, String netFilePath, String routeFilePath, String guiFilePath, int simulationEndTime) {
         this.vehicleIds = vehicleIds;
         this.netFilePath = netFilePath;
         this.routeFilePath = routeFilePath;
         this.guiFilePath = guiFilePath;
+        this.simulationEndTime = simulationEndTime;
     }
 }

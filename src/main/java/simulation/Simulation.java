@@ -17,49 +17,40 @@ import java.util.stream.Collectors;
  * Created by szzso on 2017. 01. 21..
  */
 public class Simulation implements Runnable {
-    private int delay;
-    private String configfile;
+    SimulationParameter simulationParameter;
     private Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues = new HashMap<String, ConcurrentLinkedQueue<String>>();
     private Queue<AbstractNavigationCommand> taskQueue;
 
     private List<SumoVehicle> managedVehicles = new ArrayList<>();
 
-    private boolean closeSumo;
     private boolean runGpsFake;
 
-    public Simulation(String configfile, int delay,
+    public Simulation(SimulationParameter simulationParameter,
                       Map<String, ConcurrentLinkedQueue<String>> gpsfakeManagmentQueues,
                       Queue<AbstractNavigationCommand> taskQueue, boolean runGpsFake) {
-        this.configfile = configfile;
-        this.delay = delay;
         this.gpsfakeManagmentQueues = gpsfakeManagmentQueues;
         this.taskQueue = taskQueue;
-        closeSumo = true;
         this.runGpsFake = runGpsFake;
+        this.simulationParameter = simulationParameter;
 
         ThreadManager.getInstance().execute(new Tmc());
     }
 
     @Override
     public void run() {
-        try {
-            SumoTraciConnection conn = new SumoTraciConnection(
-                    configfile,  // config file
-                    12345                                  // random seed
-            );
+        try(SumoTraciConnection conn = new SumoTraciConnection(
+                simulationParameter.getConfigurationFile(),    // config file
+                12345)) {       // random seed
 
-            conn.addOption("quit-on-end", "1");
+            //conn.addOption("quit-on-end", "1");
             conn.runServer(true);
 
-            // the first two steps of this simulation have no vehicles.
-            conn.nextSimStep();
-            conn.nextSimStep();
             System.out.println("ok");
             gpsfakeManagmentQueues.forEach((key,value)-> System.out.println("Key:" + key));
 
             do {
-
-                if (!managedVehicles.stream().map(u -> u.getVehicleID()).collect(Collectors.toList()).containsAll(gpsfakeManagmentQueues.keySet())) {
+                if (!managedVehicles.stream().map(u -> u.getVehicleID())
+                        .collect(Collectors.toList()).containsAll(gpsfakeManagmentQueues.keySet())) {
                     Map<String, Vehicle> vehicles = conn.getVehicleRepository().getAll();
                     storeVehicleSrcDst(vehicles);
                 }
@@ -70,9 +61,10 @@ public class Simulation implements Runnable {
                     managedVehicle.nextStep(conn, task.get(managedVehicle.getVehicleID()));
                 }
                 conn.nextSimStep();
-            } while (closeSumo && !conn.isClosed());
+            } while ((conn.getCurrentSimTime() / conn.getSteplength())< simulationParameter.getSimulationEndTime()
+                    && !conn.isClosed());
 
-            conn.close();
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());

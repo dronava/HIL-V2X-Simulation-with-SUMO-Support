@@ -79,7 +79,7 @@ import it.polito.appeal.traci.protocol.Constants;
  * @author Enrico Gueli &lt;enrico.gueli@gmail.com&gt;
  * 
  */
-public class SumoTraciConnection {
+public class SumoTraciConnection implements AutoCloseable {
 
 	/**
 	 * The system property name to get the executable path and name to run.
@@ -589,7 +589,6 @@ public class SumoTraciConnection {
 	public void nextSimStep() throws IOException, IllegalStateException {
 		if (isClosed())
 			throw new IllegalStateException("connection is closed");
-
 		currentSimStep += steplength;
 
 		/*
@@ -888,11 +887,15 @@ public class SumoTraciConnection {
 		this.steplength = steplength;
 	}
 
+	public int getSteplength() {
+		return steplength;
+	}
+
 	/**
 	 * If set to true, the roadmap position of all vehicle is read at every
 	 * simulation step. This will increase performance, since the query for all
 	 * vehicles is made in a single TraCI query at the next sim step.
-	 * 
+	 *
 	 * @deprecated this method will do nothing now. All the vehicles' positions
 	 *             can be read using a {@link MultiQuery}.
 	 * @param booleanProperty
