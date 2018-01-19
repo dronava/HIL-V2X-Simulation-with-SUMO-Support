@@ -1,7 +1,5 @@
 # V2X-Simulation-with-SUMO
 
-**Önlab beszámolóm a részletesebb leírásért:** [OneDrive](https://1drv.ms/w/s!AjD91zSjiAZsiIdOOtHze_bp4kE-Xg)
-
 Program grafikus felületén még nem minden funkció működik, hibakezelés sincsen még a különböző funkciókra.
 A simulation/ mappa tartalmaz egy SUMO szimulációt.
 A saved_maps/ mappa a kiszerializát térképet tartalmazza, ezt első indítás és betöltés után hozza létre.
@@ -14,14 +12,6 @@ Kiadható parnacsokra példa:
 - 	Jármű sebességének megadása (m/s): ```{"vehicleID":"555","command":"SPEED","speed":10.5}```
 -   Jármű útvonalának lekérése: ```{"vehicleID":"555","command":"ROUTE"}```
 -   Jármű útvonala: ```{"command":"ROUTE","vehicleID":"555","route":["37392508","126765651",...]}```
-# Vedd figyelembe
-- A lejebb linkelt SUMO és opcionálisan gpsfake kell a program működéséhez
-- GPSD miatt a program csak Linux alatt működik
-- GUI-n a funkciók egy része nem működik, nem erre helyeztem a fókuszt, így nem működnek a következő, de remélem a közeljövőben meg tudom csinálni:
--- gpsfake példányok leállítása, újraindítása
--- Ha betöltöttél egy configurációs fájlt, de másikat szeretnél, akkor indítsd újra a programot, nem írja felül
-- Szálak nagyrészére nincs megírva, hogy program leállításkor leálljon (IDE stop gomb)
-- gpsfake indítás szintaktikáját és más szintaktikát is tartsd, mert a program nem ellenőrzi
 
 # Külső programok
 - Legalább 0.30.0 SUMO [telepítés](http://www.sumo.dlr.de/userdoc/Installing.html)
